@@ -1,17 +1,14 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { setSearchText } from "../redux/actions/productsActions";
 
 const Header = () => {
+  const dispatch = useDispatch();
 
-    const dispatch = useDispatch();
-    
-
-    const fcuk = (evt) => {
-        dispatch(setSearchText(evt.target.value));
-    }
-
+  const onChangeSearchText = (evt) => {
+    dispatch(setSearchText(evt.target.value));
+  };
 
   return (
     <div className="ui fixed menu">
@@ -22,7 +19,7 @@ const Header = () => {
       <div className="ui category search">
         <div className="ui icon input">
           <input
-            onChange={(evt) => fcuk(evt)}
+            onChange={(evt) => onChangeSearchText(evt)}
             className="prompt"
             type="text"
             placeholder="Search categories..."

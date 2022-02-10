@@ -66,8 +66,7 @@ const ProductComponent = () => {
       <div className="ui div empty">
         <h3>Products Not Found!</h3>
       </div>
-    );
-      
+    );      
     
   return <>{renderList}</>;
 };
