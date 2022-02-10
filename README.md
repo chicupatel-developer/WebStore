@@ -1,6 +1,6 @@
 # Web-Store
 
-# DotNet Core API + React - Redux + Fake-Store-API(https://fakestoreapi.com/)
+# DotNet Core API + React/Redux + Fake-Store-API(https://fakestoreapi.com/)
 
 Technology
 ----------
@@ -12,4 +12,4 @@ Technology
 
 - Sql Server
 
-- React-Redux, Html, CSS, Javascript, Semantic UI
+- React/Redux, Html, CSS, Javascript, Semantic UI
