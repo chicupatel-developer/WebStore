@@ -92,11 +92,14 @@
   margin-left: 0;
 }
 
-.ui.category.search{
-    margin-top: -5px;
+.ui.category.search {
+  margin-top: -5px;
 }
 
-.ui.div.empty{
-    color : red;
+.ui.div.empty {
+  color: red;
 }
 
+.pushable.segment {
+  margin: 0 !important;
+}
