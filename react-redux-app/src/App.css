@@ -103,3 +103,11 @@
 .pushable.segment {
   margin: 0 !important;
 }
+
+.ui.container {
+  margin-top: 45px;
+}
+
+.actionSpan {
+  float: right;
+}

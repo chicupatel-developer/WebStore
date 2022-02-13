@@ -24,6 +24,10 @@ const ProductDetails = () => {
       let cartItem = {
         id: product.id,
         qty: 1,
+        image: product.image,
+        title: product.title,
+        categoty: product.category,
+        price: product.price
       };
       newShoppingCart.push(cartItem);
       setShoppingCart(newShoppingCart);
@@ -35,7 +39,8 @@ const ProductDetails = () => {
       var index = newShoppingCart.findIndex((x) => x.id === product.id);
       var qty_ = newShoppingCart[index].qty;
       const newCart = [...newShoppingCart];
-      newCart[index] = { id: product.id, qty: qty_ + 1 };
+      // newCart[index] = { id: product.id, qty: qty_ + 1 };
+      newCart[index] = { ...product, qty: qty_ + 1 };
       setShoppingCart(newCart);
       localStorage.setItem("myCart", JSON.stringify(newCart));
     }   
