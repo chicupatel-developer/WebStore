@@ -1,5 +1,12 @@
 import { ActionTypes } from "../constants/action-types";
 
+export const setMyShoppingCart = (myCart) => {
+  return {
+    type: ActionTypes.SET_MY_SHOPPING_CART,
+    payload: myCart,
+  };
+};
+
 export const setSearchText = (searchText) => {
     return {
       type: ActionTypes.SET_SEARCH_TEXT,

@@ -3,15 +3,18 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  setMyShoppingCart,
   selectedProduct,
   removeSelectedProduct,
 } from "../redux/actions/productsActions";
-import { Button } from "semantic-ui-react";
+
+
 
 const ProductDetails = () => {
   // cart
   const [shoppingCart, setShoppingCart] = useState([]);
 
+  // cart
   const addToCart = (product) => {
     let newShoppingCart = JSON.parse(localStorage.getItem("myCart") || "[]");
 
@@ -26,12 +29,17 @@ const ProductDetails = () => {
         qty: 1,
         image: product.image,
         title: product.title,
-        categoty: product.category,
+        category: product.category,
         price: product.price
       };
       newShoppingCart.push(cartItem);
       setShoppingCart(newShoppingCart);
       localStorage.setItem("myCart", JSON.stringify(newShoppingCart));
+
+      // redux
+      // write
+      dispatch(setMyShoppingCart(newShoppingCart));
+
     } else {
       console.log("edit to cart");
       // item already in cart
@@ -43,6 +51,10 @@ const ProductDetails = () => {
       newCart[index] = { ...product, qty: qty_ + 1 };
       setShoppingCart(newCart);
       localStorage.setItem("myCart", JSON.stringify(newCart));
+
+      // redux
+      // write
+      dispatch(setMyShoppingCart(newCart));
     }   
   };
 
@@ -65,6 +77,7 @@ const ProductDetails = () => {
   useEffect(() => {
     if (productId && productId !== "") fetchProductDetail(productId);
 
+    // cart
     var myCart = JSON.parse(localStorage.getItem("myCart") || "[]");
     console.log(myCart);
 
