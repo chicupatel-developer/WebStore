@@ -1,7 +1,7 @@
 import React, { useEffect, useCallback, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setProducts } from "../redux/actions/productsActions";
-import { Link } from "react-router-dom";
+import { Divider } from "semantic-ui-react";
 
 const ShoppingCart = () => {
   const [myCart, setMyCart] = useState([]);
@@ -20,35 +20,24 @@ const ShoppingCart = () => {
         const { id, title, category, price, image, qty } = product;
 
         return (
-          <div className="text container" key={id}>
-            <span >
-              <div className="ui cards">
-                <div
-                  className="card"
-                  style={{
-                    width: "800px",
-                    // backgroundImage: `url(https://cdn.pixabay.com/photo/2017/05/13/15/18/dear-2309801_1280.jpg)`,
-                    backgroundSize: "cover",
-                  }}
-                >
-                  <div className="content">
-                    <div className="header">
-                      <img src={image} className="ui mini rounded image" />{" "}
-                      {title}
-                    </div>
-                    <div className="meta">[{category}]</div>
-                    <div className="meta">Price $ {price}</div>
-                    <div className="meta">Qty : {qty}</div>
-                    <div className="meta">
-                      Total $ {qty * price}
-                      <span className="actionSpan">-Qty</span>
-                      <span className="actionSpan">+Qty</span>
-                      <span className="actionSpan">Remove Item</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </span>
+          <div className="ui grid" key={id}>
+            <div className="two wide column">
+            </div>
+            <div className="eight wide column">
+              <img src={image} className="ui mini rounded image" /> {title}
+              <br />[{category}]<br />
+              Price $ {price}
+              <br />
+              Qty : {qty}
+              <br />
+              Total $ {qty * price}
+              <Divider />
+            </div>
+            <div className="six wide column">
+              <span>-Qty</span>
+              <span>+Qty</span>
+              <span>Remove Item</span>
+            </div>
           </div>
         );
       })
