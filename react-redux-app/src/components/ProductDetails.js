@@ -8,16 +8,15 @@ import {
   removeSelectedProduct,
 } from "../redux/actions/productsActions";
 
-
-
 const ProductDetails = () => {
-  // cart
-  const [shoppingCart, setShoppingCart] = useState([]);
+  // redux
+  // read
+  const newShoppingCart = useSelector(
+    (state) => state.allProducts.myShoppingCart
+  );
 
   // cart
   const addToCart = (product) => {
-    let newShoppingCart = JSON.parse(localStorage.getItem("myCart") || "[]");
-
     let item = newShoppingCart.find((x) => x.id === product.id);
     console.log(item);
     if (item === undefined) {
@@ -30,16 +29,13 @@ const ProductDetails = () => {
         image: product.image,
         title: product.title,
         category: product.category,
-        price: product.price
+        price: product.price,
       };
       newShoppingCart.push(cartItem);
-      setShoppingCart(newShoppingCart);
-      localStorage.setItem("myCart", JSON.stringify(newShoppingCart));
 
       // redux
       // write
       dispatch(setMyShoppingCart(newShoppingCart));
-
     } else {
       console.log("edit to cart");
       // item already in cart
@@ -47,16 +43,50 @@ const ProductDetails = () => {
       var index = newShoppingCart.findIndex((x) => x.id === product.id);
       var qty_ = newShoppingCart[index].qty;
       const newCart = [...newShoppingCart];
-      // newCart[index] = { id: product.id, qty: qty_ + 1 };
       newCart[index] = { ...product, qty: qty_ + 1 };
-      setShoppingCart(newCart);
-      localStorage.setItem("myCart", JSON.stringify(newCart));
 
       // redux
       // write
       dispatch(setMyShoppingCart(newCart));
-    }   
+    }
   };
+  /*
+  const addToCart = (product) => {
+  
+    let item = newShoppingCart.find((x) => x.id === product.id);
+    console.log(item);
+    if (item === undefined) {
+      console.log("add to cart");
+      // item not in cart
+      // add
+      let cartItem = {
+        id: product.id,
+        qty: 1,
+        image: product.image,
+        title: product.title,
+        category: product.category,
+        price: product.price,
+      };
+      newShoppingCart.push(cartItem);
+      
+      // redux
+      // write
+      dispatch(setMyShoppingCart(newShoppingCart));    
+    } else {
+      console.log("edit to cart");
+      // item already in cart
+      // edit qty
+      var index = newShoppingCart.findIndex((x) => x.id === product.id);
+      var qty_ = newShoppingCart[index].qty;
+      const newCart = [...newShoppingCart];
+      newCart[index] = { ...product, qty: qty_ + 1 };
+     
+      // redux
+      // write
+      dispatch(setMyShoppingCart(newCart));
+    }
+  };
+  */
 
   const { productId } = useParams();
 
