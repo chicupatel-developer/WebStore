@@ -7,7 +7,6 @@ import {
   setMyShoppingCart,
   selectedProduct,
   removeSelectedProduct,
-  addToCart,
 } from "../redux/actions/productsActions";
 
 const ProductComponent = () => {
