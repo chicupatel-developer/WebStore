@@ -1,6 +1,5 @@
 import React, { useEffect, useCallback, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setProducts } from "../redux/actions/productsActions";
 import { Divider } from "semantic-ui-react";
 
 const ShoppingCart = () => {

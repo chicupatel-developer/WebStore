@@ -112,3 +112,10 @@
     margin-top: 45px;
 }
 
+.ui.button.rightAlign{
+     float: right;
+     color: blue;
+}
+.ui.button.leftAlign{
+     color: green;
+}
