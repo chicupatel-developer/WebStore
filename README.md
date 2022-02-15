@@ -12,4 +12,4 @@ Technology
 
 - Sql Server
 
-- React/Redux, Html, CSS, Javascript, Semantic UI
+- React/Redux, Html, CSS, Javascript, Material-UI
