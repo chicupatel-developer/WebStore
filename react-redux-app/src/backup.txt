@@ -230,4 +230,111 @@ export default ShoppingCart;
 
 
 
+Header.js
+
+import React, { useState } from "react";
+
+import { useDispatch, useSelector } from "react-redux";
+import { setSearchText } from "../redux/actions/productsActions";
+
+import { Icon, Menu, Label } from "semantic-ui-react";
+import { useNavigate } from "react-router-dom";
+
+const Header = () => {
+  const dispatch = useDispatch();
+
+  const navigate = useNavigate();
+
+  const onChangeSearchText = (evt) => {
+    dispatch(setSearchText(evt.target.value));
+  };
+
+  const onClick = (item, optionName) => {
+    console.log(optionName);
+    navigate("/" + optionName);
+  };
+
+  return (
+    <div className="ui menu">
+      <Menu stackable>
+        <div className="item">
+          <div className="ui icon">
+            <div className="ui">
+              <h4>
+                Web Store
+                <Icon name="globe" size="large" />
+              </h4>
+            </div>
+          </div>
+        </div>
+
+        <div className="item">
+          <div
+            className="ui icon buttons"
+            onClick={(item) => onClick(item, "home")}
+          >
+            <div className="ui button">
+              <h5>
+                Home
+                <Icon name="home" size="small" />
+              </h5>
+            </div>
+          </div>
+        </div>
+        <div className="item">
+          <div
+            className="ui icon buttons"
+            onClick={(item) => onClick(item, "products")}
+          >
+            <div className="ui button">
+              <h5>
+                Products
+                <Icon name="product hunt" size="small" />
+              </h5>
+            </div>
+          </div>
+        </div>
+
+        <Menu.Item>
+          <div className="ui category search">
+            <div className="ui icon input">
+              <input
+                onChange={(evt) => onChangeSearchText(evt)}
+                className="prompt"
+                type="text"
+                placeholder="Search categories..."
+              />
+              <i className="search icon"></i>
+            </div>
+            <div className="results"></div>
+          </div>
+        </Menu.Item>
+
+        <Menu.Menu position="right">
+          <Menu.Item>
+            <div className="ui icon buttons">
+              <div
+                className="ui button"
+                onClick={(item) => onClick(item, "cart")}
+              >
+                <Icon name="cart arrow down" size="big">
+                  <Label color="red" floating>
+                    10
+                  </Label>
+                </Icon>
+              </div>
+            </div>
+          </Menu.Item>
+        </Menu.Menu>
+      </Menu>
+    </div>
+  );
+};
+
+export default Header;
+
+----------------------------------------------------------------
+
+
+
 

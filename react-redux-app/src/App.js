@@ -1,12 +1,14 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import ProductListing from "./components/ProductListing";
-import Header from "./components/Header";
+
+import ProductListing from './components/ProductListing/ProductListing';
+import Header from './components/Header/Header';
+import ProductDetails from './components/ProductDetails/ProductDetails';
+import Home from './components/Home/Home';
+import ShoppingCart from './components/ShoppingCart/ShoppingCart';
+import NotFound from './components/NotFound/NotFound';
+
 import "./App.css";
-import ProductDetails from "./components/ProductDetails";
-import Home from "./components/Home";
-import ShoppingCart from "./components/ShoppingCart";
-import NotFound from "./components/NotFound";
 
 function App() {
   return (

@@ -6,7 +6,7 @@ import {
   setMyShoppingCart,
   selectedProduct,
   removeSelectedProduct,
-} from "../redux/actions/productsActions";
+} from "../../redux/actions/productsActions";
 
 const ProductDetails = () => {
   // redux

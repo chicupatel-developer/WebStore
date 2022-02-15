@@ -1,7 +1,7 @@
 import React, { useEffect, useCallback, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Divider } from "semantic-ui-react";
-import { setMyShoppingCart } from "../redux/actions/productsActions";
+import { setMyShoppingCart } from "../../redux/actions/productsActions";
 import { Icon } from "semantic-ui-react";
 
 const ShoppingCart = () => {

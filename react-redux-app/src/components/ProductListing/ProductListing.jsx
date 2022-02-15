@@ -1,10 +1,17 @@
 import React, { useEffect, useCallback, useMemo } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { setProducts } from "../redux/actions/productsActions";
-import ProductComponent from "./ProductComponent";
+import { setProducts } from "../../redux/actions/productsActions";
+import ProductComponent from "../ProductComponent/ProductComponent";
 
-const ProductPage = () => {
+import useStyles from "./styles";
+import Container from "@material-ui/core/Container";
+
+
+const ProductListing = () => {
+   const classes = useStyles();
+
+  
   const products = useSelector((state) => state.allProducts.products);
 
   const dispatch = useDispatch();
@@ -24,10 +31,12 @@ const ProductPage = () => {
 
   console.log("Products :", products);
   return (
-    <div className="ui grid container">
-      <ProductComponent />
+    <div className={classes.main}>
+      <Container maxWidth="lg">
+        <ProductComponent />
+      </Container>
     </div>
   );
 };
 
-export default ProductPage;
+export default ProductListing;
