@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import {
   AppBar,
   Toolbar,
@@ -11,10 +12,12 @@ import {
 import MenuIcon from "@material-ui/icons/Menu";
 import React, { useState, useEffect } from "react";
 import { Link as RouterLink } from "react-router-dom";
-
 import HomeIcon from "@material-ui/icons/Home";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import useStyles from './styles';
+import StorefrontIcon from "@material-ui/icons/Storefront";
+import Badge from "@material-ui/core/Badge";
+import useStyles from "./styles";
+import { useDispatch, useSelector } from "react-redux";
 
 const headersData = [
   {
@@ -44,10 +47,17 @@ const headersData = [
   },
 ];
 
-
-
 const Header = () => {
-   const classes = useStyles();
+  const navigate = useNavigate();
+  const classes = useStyles();
+  const dispatch = useDispatch();
+
+  // redux
+  // read
+  const myShoppingCart = useSelector(
+    (state) => state.allProducts.myShoppingCart
+  );
+  const [cartItemCount, setCartItemCount] = useState(0);
 
   const [state, setState] = useState({
     mobileView: false,
@@ -71,6 +81,20 @@ const Header = () => {
       window.removeEventListener("resize", () => setResponsiveness());
     };
   }, []);
+
+  useEffect(() => {
+    if (
+      myShoppingCart !== undefined &&
+      myShoppingCart !== null &&
+      myShoppingCart.length > 0
+    ) {
+      console.log("CART IS NOT EMPTY!!! ,,,running init function @ header!!");
+      setCartItemCount(myShoppingCart.length);
+    } else {
+      console.log("CART IS EMPTY!!! ,,,running init function @ header!!");
+      setCartItemCount(0);
+    }
+  }, [myShoppingCart]);
 
   const displayDesktop = () => {
     return (
@@ -116,6 +140,7 @@ const Header = () => {
     );
   };
 
+  /*
   const getDrawerChoices = () => {
     return headersData.map(({ label, href, id }) => {
       return (
@@ -133,6 +158,49 @@ const Header = () => {
       );
     });
   };
+  */
+  const getDrawerChoices = () => {
+    return (
+      <>
+        <Link
+          className={classes.linkStyle}
+          color="inherit"
+          onClick={(e) => doComponentRedirect(e, "Products")}
+        >
+          <MenuItem>
+            <StorefrontIcon />
+            Products
+          </MenuItem>
+        </Link>
+        <Link
+          className={classes.linkStyle}
+          color="inherit"
+          onClick={(e) => doComponentRedirect(e, "Cart")}
+        >
+          <MenuItem>
+            <Badge
+              className={classes.margin}
+              badgeContent={cartItemCount}
+              max={999}
+              color="primary"
+            >
+              <ShoppingCartIcon />
+              Cart
+            </Badge>
+          </MenuItem>
+        </Link>
+        <Link
+          className={classes.linkStyle}
+          color="inherit"
+          onClick={(e) => doComponentRedirect(e, "Home")}
+        >
+          <MenuItem>
+            <HomeIcon /> Home
+          </MenuItem>
+        </Link>
+      </>
+    );
+  };
 
   const femmecubatorLogo = (
     <Typography variant="h6" component="h1" className={classes.logo}>
@@ -140,6 +208,7 @@ const Header = () => {
     </Typography>
   );
 
+  /*
   const getMenuButtons = () => {
     return headersData.map(({ label, href, id }) => {
       return (
@@ -157,6 +226,47 @@ const Header = () => {
       );
     });
   };
+  */
+  const getMenuButtons = () => {
+    return (
+      <>
+        <Button
+          className={classes.menuButton}
+          color="inherit"
+          onClick={(e) => doComponentRedirect(e, "Products")}
+        >
+          <StorefrontIcon /> Products
+        </Button>
+        <Button
+          className={classes.menuButton}
+          color="inherit"
+          onClick={(e) => doComponentRedirect(e, "Cart")}
+        >
+          <Badge
+            className={classes.margin}
+            badgeContent={cartItemCount}
+            max={999}
+            color="primary"
+          >
+            <ShoppingCartIcon /> Cart
+          </Badge>
+        </Button>
+        <Button
+          className={classes.menuButton}
+          color="inherit"
+          onClick={(e) => doComponentRedirect(e, "Home")}
+        >
+          <HomeIcon /> Home
+        </Button>
+      </>
+    );
+  };
+
+  const doComponentRedirect = (e, routePath) => {
+    if (routePath === "Products") navigate("/");
+    if (routePath === "Cart") navigate("/cart");
+    if (routePath === "Home") navigate("/home");
+  };
 
   return (
     <header>
@@ -165,7 +275,6 @@ const Header = () => {
       </AppBar>
     </header>
   );
-}
+};
 
 export default Header;
-

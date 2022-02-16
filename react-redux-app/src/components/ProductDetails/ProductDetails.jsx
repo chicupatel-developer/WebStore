@@ -20,6 +20,9 @@ const ProductDetails = () => {
     let item = newShoppingCart.find((x) => x.id === product.id);
     console.log(item);
     if (item === undefined) {
+      let _newShoppingCart = [...newShoppingCart];
+      dispatch(setMyShoppingCart([]));
+
       console.log("add to cart");
       // item not in cart
       // add
@@ -31,11 +34,13 @@ const ProductDetails = () => {
         category: product.category,
         price: product.price,
       };
-      newShoppingCart.push(cartItem);
+      // newShoppingCart.push(cartItem);
+      _newShoppingCart.push(cartItem);
 
       // redux
       // write
-      dispatch(setMyShoppingCart(newShoppingCart));
+      // dispatch(setMyShoppingCart(newShoppingCart));
+      dispatch(setMyShoppingCart(_newShoppingCart));
     } else {
       console.log("edit to cart");
       // item already in cart
@@ -69,11 +74,7 @@ const ProductDetails = () => {
 
   useEffect(() => {
     if (productId && productId !== "") fetchProductDetail(productId);
-
-    // cart
-    var myCart = JSON.parse(localStorage.getItem("myCart") || "[]");
-    console.log(myCart);
-
+   
     return () => {
       dispatch(removeSelectedProduct());
     };

@@ -49,6 +49,9 @@ const ProductComponent = () => {
     let item = newShoppingCart.find((x) => x.id === product.id);
     console.log(item);
     if (item === undefined) {
+      let _newShoppingCart = [...newShoppingCart];
+      dispatch(setMyShoppingCart([]));
+
       console.log("add to cart");
       // item not in cart
       // add
@@ -60,11 +63,13 @@ const ProductComponent = () => {
         category: product.category,
         price: product.price,
       };
-      newShoppingCart.push(cartItem);
+      // newShoppingCart.push(cartItem);
+      _newShoppingCart.push(cartItem);
 
       // redux
       // write
-      dispatch(setMyShoppingCart(newShoppingCart));
+      // dispatch(setMyShoppingCart(newShoppingCart));
+      dispatch(setMyShoppingCart(_newShoppingCart));
     } else {
       // item already in cart
       // edit qty

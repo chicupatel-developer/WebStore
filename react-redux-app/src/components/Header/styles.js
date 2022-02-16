@@ -28,4 +28,13 @@ export default makeStyles((theme) => ({
   drawerContainer: {
     padding: "20px 30px",
   },
+  linkStyle: {
+    margin: ".5rem",
+    textDecoration: "none",
+    color: "blue",
+  },
+  margin: {
+    margin: theme.spacing(2),
+    marginRight: theme.spacing(3),
+  },
 }));
