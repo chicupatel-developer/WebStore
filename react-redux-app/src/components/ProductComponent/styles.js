@@ -19,9 +19,8 @@ export default makeStyles((theme) => ({
     textAlign: "left",
     marginTop: "5px",
   },
-  detailsBtn: {
-    marginLeft: "auto",
+  actions: {
     display: "flex",
-    justifyContent: "flex-end",
+    justifyContent: "space-between",
   },
 }));

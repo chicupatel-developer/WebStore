@@ -7,11 +7,9 @@ import ProductComponent from "../ProductComponent/ProductComponent";
 import useStyles from "./styles";
 import Container from "@material-ui/core/Container";
 
-
 const ProductListing = () => {
-   const classes = useStyles();
+  const classes = useStyles();
 
-  
   const products = useSelector((state) => state.allProducts.products);
 
   const dispatch = useDispatch();

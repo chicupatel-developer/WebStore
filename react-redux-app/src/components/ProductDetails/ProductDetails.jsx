@@ -8,7 +8,28 @@ import {
   removeSelectedProduct,
 } from "../../redux/actions/productsActions";
 
+
+
+import useStyles from "./styles";
+import {
+  Container,
+  Grid,
+  Box,
+  Card,
+  CardContent,
+  Typography,
+  CardActions,
+  Button,
+  Avatar,
+  CardHeader,
+  IconButton,
+} from "@material-ui/core";
+import AddShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+
+
 const ProductDetails = () => {
+  const classes = useStyles();
+  
   // redux
   // read
   const newShoppingCart = useSelector(
@@ -80,40 +101,54 @@ const ProductDetails = () => {
     };
   }, [productId]);
 
+  const getSubHeader = (subHeaderString) => {
+    return (
+      <div className={classes.subHeader}>
+        {subHeaderString}     
+      </div>
+    );
+  };
+ const getTitle = (titleString, priceString) => {
+   return (
+     <div className={classes.title}>
+       <div className={classes.price}>
+         <b>$ {priceString}</b>
+       </div>
+       {titleString}       
+     </div>
+   );
+ };
+
   return (
-    <div className="ui grid container">
-      {Object.keys(product).length === 0 ? (
-        <div>...Loading</div>
-      ) : (
-        <div className="ui placeholder segment">
-          <div className="ui two column stackable center aligned grid">
-            <div className="ui vertical divider"></div>
-            <div className="middle aligned row">
-              <div className="column lp">
-                <img className="ui fluid image" src={image} />
-              </div>
-              <div className="column rp">
-                <h1>{title}</h1>
-                <h2>
-                  <span className="ui teal tag label">$ {price}</span>
-                </h2>
-                <h3 className="ui brown block header">{category}</h3>
-                <p>{description}</p>
-                <div
-                  onClick={() => addToCart(product)}
-                  className="ui vertical animated button"
-                  tabIndex="0"
-                >
-                  <div className="hidden content">
-                    <i className="shop icon"></i>
-                  </div>
-                  <div className="visible content">Add to Cart</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+    <div className={classes.main}>
+      <Container maxWidth="md">
+        <Grid container>
+          <Grid item xs={12} sm={6} md={6} lg={6}>
+            <img src={image} className={classes.img} />
+          </Grid>
+          <Grid item xs={12} sm={6} md={6} lg={6}>
+            <Box className={classes.root}>
+              <Card>
+                <CardHeader
+                  title={getTitle(title, price)}
+                  subheader={getSubHeader(category)}
+                />
+                <CardContent>
+                  <div>{description}</div>
+                </CardContent>
+                <CardActions style={{ float: "right" }}>
+                  <Button onClick={() => addToCart(product)}>
+                    <b>+ Cart</b>
+                    <AddShoppingCartIcon
+                      style={{ fontSize: 50, color: "green" }}
+                    />
+                  </Button>
+                </CardActions>
+              </Card>
+            </Box>
+          </Grid>
+        </Grid>
+      </Container>
     </div>
   );
 };

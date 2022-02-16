@@ -101,17 +101,20 @@ const ProductComponent = () => {
                     {title.length < 32 ? (
                       <span>{title}</span>
                     ) : (
-                        <span>{title.substring(0, 32)}...</span>
+                      <span>{title.substring(0, 32)}...</span>
                     )}
                   </div>
                   <div className={classes.price}>$ {price}</div>
                   <div className={classes.category}>[ {category} ]</div>
                 </CardContent>
-                <CardActions disableSpacing>
-                  <Button onClick={(e) => onClick(e, product)}>+ Cart</Button>
+                <CardActions className={classes.actions}>
+                  <Button                    
+                    onClick={(e) => onClick(e, product)}
+                  >
+                    + Cart
+                  </Button>
                   <Button
-                    className={classes.detailsBtn}
-                    onClick={(e) => onDetailsClick(e, product)}
+                    onClick={(e) => onDetailsClick(e, product)}                    
                   >
                     Details
                   </Button>
