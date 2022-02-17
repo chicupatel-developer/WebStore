@@ -5,8 +5,9 @@ export default makeStyles((theme) => ({
     marginTop: "100px",
   },
   img: {
-    height: "50px",
-    width: "50px",
+    height: "65%",
+    width: "65%",
+    justify: "center",
   },
   minusBtn: {
     color: "red",
@@ -32,9 +33,9 @@ export default makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     flexWrap: "wrap",
-    },
-    cartTotalAmount: {
-        color: 'blue',
-        fontSize: 'large'
+  },
+  cartTotalAmount: {
+    color: "blue",
+    fontSize: "large",
   },
 }));

@@ -89,7 +89,14 @@ const Header = () => {
       myShoppingCart.length > 0
     ) {
       console.log("CART IS NOT EMPTY!!! ,,,running init function @ header!!");
-      setCartItemCount(myShoppingCart.length);
+    
+      let totalCartItemCount = 0;
+      myShoppingCart.forEach(function (item) {
+        totalCartItemCount += item.qty;        
+      });     
+
+      // setCartItemCount(myShoppingCart.length);
+      setCartItemCount(totalCartItemCount);
     } else {
       console.log("CART IS EMPTY!!! ,,,running init function @ header!!");
       setCartItemCount(0);
