@@ -7,6 +7,7 @@ import ProductDetails from './components/ProductDetails/ProductDetails';
 import Home from './components/Home/Home';
 import ShoppingCart from './components/ShoppingCart/ShoppingCart';
 import NotFound from './components/NotFound/NotFound';
+import Checkout from './components/Checkout/Checkout';
 
 import "./App.css";
 
@@ -21,6 +22,7 @@ function App() {
           <Route path="/product/:productId" element={<ProductDetails />} />
           <Route path="/home" element={<Home />} />
           <Route path="/cart" element={<ShoppingCart />} />
+          <Route path="/checkout" element={<Checkout />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>

@@ -11,9 +11,12 @@ import CreditCardIcon from "@material-ui/icons/CreditCard";
 
 import { Divider } from "semantic-ui-react";
 
+import { useNavigate } from "react-router-dom";
+
 const ShoppingCart = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // redux
   // read
@@ -69,6 +72,7 @@ const ShoppingCart = () => {
 
   const onPayment = () => {
     console.log("payment!");
+    navigate("/checkout");
   };
 
   const renderCart =
@@ -114,7 +118,9 @@ const ShoppingCart = () => {
                 <br />
                 Item-Price:- $ {price}
                 <br />
-                <span className={classes.itemTotal}>Item-Total:- $ {qty * price}</span>
+                <span className={classes.itemTotal}>
+                  Item-Total:- $ {qty * price}
+                </span>
               </Grid>
             </Grid>
             <div>

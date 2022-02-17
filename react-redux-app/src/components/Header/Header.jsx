@@ -106,7 +106,7 @@ const Header = () => {
   const displayDesktop = () => {
     return (
       <Toolbar className={classes.toolbar}>
-        {femmecubatorLogo}
+        {webStoreLogo}
         <div>{getMenuButtons()}</div>
       </Toolbar>
     );
@@ -142,7 +142,7 @@ const Header = () => {
           <div className={classes.drawerContainer}>{getDrawerChoices()}</div>
         </Drawer>
 
-        <div>{femmecubatorLogo}</div>
+        <div>{webStoreLogo}</div>
       </Toolbar>
     );
   };
@@ -209,9 +209,9 @@ const Header = () => {
     );
   };
 
-  const femmecubatorLogo = (
+  const webStoreLogo = (
     <Typography variant="h6" component="h1" className={classes.logo}>
-      Femmecubator
+      Web-Store
     </Typography>
   );
 
