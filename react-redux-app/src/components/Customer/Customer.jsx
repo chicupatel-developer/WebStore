@@ -19,11 +19,18 @@ const Customer = ({ changeStep }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [isError, setIsError] = useState({
     firstName: undefined,
     lastName: undefined,
     email: undefined,
+    phoneNumber: undefined,
   });
+
+  const phoneValidation = (phone) => {
+    const regex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+    return regex.test(phone);
+  };
 
   const handleFormControlChangeEvent = (event) => {
     if (event.target.name === "firstName") {
@@ -71,6 +78,24 @@ const Customer = ({ changeStep }) => {
           email: "Invalid Email!",
         });
       }
+    } else if (event.target.name === "phoneNumber") {
+      setPhoneNumber(event.target.value);
+      if (event.target.value === "") {
+        setIsError({
+          ...isError,
+          phoneNumber: "Phone Number Is Required!",
+        });
+      } else if (!phoneValidation(event.target.value)) {
+        setIsError({
+          ...isError,
+          phoneNumber: "Invalid Phone Number!",
+        });
+      } else {
+        setIsError({
+          ...isError,
+          phoneNumber: "",
+        });
+      }
     }
   };
 
@@ -112,10 +137,26 @@ const Customer = ({ changeStep }) => {
           ...isError,
           email: "Email Is Required!",
         });
-      if (!validator.isEmail(email)) {
+      else if (!validator.isEmail(email)) {
         setIsError({
           ...isError,
           email: "Invalid Email!",
+        });
+      }
+      if (phoneNumber === "") {
+        setIsError({
+          ...isError,
+          phoneNumber: "Phone Number Is Required!",
+        });
+      } else if (!phoneValidation(phoneNumber)) {
+        setIsError({
+          ...isError,
+          phoneNumber: "Invalid Phone Number!",
+        });
+      } else {
+        setIsError({
+          ...isError,
+          phoneNumber: "",
         });
       }
       return;
@@ -130,6 +171,7 @@ const Customer = ({ changeStep }) => {
       firstName: firstName,
       lastName: lastName,
       email: email,
+      phoneNumber: phoneNumber,
     };
     // and go to next step
     changeStep();
@@ -182,6 +224,20 @@ const Customer = ({ changeStep }) => {
             <span className={classes.controlInvalid}>
               {isError.email && (
                 <span className="invalid-feedback">{isError.email}</span>
+              )}
+            </span>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              name="phoneNumber"
+              fullWidth
+              label="Phone Number"
+              value={phoneNumber}
+              onChange={(e) => handleFormControlChangeEvent(e)}
+            />
+            <span className={classes.controlInvalid}>
+              {isError.phoneNumber && (
+                <span className="invalid-feedback">{isError.phoneNumber}</span>
               )}
             </span>
           </Grid>
