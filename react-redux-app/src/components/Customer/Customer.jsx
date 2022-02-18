@@ -13,8 +13,12 @@ import {
 import { Link } from "react-router-dom";
 import useStyles from "./styles";
 
+import { useDispatch, useSelector } from "react-redux";
+import { setCustomerDetails } from "../../redux/actions/checkoutActions";
+
 const Customer = ({ changeStep }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -173,14 +177,16 @@ const Customer = ({ changeStep }) => {
       email: email,
       phoneNumber: phoneNumber,
     };
+    dispatch(setCustomerDetails(customerDetailsData));
+
     // and go to next step
     changeStep();
   };
 
   return (
     <div>
-      <Typography variant="h6" gutterBottom>
-        Customer Details
+      <Typography variant="h5" gutterBottom>
+        Enter Customer Details
       </Typography>
 
       <form noValidate>
