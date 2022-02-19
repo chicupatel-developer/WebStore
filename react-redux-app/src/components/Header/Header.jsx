@@ -1,5 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import {
+  InputBase,
+  TextField,
   AppBar,
   Toolbar,
   Typography,
@@ -8,8 +10,11 @@ import {
   Drawer,
   Link,
   MenuItem,
+  InputAdornment,
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
+import SearchIcon from "@material-ui/icons/Search";
+
 import React, { useState, useEffect } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import HomeIcon from "@material-ui/icons/Home";
@@ -18,6 +23,9 @@ import StorefrontIcon from "@material-ui/icons/Storefront";
 import Badge from "@material-ui/core/Badge";
 import useStyles from "./styles";
 import { useDispatch, useSelector } from "react-redux";
+import { setSearchText } from "../../redux/actions/productsActions";
+
+import SearchBar from "material-ui-search-bar";
 
 const headersData = [
   {
@@ -52,6 +60,28 @@ const Header = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
+  // serach text
+  const onChangeSearchText = (evt) => {
+    dispatch(setSearchText(evt.target.value));
+  };
+  // check for ui
+  /*
+   <Menu.Item>
+     <div className="ui category search">
+       <div className="ui icon input">
+         <input
+           onChange={(evt) => onChangeSearchText(evt)}
+           className="prompt"
+           type="text"
+           placeholder="Search categories..."
+         />
+         <i className="search icon"></i>
+       </div>
+       <div className="results"></div>
+     </div>
+   </Menu.Item>;
+   */
+
   // redux
   // read
   const myShoppingCart = useSelector(
@@ -68,7 +98,7 @@ const Header = () => {
 
   useEffect(() => {
     const setResponsiveness = () => {
-      return window.innerWidth < 900
+      return window.innerWidth < 950
         ? setState((prevState) => ({ ...prevState, mobileView: true }))
         : setState((prevState) => ({ ...prevState, mobileView: false }));
     };
@@ -89,11 +119,11 @@ const Header = () => {
       myShoppingCart.length > 0
     ) {
       console.log("CART IS NOT EMPTY!!! ,,,running init function @ header!!");
-    
+
       let totalCartItemCount = 0;
       myShoppingCart.forEach(function (item) {
-        totalCartItemCount += item.qty;        
-      });     
+        totalCartItemCount += item.qty;
+      });
 
       // setCartItemCount(myShoppingCart.length);
       setCartItemCount(totalCartItemCount);
@@ -265,6 +295,16 @@ const Header = () => {
         >
           <HomeIcon /> Home
         </Button>
+
+        <span className={classes.searchSymbol}>
+          <SearchIcon />
+        </span>
+        <input
+          className={classes.searchText}
+          onChange={(evt) => onChangeSearchText(evt)}
+          type="text"
+          placeholder="Search categories..."
+        />
       </>
     );
   };

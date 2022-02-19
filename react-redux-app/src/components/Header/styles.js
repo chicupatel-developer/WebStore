@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
 
 export default makeStyles((theme) => ({
   header: {
@@ -36,5 +36,19 @@ export default makeStyles((theme) => ({
   margin: {
     margin: theme.spacing(2),
     marginRight: theme.spacing(3),
+  },
+  searchText: {
+    height: "35px",
+    marginLeft: "5px",
+    paddingLeft: "30px",
+    border: "2px solid #00B200",
+    borderRadius: "18px",
+  },
+  searchSymbol: {
+    position: "absolute",
+    paddingleft: '35px',
+    marginLeft:'10px',
+    marginTop: "22px",
+    color: 'green',
   },
 }));

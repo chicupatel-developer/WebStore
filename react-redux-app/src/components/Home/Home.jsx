@@ -2,7 +2,13 @@ import React, { useEffect } from "react";
 import { Icon } from "semantic-ui-react";
 
 import useStyles from "./styles";
-import { Container, Typography, Button, Divider } from "@material-ui/core";
+import {
+  Container,
+  Typography,
+  Button,
+  Divider,
+  Grid,
+} from "@material-ui/core";
 
 // stripe
 import {
@@ -11,6 +17,7 @@ import {
   ElementsConsumer,
 } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
+
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
@@ -66,11 +73,13 @@ const Home = () => {
     console.log(error);
     console.log(paymentMethod);
     if (error) {
-      console.log('[error]', error);
+      console.log("[error]", error);
     } else {
-      console.log('success!');
+      console.log("success!");
     }
   };
+
+ 
 
   return (
     <div className={classes.main}>

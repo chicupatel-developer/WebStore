@@ -125,7 +125,7 @@ const ProductComponent = () => {
         );
       })
     ) : (
-      <div className="ui div empty">
+      <div className={classes.noProduct}>
         <h3>Products Not Found!</h3>
       </div>
     );

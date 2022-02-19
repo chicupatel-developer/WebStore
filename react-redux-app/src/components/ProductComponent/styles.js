@@ -23,4 +23,8 @@ export default makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-between",
   },
+  noProduct: {
+    color: 'red',
+  },
 }));
+
