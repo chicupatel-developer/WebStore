@@ -26,7 +26,7 @@ const Checkout = () => {
   const navigate = useNavigate();
 
   const classes = useStyles();
-  const [activeStep, setActiveStep] = useState(0);
+  const [activeStep, setActiveStep] = useState(1);
 
   useEffect(() => {
     console.log("Checkout is loading!!");
