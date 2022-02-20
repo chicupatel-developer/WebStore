@@ -26,6 +26,9 @@ const Confirmation = () => {
   const customerDetails = useSelector(
     (state) => state.checkout.customerDetails
   );
+  const shippingDetails = useSelector(
+    (state) => state.checkout.shippingDetails
+  );
 
   useEffect(() => {
     return () => {};
@@ -51,6 +54,25 @@ const Confirmation = () => {
                 Email : {customerDetails.email}
                 <br />
                 Phone : {customerDetails.phoneNumber}
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className={classes.shippingDetails}>
+            <CardContent>
+              <div>
+                <Typography variant="h6" gutterBottom>
+                  Shipping Details
+                </Typography>
+                Country : {shippingDetails.country}
+                <br />
+                Province : {shippingDetails.province}
+                <br />
+                City : {shippingDetails.city}
+                <br />
+                Address : {shippingDetails.address}
+                <br />
+                Postal Code : {shippingDetails.postalCode}
               </div>
             </CardContent>
           </Card>

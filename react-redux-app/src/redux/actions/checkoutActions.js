@@ -6,3 +6,10 @@ export const setCustomerDetails = (customer) => {
     payload: customer,
   };
 };
+
+export const setShippingDetails = (shipping) => {
+  return {
+    type: ActionTypes.SET_SHIPPING_DETAILS,
+    payload: shipping,
+  };
+};
