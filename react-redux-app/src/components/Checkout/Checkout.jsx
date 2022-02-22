@@ -21,13 +21,19 @@ import Confirmation from "../Confirmation/Confirmation";
 import { useNavigate } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
+import { setPaymentStatus } from "../../redux/actions/checkoutActions";
+import { PaymentStatusTypes } from "../../redux/constants/paymentStauts-types";
+
+import CheckCircleRoundedIcon from "@material-ui/icons/CheckCircleRounded";
+import CancelIcon from "@material-ui/icons/Cancel";
 
 const steps = ["Customer Details", "Shipping Details", "Payement Details"];
 
 const Checkout = () => {
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const classes = useStyles();
+
   const [activeStep, setActiveStep] = useState(1);
 
   // redux
@@ -35,15 +41,25 @@ const Checkout = () => {
   const cartTotalAmount = useSelector(
     (state) => state.checkout.cartTotalAmount
   );
+  const paymentStatus = useSelector((state) => state.checkout.paymentStatus);
 
   useEffect(() => {
     console.log("Checkout is loading!!");
     if (cartTotalAmount < 1) navigate("/");
 
+    dispatch(setPaymentStatus(PaymentStatusTypes.IN_PROGRESS));
+
     return () => {
       console.log("checkout unmount!");
+      dispatch(setPaymentStatus(PaymentStatusTypes.IN_PROGRESS));
     };
   }, []);
+
+  useEffect(() => {
+    return () => {
+      
+    };
+  }, [paymentStatus]);
 
   const nextStep = () => setActiveStep((prevActiveStep) => prevActiveStep + 1);
   const backStep = () => setActiveStep((prevActiveStep) => prevActiveStep - 1);
@@ -69,9 +85,27 @@ const Checkout = () => {
           <Paper className={classes.paper}>
             <Typography variant="h4" align="center">
               {cartTotalAmount ? (
-                <span>Checkout [ $ {cartTotalAmount} ] </span>
+                <span>
+                  Checkout [ $ {cartTotalAmount} ]
+                  {paymentStatus !== PaymentStatusTypes.IN_PROGRESS && (
+                    <span>
+                      {/*
+                        <CheckCircleRoundedIcon
+                            style={{
+                            marginBottom: "-10px",
+                            fontSize: "40px",
+                            color: "green",
+                            }}
+                        />
+                    */}
+                      <CheckCircleRoundedIcon className={classes.iconSuccess} />
+                    </span>
+                  )}
+                </span>
               ) : (
-                <span>Checkout</span>
+                <span>
+                  Checkout &nbsp;&nbsp; <CancelIcon />
+                </span>
               )}
             </Typography>
             <Stepper activeStep={activeStep} className={classes.stepper}>

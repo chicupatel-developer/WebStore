@@ -28,6 +28,7 @@ import {
 import {
   setMyShoppingCart,
 } from "../../redux/actions/productsActions";
+import { PaymentStatusTypes } from "../../redux/constants/paymentStauts-types";
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
@@ -58,7 +59,8 @@ const Payment = ({ changeStep, backStep }) => {
 
     if (error) {
       console.log("[error]", error);
-      dispatch(setPaymentStatus(false));
+      // dispatch(setPaymentStatus(false));
+      dispatch(setPaymentStatus(PaymentStatusTypes.FAIL));
     } else {
       console.log("success!", paymentMethod);
 
@@ -82,7 +84,8 @@ const Payment = ({ changeStep, backStep }) => {
         amountPaid: cartTotalAmount,
       };
 
-      dispatch(setPaymentStatus(true));
+      // dispatch(setPaymentStatus(true));
+      dispatch(setPaymentStatus(PaymentStatusTypes.SUCCESS));      
       dispatch(setPaymentDetails(paymentDetails));
       dispatch(setMyShoppingCart([]));
       changeStep();

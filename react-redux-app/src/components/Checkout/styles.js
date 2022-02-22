@@ -58,4 +58,9 @@ export default makeStyles((theme) => ({
   paymentFail: {
     color: "red",
   },
+  iconSuccess: {
+    marginBottom: "-10px",
+    fontSize: "40px",
+    color: "green",
+  },
 }));

@@ -1,11 +1,13 @@
 import { ActionTypes } from "../constants/action-types";
+import { PaymentStatusTypes } from '../constants/paymentStauts-types';
 
 const intialState = {
   customerDetails: {},
   shippingDetails: {},
   cartTotalAmount: 0,
-  paymentStatus: false,
+  // paymentStatus: false,
   paymentDetails: {},
+  paymentStatus: PaymentStatusTypes.IN_PROGRESS,
 };
 
 export const checkoutReducer = (state = intialState, { type, payload }) => {

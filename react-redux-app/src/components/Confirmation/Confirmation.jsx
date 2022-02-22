@@ -19,6 +19,8 @@ import {
 import CheckCircleRoundedIcon from "@material-ui/icons/CheckCircleRounded";
 import CancelIcon from "@material-ui/icons/Cancel";
 
+import { PaymentStatusTypes } from "../../redux/constants/paymentStauts-types";
+
 const Confirmation = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -35,6 +37,8 @@ const Confirmation = () => {
   const paymentDetails = useSelector((state) => state.checkout.paymentDetails);
 
   useEffect(() => {
+    console.log(paymentStatus);
+
     return () => {};
   }, []);
 
@@ -50,7 +54,7 @@ const Confirmation = () => {
             <CardContent>
               <div>
                 <Typography variant="h6" gutterBottom>
-                  {paymentStatus ? (
+                  {paymentStatus === PaymentStatusTypes.SUCCESS ? (
                     <span className={classes.paymentSuccess}>
                       <CheckCircleRoundedIcon
                         style={{ marginBottom: "-3px" }}
@@ -59,13 +63,12 @@ const Confirmation = () => {
                     </span>
                   ) : (
                     <span className={classes.paymentFail}>
-                      <CancelIcon style={{ marginBottom: "-3px" }} 
-                      />{" "}
-                      Order Status : &nbsp;&nbsp;&nbsp; FAIL ! &nbsp;
+                      <CancelIcon style={{ marginBottom: "-3px" }} /> Order
+                      Status : &nbsp;&nbsp;&nbsp; FAIL ! &nbsp;
                     </span>
                   )}
                 </Typography>
-                {paymentStatus ? (
+                {paymentStatus === PaymentStatusTypes.SUCCESS ? (
                   <div className={classes.paymentSuccess}>
                     Payment Confirmation : &nbsp;&nbsp;&nbsp;
                     {paymentDetails.paymentId}
@@ -75,7 +78,7 @@ const Confirmation = () => {
                     Payment Date &amp; Time : &nbsp; &nbsp;&nbsp;
                     {paymentDetails.paymentDateAndTime}
                     <br />
-                    Amount Paid : &nbsp; &nbsp;&nbsp; ${" "}
+                    Amount Paid : &nbsp; &nbsp;&nbsp; $ {" "}
                     {paymentDetails.amountPaid}
                   </div>
                 ) : (
