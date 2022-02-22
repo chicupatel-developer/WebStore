@@ -13,3 +13,10 @@ export const setShippingDetails = (shipping) => {
     payload: shipping,
   };
 };
+
+export const setCartTotalAmount = (cartAmount) => {
+  return {
+    type: ActionTypes.SET_CART_TOTAL_AMOUNT,
+    payload: cartAmount,
+  };
+};

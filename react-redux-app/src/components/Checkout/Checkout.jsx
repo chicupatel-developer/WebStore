@@ -20,6 +20,8 @@ import Confirmation from "../Confirmation/Confirmation";
 
 import { useNavigate } from "react-router-dom";
 
+import { useDispatch, useSelector } from "react-redux";
+
 const steps = ["Customer Details", "Shipping Details", "Payement Details"];
 
 const Checkout = () => {
@@ -28,8 +30,16 @@ const Checkout = () => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(1);
 
+  // redux
+  // read
+  const cartTotalAmount = useSelector(
+    (state) => state.checkout.cartTotalAmount
+  );
+
   useEffect(() => {
-    console.log("Checkout is loading!!");
+      console.log("Checkout is loading!!");
+      if (cartTotalAmount < 1)
+          navigate('/');
 
     return () => {
       console.log("checkout unmount!");
@@ -59,7 +69,7 @@ const Checkout = () => {
         <main className={classes.layout}>
           <Paper className={classes.paper}>
             <Typography variant="h4" align="center">
-              Checkout
+                          {cartTotalAmount ? <span>Checkout [ $ {cartTotalAmount} ] </span> : <span>Checkout</span>}
             </Typography>
             <Stepper activeStep={activeStep} className={classes.stepper}>
               {steps.map((step) => (

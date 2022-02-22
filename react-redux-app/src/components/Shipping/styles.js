@@ -10,4 +10,7 @@ export default makeStyles((theme) => ({
   controlInvalid: {
     color: "red",
   },
+  paymentForm: {
+    marginTop: "20px",
+  },
 }));

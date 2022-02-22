@@ -1,6 +1,12 @@
 import React, { useEffect, useCallback, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setMyShoppingCart } from "../../redux/actions/productsActions";
+import {
+  setMyShoppingCart,
+} from "../../redux/actions/productsActions";
+import {
+  setCartTotalAmount,
+} from "../../redux/actions/checkoutActions";
+
 
 import useStyles from "./styles";
 import Container from "@material-ui/core/Container";
@@ -66,6 +72,10 @@ const ShoppingCart = () => {
     var paymentAmountRounded = (
       Math.ceil(paymentAmount * 20 - 0.5) / 20
     ).toFixed(2);
+
+    // save total cart amount @ redux store
+    dispatch(setCartTotalAmount(paymentAmountRounded));
+
     // return cartTotal + '  [$ ' + paymentAmountRounded + ']';
     return "Cart Total : $ " + paymentAmountRounded;
   };

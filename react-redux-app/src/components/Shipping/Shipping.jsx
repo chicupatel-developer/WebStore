@@ -194,8 +194,11 @@ const Shipping = ({ backStep, changeStep }) => {
 
   return (
     <div>
-      <h1>Shipping Info Form!</h1>
-      <form noValidate>
+      <Typography variant="h5" gutterBottom>
+        Enter Shipping Details
+      </Typography>
+
+      <form className={classes.paymentForm} noValidate>
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6}>
             Country : &nbsp;&nbsp;
