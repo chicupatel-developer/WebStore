@@ -20,3 +20,19 @@ export const setCartTotalAmount = (cartAmount) => {
     payload: cartAmount,
   };
 };
+
+
+export const setPaymentStatus = (pStatus) => {
+  return {
+    type: ActionTypes.SET_PAYMENT_STATUS,
+    payload: pStatus,
+  };
+};
+
+
+export const setPaymentDetails = (pDetails) => {
+  return {
+    type: ActionTypes.SET_PAYMENT_DETAILS,
+    payload: pDetails,
+  };
+};

@@ -20,10 +20,26 @@ import { loadStripe } from "@stripe/stripe-js";
 
 import { Link } from "react-router-dom";
 
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setPaymentStatus,
+  setPaymentDetails,
+} from "../../redux/actions/checkoutActions";
+import {
+  setMyShoppingCart,
+} from "../../redux/actions/productsActions";
+
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
 const Payment = ({ changeStep, backStep }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+
+  // redux
+  // read
+  const cartTotalAmount = useSelector(
+    (state) => state.checkout.cartTotalAmount
+  );
 
   useEffect(() => {}, []);
 
@@ -42,11 +58,33 @@ const Payment = ({ changeStep, backStep }) => {
 
     if (error) {
       console.log("[error]", error);
+      dispatch(setPaymentStatus(false));
     } else {
       console.log("success!", paymentMethod);
 
       // store payment details to redux store
       // and go to next step
+      var date = new Date(paymentMethod.created * 1000);
+      // console.log(date.toUTCString().toLocaleString());
+      /*
+      console.log(
+        date.toLocaleString("en-US", {
+          timeZone: "CST",
+        })
+      );
+      */
+      let paymentDetails = {
+        cardBrand: paymentMethod.card.brand,
+        paymentDateAndTime: date.toLocaleString("en-US", {
+          timeZone: "CST",
+        }),
+        paymentId: paymentMethod.id,
+        amountPaid: cartTotalAmount,
+      };
+
+      dispatch(setPaymentStatus(true));
+      dispatch(setPaymentDetails(paymentDetails));
+      dispatch(setMyShoppingCart([]));
       changeStep();
     }
   };
@@ -58,7 +96,6 @@ const Payment = ({ changeStep, backStep }) => {
           Enter Payment Details
         </Typography>
 
-              
         <Elements stripe={stripePromise}>
           <ElementsConsumer>
             {({ elements, stripe }) => (
@@ -78,7 +115,7 @@ const Payment = ({ changeStep, backStep }) => {
                     color="primary"
                     disabled={!stripe}
                   >
-                    Pay: $ 500
+                    Pay: $ {cartTotalAmount}
                   </Button>
                 </div>
               </form>

@@ -37,9 +37,8 @@ const Checkout = () => {
   );
 
   useEffect(() => {
-      console.log("Checkout is loading!!");
-      if (cartTotalAmount < 1)
-          navigate('/');
+    console.log("Checkout is loading!!");
+    if (cartTotalAmount < 1) navigate("/");
 
     return () => {
       console.log("checkout unmount!");
@@ -69,7 +68,11 @@ const Checkout = () => {
         <main className={classes.layout}>
           <Paper className={classes.paper}>
             <Typography variant="h4" align="center">
-                          {cartTotalAmount ? <span>Checkout [ $ {cartTotalAmount} ] </span> : <span>Checkout</span>}
+              {cartTotalAmount ? (
+                <span>Checkout [ $ {cartTotalAmount} ] </span>
+              ) : (
+                <span>Checkout</span>
+              )}
             </Typography>
             <Stepper activeStep={activeStep} className={classes.stepper}>
               {steps.map((step) => (

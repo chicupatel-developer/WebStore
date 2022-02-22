@@ -7,4 +7,11 @@ export default makeStyles((theme) => ({
   shippingDetails: {
     marginTop: "10px",
   },
+  paymentSuccess: {
+    color: "green",
+  },
+  paymentFail: {
+    color: "red",
+  },
+
 }));

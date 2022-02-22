@@ -52,4 +52,10 @@ export default makeStyles((theme) => ({
     justifyContent: "center",
     alignItems: "center",
   },
+  paymentSuccess: {
+    color: "green",
+  },
+  paymentFail: {
+    color: "red",
+  },
 }));
