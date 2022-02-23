@@ -27,6 +27,9 @@ import { setSearchText } from "../../redux/actions/productsActions";
 
 import SearchBar from "material-ui-search-bar";
 
+import PersonTwoToneIcon from "@material-ui/icons/PersonTwoTone";
+import SupervisorAccountTwoToneIcon from "@material-ui/icons/SupervisorAccountTwoTone";
+
 const headersData = [
   {
     id: 1,
@@ -98,7 +101,7 @@ const Header = () => {
 
   useEffect(() => {
     const setResponsiveness = () => {
-      return window.innerWidth < 950
+      return window.innerWidth < 1100
         ? setState((prevState) => ({ ...prevState, mobileView: true }))
         : setState((prevState) => ({ ...prevState, mobileView: false }));
     };
@@ -270,6 +273,21 @@ const Header = () => {
         <Button
           className={classes.menuButton}
           color="inherit"
+          onClick={(e) => doComponentRedirect(e, "Home")}
+        >
+          <HomeIcon /> Home
+        </Button>
+        <Button
+          className={classes.menuButton}
+          color="inherit"
+          onClick={(e) => doComponentRedirect(e, "Admin")}
+        >
+          <SupervisorAccountTwoToneIcon /> Admin
+        </Button>
+
+        <Button
+          className={classes.menuButton}
+          color="inherit"
           onClick={(e) => doComponentRedirect(e, "Products")}
         >
           <StorefrontIcon /> Products
@@ -288,13 +306,6 @@ const Header = () => {
             <ShoppingCartIcon /> Cart
           </Badge>
         </Button>
-        <Button
-          className={classes.menuButton}
-          color="inherit"
-          onClick={(e) => doComponentRedirect(e, "Home")}
-        >
-          <HomeIcon /> Home
-        </Button>
 
         <span className={classes.searchSymbol}>
           <SearchIcon />
@@ -305,6 +316,14 @@ const Header = () => {
           type="text"
           placeholder="Search categories..."
         />
+
+        <Button
+          className={classes.menuButton}
+          color="inherit"
+          onClick={(e) => doComponentRedirect(e, "Login")}
+        >
+          <PersonTwoToneIcon /> Login
+        </Button>
       </>
     );
   };
@@ -313,6 +332,8 @@ const Header = () => {
     if (routePath === "Products") navigate("/");
     if (routePath === "Cart") navigate("/cart");
     if (routePath === "Home") navigate("/home");
+    if (routePath === "Login") navigate("/login");
+    if (routePath === "Admin") navigate("/adminProductSales");
   };
 
   return (

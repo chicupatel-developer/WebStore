@@ -70,15 +70,15 @@ const Confirmation = () => {
                 </Typography>
                 {paymentStatus === PaymentStatusTypes.SUCCESS ? (
                   <div className={classes.paymentSuccess}>
-                    Payment Confirmation : &nbsp;&nbsp;&nbsp;
+                    Payment Confirmation : &nbsp;
                     {paymentDetails.paymentId}
                     <br />
-                    Card Type : &nbsp;&nbsp;&nbsp; {paymentDetails.cardBrand}
+                    Card Type : &nbsp; {paymentDetails.cardBrand}
                     <br />
-                    Payment Date &amp; Time : &nbsp; &nbsp;&nbsp;
+                    Payment Date &amp; Time : &nbsp;
                     {paymentDetails.paymentDateAndTime}
                     <br />
-                    Amount Paid : &nbsp; &nbsp;&nbsp; $ {" "}
+                    Amount Paid : &nbsp; $ {" "}
                     {paymentDetails.amountPaid}
                   </div>
                 ) : (

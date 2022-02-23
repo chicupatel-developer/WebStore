@@ -8,6 +8,8 @@ import Home from './components/Home/Home';
 import ShoppingCart from './components/ShoppingCart/ShoppingCart';
 import NotFound from './components/NotFound/NotFound';
 import Checkout from './components/Checkout/Checkout';
+import Login from "./components/Login/Login";
+import AdminProductSales from "./components/Admin-ProductSales/AdminProductSales";
 
 import "./App.css";
 
@@ -23,6 +25,8 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/cart" element={<ShoppingCart />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/adminProductSales" element={<AdminProductSales />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
