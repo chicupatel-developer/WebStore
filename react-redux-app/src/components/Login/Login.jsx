@@ -11,9 +11,12 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentUser } from "../../redux/actions/authActions";
 
+import { useNavigate } from "react-router-dom";
+
 const Login = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {}, []);
 
@@ -48,6 +51,9 @@ const Login = () => {
 
     // store current user @ browser local storage
     localStorage.setItem("currentUser", JSON.stringify(apiResponse));
+
+    // navigate to home page
+    navigate("/home");
   };
 
   return (

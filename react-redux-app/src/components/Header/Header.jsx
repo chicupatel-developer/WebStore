@@ -30,6 +30,7 @@ import SearchBar from "material-ui-search-bar";
 
 import PersonTwoToneIcon from "@material-ui/icons/PersonTwoTone";
 import SupervisorAccountTwoToneIcon from "@material-ui/icons/SupervisorAccountTwoTone";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
 const headersData = [
   {
@@ -164,7 +165,7 @@ const Header = () => {
   }, [myShoppingCart]);
 
   // updates when user login
-  useEffect(() => {    
+  useEffect(() => {
     if (currentUser !== undefined && currentUser !== null) {
       if (currentUser.role === "admin-role") {
         console.log("admin-role");
@@ -172,7 +173,7 @@ const Header = () => {
         console.log("shopper-role");
       }
     } else {
-      console.log("Not Logged In Yet!");         
+      console.log("Not Logged In Yet!");
     }
   }, [currentUser]);
 
@@ -228,7 +229,27 @@ const Header = () => {
             onClose: handleDrawerClose,
           }}
         >
+          <div className={classes.drawerContainer}>
+            {
+              <span>
+                {currentUser.role === "admin-role" ? (
+                  <span>{getMenuButtonsForAdminMobile()}</span>
+                ) : (
+                  <span>
+                    {currentUser.role === "shopper-role" ? (
+                      <span>{getMenuButtonsForShopperMobile()}</span>
+                    ) : (
+                      <span>{getMenuButtonsMobile()}</span>
+                    )}
+                  </span>
+                )}
+              </span>
+            }
+          </div>
+
+          {/*
           <div className={classes.drawerContainer}>{getDrawerChoices()}</div>
+          */}
         </Drawer>
 
         <div>{webStoreLogo}</div>
@@ -236,6 +257,123 @@ const Header = () => {
     );
   };
 
+  // mobile
+  // menu option when user is not login [mobile]
+  const getMenuButtonsMobile = () => {
+    return (
+      <>
+        <Link
+          className={classes.linkStyle}
+          color="inherit"
+          onClick={(e) => doComponentRedirect(e, "Home")}
+        >
+          <MenuItem>
+            <HomeIcon /> Home
+          </MenuItem>
+        </Link>
+        <Link
+          className={classes.linkStyle}
+          color="inherit"
+          onClick={(e) => doComponentRedirect(e, "Login")}
+        >
+          <MenuItem>
+            <PersonTwoToneIcon /> Login
+          </MenuItem>
+        </Link>
+      </>
+    );
+  };
+
+  // mobile
+  // menu option when user as shopper [mobile]
+  const getMenuButtonsForShopperMobile = () => {
+    return (
+      <>
+        <Link
+          className={classes.linkStyle}
+          color="inherit"
+          onClick={(e) => doComponentRedirect(e, "Home")}
+        >
+          <MenuItem>
+            <HomeIcon /> Home
+          </MenuItem>
+        </Link>
+        <Link
+          className={classes.linkStyle}
+          color="inherit"
+          onClick={(e) => doComponentRedirect(e, "Products")}
+        >
+          <MenuItem>
+            <StorefrontIcon /> Products
+          </MenuItem>
+        </Link>
+        <Link
+          className={classes.linkStyle}
+          color="inherit"
+          onClick={(e) => doComponentRedirect(e, "Cart")}
+        >
+          <MenuItem>
+            <Badge
+              className={classes.margin}
+              badgeContent={cartItemCount}
+              max={999}
+              color="primary"
+            >
+              <ShoppingCartIcon />
+              Cart
+            </Badge>
+          </MenuItem>
+        </Link>
+        <Link
+          className={classes.linkStyle}
+          color="inherit"
+          onClick={(e) => logOut(e)}
+        >
+          <MenuItem>
+            <ExitToAppIcon /> Logout
+          </MenuItem>
+        </Link>
+      </>
+    );
+  };
+
+  // mobile
+  // menu option when user as admin [mobile]
+  const getMenuButtonsForAdminMobile = () => {
+    return (
+      <>
+        <Link
+          className={classes.linkStyle}
+          color="inherit"
+          onClick={(e) => doComponentRedirect(e, "Home")}
+        >
+          <MenuItem>
+            <HomeIcon /> Home
+          </MenuItem>
+        </Link>
+        <Link
+          className={classes.linkStyle}
+          color="inherit"
+          onClick={(e) => doComponentRedirect(e, "Admin")}
+        >
+          <MenuItem>
+            <SupervisorAccountTwoToneIcon /> Admin
+          </MenuItem>
+        </Link>
+        <Link
+          className={classes.linkStyle}
+          color="inherit"
+          onClick={(e) => logOut(e)}
+        >
+          <MenuItem>
+            <ExitToAppIcon /> Logout
+          </MenuItem>
+        </Link>
+      </>
+    );
+  };
+
+  // mobile
   /*
   const getDrawerChoices = () => {
     return headersData.map(({ label, href, id }) => {
@@ -301,6 +439,9 @@ const Header = () => {
   const webStoreLogo = (
     <Typography variant="h6" component="h1" className={classes.logo}>
       Web-Store
+      {currentUser.userName && (
+        <span>&nbsp;&nbsp;[{currentUser.userName}]</span>
+      )}
     </Typography>
   );
 
@@ -321,6 +462,13 @@ const Header = () => {
           onClick={(e) => doComponentRedirect(e, "Admin")}
         >
           <SupervisorAccountTwoToneIcon /> Admin
+        </Button>
+        <Button
+          className={classes.menuButton}
+          color="inherit"
+          onClick={(e) => logOut(e)}
+        >
+          <ExitToAppIcon /> Logout
         </Button>
       </>
     );
@@ -368,6 +516,14 @@ const Header = () => {
           type="text"
           placeholder="Search categories..."
         />
+
+        <Button
+          className={classes.menuButton}
+          color="inherit"
+          onClick={(e) => logOut(e)}
+        >
+          <ExitToAppIcon /> Logout
+        </Button>
       </>
     );
   };
@@ -414,19 +570,19 @@ const Header = () => {
   };
 
   const doComponentRedirect = (e, routePath) => {
-    if (currentUser.role === "admin-role") {
-      if (routePath === "Home") navigate("/home");
-      else if (routePath === "Admin") navigate("/adminProductSales");
-      else navigate("/home");
-    } else if (currentUser.role === "shopper-role") {
-      if (routePath === "Home") navigate("/home");
-      else if (routePath === "Products") navigate("/");
-      else if (routePath === "Cart") navigate("/cart");
-      else navigate("/home");
-    } else {
-      if (routePath === "Home") navigate("/home");
-      else if (routePath === "Login") navigate("/login");
-    }
+    console.log("redirect from header menu option", currentUser);
+    if (routePath === "Home") navigate("/home");
+    if (routePath === "Admin") navigate("/adminProductSales");
+    if (routePath === "Products") navigate("/");
+    if (routePath === "Cart") navigate("/cart");
+    if (routePath === "Login") navigate("/login");
+  };
+
+  // when user log out
+  const logOut = () => {
+    localStorage.removeItem("currentUser");
+    dispatch(setCurrentUser({}));
+    navigate("/");
   };
 
   return (
