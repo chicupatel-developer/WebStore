@@ -24,6 +24,7 @@ import Badge from "@material-ui/core/Badge";
 import useStyles from "./styles";
 import { useDispatch, useSelector } from "react-redux";
 import { setSearchText } from "../../redux/actions/productsActions";
+import { setCurrentUser } from "../../redux/actions/authActions";
 
 import SearchBar from "material-ui-search-bar";
 
@@ -97,9 +98,34 @@ const Header = () => {
     drawerOpen: false,
   });
 
+  // auth reducer
+  // after login
+  const currentUser = useSelector((state) => state.auth.currentUser);
+
   const { mobileView, drawerOpen } = state;
 
   useEffect(() => {
+    // when user refresh page, redux store will gets reset
+    // so check in browser local storage for currentUser object
+    // this will fire another useEffect() depending on [currentUser]
+    // and updates menu as per user's role
+    let currentUserFromStorage = JSON.parse(
+      localStorage.getItem("currentUser")
+    );
+    if (
+      currentUserFromStorage !== undefined &&
+      currentUserFromStorage !== null
+    ) {
+      if (currentUserFromStorage.role === "admin-role") {
+        console.log("local-storage-admin-role");
+      } else if (currentUserFromStorage.role === "shopper-role") {
+        console.log("local-storage-shopper-role");
+      }
+      dispatch(setCurrentUser(currentUserFromStorage));
+    } else {
+      console.log("Not Logged In Yet!");
+    }
+
     const setResponsiveness = () => {
       return window.innerWidth < 1100
         ? setState((prevState) => ({ ...prevState, mobileView: true }))
@@ -115,6 +141,7 @@ const Header = () => {
     };
   }, []);
 
+  // updates when shopper does shopping
   useEffect(() => {
     if (
       myShoppingCart !== undefined &&
@@ -136,11 +163,40 @@ const Header = () => {
     }
   }, [myShoppingCart]);
 
+  // updates when user login
+  useEffect(() => {    
+    if (currentUser !== undefined && currentUser !== null) {
+      if (currentUser.role === "admin-role") {
+        console.log("admin-role");
+      } else if (currentUser.role === "shopper-role") {
+        console.log("shopper-role");
+      }
+    } else {
+      console.log("Not Logged In Yet!");         
+    }
+  }, [currentUser]);
+
+  /*
+    <Toolbar className={classes.toolbar}>
+        {webStoreLogo}
+        <div>{getMenuButtons()}</div>
+      </Toolbar>
+  */
   const displayDesktop = () => {
     return (
       <Toolbar className={classes.toolbar}>
         {webStoreLogo}
-        <div>{getMenuButtons()}</div>
+        {currentUser.role === "admin-role" ? (
+          <div>{getMenuButtonsForAdmin()}</div>
+        ) : (
+          <span>
+            {currentUser.role === "shopper-role" ? (
+              <div>{getMenuButtonsForShopper()}</div>
+            ) : (
+              <div>{getMenuButtons()}</div>
+            )}
+          </span>
+        )}
       </Toolbar>
     );
   };
@@ -248,6 +304,75 @@ const Header = () => {
     </Typography>
   );
 
+  // menu option when user as admin
+  const getMenuButtonsForAdmin = () => {
+    return (
+      <>
+        <Button
+          className={classes.menuButton}
+          color="inherit"
+          onClick={(e) => doComponentRedirect(e, "Home")}
+        >
+          <HomeIcon /> Home
+        </Button>
+        <Button
+          className={classes.menuButton}
+          color="inherit"
+          onClick={(e) => doComponentRedirect(e, "Admin")}
+        >
+          <SupervisorAccountTwoToneIcon /> Admin
+        </Button>
+      </>
+    );
+  };
+
+  // menu option when user as shopper
+  const getMenuButtonsForShopper = () => {
+    return (
+      <>
+        <Button
+          className={classes.menuButton}
+          color="inherit"
+          onClick={(e) => doComponentRedirect(e, "Home")}
+        >
+          <HomeIcon /> Home
+        </Button>
+        <Button
+          className={classes.menuButton}
+          color="inherit"
+          onClick={(e) => doComponentRedirect(e, "Products")}
+        >
+          <StorefrontIcon /> Products
+        </Button>
+        <Button
+          className={classes.menuButton}
+          color="inherit"
+          onClick={(e) => doComponentRedirect(e, "Cart")}
+        >
+          <Badge
+            className={classes.margin}
+            badgeContent={cartItemCount}
+            max={999}
+            color="primary"
+          >
+            <ShoppingCartIcon /> Cart
+          </Badge>
+        </Button>
+
+        <span className={classes.searchSymbol}>
+          <SearchIcon />
+        </span>
+        <input
+          className={classes.searchText}
+          onChange={(evt) => onChangeSearchText(evt)}
+          type="text"
+          placeholder="Search categories..."
+        />
+      </>
+    );
+  };
+
+  // menu option when user is not login
   /*
   const getMenuButtons = () => {
     return headersData.map(({ label, href, id }) => {
@@ -280,46 +405,6 @@ const Header = () => {
         <Button
           className={classes.menuButton}
           color="inherit"
-          onClick={(e) => doComponentRedirect(e, "Admin")}
-        >
-          <SupervisorAccountTwoToneIcon /> Admin
-        </Button>
-
-        <Button
-          className={classes.menuButton}
-          color="inherit"
-          onClick={(e) => doComponentRedirect(e, "Products")}
-        >
-          <StorefrontIcon /> Products
-        </Button>
-        <Button
-          className={classes.menuButton}
-          color="inherit"
-          onClick={(e) => doComponentRedirect(e, "Cart")}
-        >
-          <Badge
-            className={classes.margin}
-            badgeContent={cartItemCount}
-            max={999}
-            color="primary"
-          >
-            <ShoppingCartIcon /> Cart
-          </Badge>
-        </Button>
-
-        <span className={classes.searchSymbol}>
-          <SearchIcon />
-        </span>
-        <input
-          className={classes.searchText}
-          onChange={(evt) => onChangeSearchText(evt)}
-          type="text"
-          placeholder="Search categories..."
-        />
-
-        <Button
-          className={classes.menuButton}
-          color="inherit"
           onClick={(e) => doComponentRedirect(e, "Login")}
         >
           <PersonTwoToneIcon /> Login
@@ -329,11 +414,19 @@ const Header = () => {
   };
 
   const doComponentRedirect = (e, routePath) => {
-    if (routePath === "Products") navigate("/");
-    if (routePath === "Cart") navigate("/cart");
-    if (routePath === "Home") navigate("/home");
-    if (routePath === "Login") navigate("/login");
-    if (routePath === "Admin") navigate("/adminProductSales");
+    if (currentUser.role === "admin-role") {
+      if (routePath === "Home") navigate("/home");
+      else if (routePath === "Admin") navigate("/adminProductSales");
+      else navigate("/home");
+    } else if (currentUser.role === "shopper-role") {
+      if (routePath === "Home") navigate("/home");
+      else if (routePath === "Products") navigate("/");
+      else if (routePath === "Cart") navigate("/cart");
+      else navigate("/home");
+    } else {
+      if (routePath === "Home") navigate("/home");
+      else if (routePath === "Login") navigate("/login");
+    }
   };
 
   return (

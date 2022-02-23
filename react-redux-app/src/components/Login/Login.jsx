@@ -8,8 +8,12 @@ import {
   Grid,
 } from "@material-ui/core";
 
+import { useDispatch, useSelector } from "react-redux";
+import { setCurrentUser } from "../../redux/actions/authActions";
+
 const Login = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   useEffect(() => {}, []);
 
@@ -29,6 +33,7 @@ const Login = () => {
     };
 
     let loginUser = shopperUser;
+    // let loginUser = adminUser;
 
     // api check for user
     // if success, returns with token and user's other info like role etc.
@@ -38,15 +43,17 @@ const Login = () => {
       token: "shopper-token",
     };
 
-      
-      
-      
+    // store current user @ redux store
+    dispatch(setCurrentUser(apiResponse));
+
+    // store current user @ browser local storage
+    localStorage.setItem("currentUser", JSON.stringify(apiResponse));
   };
 
   return (
     <div className={classes.main}>
       <Container maxWidth="md">
-        <h1>Home</h1>
+        <h1>Login</h1>
         <div onClick={(e) => signin(e)} className="ui button" tabIndex="0">
           <div className="visible content">Signin &nbsp;&nbsp;</div>
         </div>
