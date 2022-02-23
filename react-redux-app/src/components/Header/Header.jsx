@@ -314,7 +314,7 @@ const Header = () => {
         >
           <MenuItem>
             <Badge
-              className={classes.margin}
+              // className={classes.margin}
               badgeContent={cartItemCount}
               max={999}
               color="primary"

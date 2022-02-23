@@ -35,15 +35,22 @@ const Login = () => {
       password: "admin-password",
     };
 
-    let loginUser = shopperUser;
-    // let loginUser = adminUser;
+    // let loginUser = shopperUser;
+    let loginUser = adminUser;
 
     // api check for user
     // if success, returns with token and user's other info like role etc.
+    /*
     let apiResponse = {
       userName: loginUser.userName,
       role: "shopper-role",
       token: "shopper-token",
+      };
+    */
+    let apiResponse = {
+      userName: loginUser.userName,
+      role: "admin-role",
+      token: "admin-token",
     };
 
     // store current user @ redux store
