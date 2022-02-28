@@ -28,17 +28,6 @@ const Home = () => {
 
   const signin = () => {
     console.log("signin");
-
-    var userUser = {
-      userName: "user-user",
-      role: "user-role",
-      token: "user-token",
-    };
-    var adminUser = {
-      userName: "admin-user",
-      role: "admin-role",
-      token: "admin-token",
-    };
   };
 
   const signout = () => {

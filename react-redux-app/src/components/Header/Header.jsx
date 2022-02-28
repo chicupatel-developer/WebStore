@@ -117,10 +117,10 @@ const Header = () => {
       currentUserFromStorage !== undefined &&
       currentUserFromStorage !== null
     ) {
-      if (currentUserFromStorage.role === "admin-role") {
-        console.log("local-storage-admin-role");
-      } else if (currentUserFromStorage.role === "shopper-role") {
-        console.log("local-storage-shopper-role");
+      if (currentUserFromStorage.role === "Admin") {
+        console.log("local-storage-Admin");
+      } else if (currentUserFromStorage.role === "Shopper") {
+        console.log("local-storage-Shopper");
       }
       dispatch(setCurrentUser(currentUserFromStorage));
     } else {
@@ -167,10 +167,10 @@ const Header = () => {
   // updates when user login
   useEffect(() => {
     if (currentUser !== undefined && currentUser !== null) {
-      if (currentUser.role === "admin-role") {
-        console.log("admin-role");
-      } else if (currentUser.role === "shopper-role") {
-        console.log("shopper-role");
+      if (currentUser.role === "Admin") {
+        console.log("Admin");
+      } else if (currentUser.role === "Shopper") {
+        console.log("Shopper");
       }
     } else {
       console.log("Not Logged In Yet!");
@@ -187,11 +187,11 @@ const Header = () => {
     return (
       <Toolbar className={classes.toolbar}>
         {webStoreLogo}
-        {currentUser.role === "admin-role" ? (
+        {currentUser.role === "Admin" ? (
           <div>{getMenuButtonsForAdmin()}</div>
         ) : (
           <span>
-            {currentUser.role === "shopper-role" ? (
+            {currentUser.role === "Shopper" ? (
               <div>{getMenuButtonsForShopper()}</div>
             ) : (
               <div>{getMenuButtons()}</div>
@@ -202,6 +202,7 @@ const Header = () => {
     );
   };
 
+  // mobile
   const displayMobile = () => {
     const handleDrawerOpen = () =>
       setState((prevState) => ({ ...prevState, drawerOpen: true }));
@@ -232,11 +233,11 @@ const Header = () => {
           <div className={classes.drawerContainer}>
             {
               <span>
-                {currentUser.role === "admin-role" ? (
+                {currentUser.role === "Admin" ? (
                   <span>{getMenuButtonsForAdminMobile()}</span>
                 ) : (
                   <span>
-                    {currentUser.role === "shopper-role" ? (
+                    {currentUser.role === "Shopper" ? (
                       <span>{getMenuButtonsForShopperMobile()}</span>
                     ) : (
                       <span>{getMenuButtonsMobile()}</span>

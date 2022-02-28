@@ -22,7 +22,7 @@ function App() {
 
   return (
     <div className="App">
-      {currentUser.role === "admin-role" ? (
+      {currentUser.role === "Admin" ? (
         <Router>
           <Header />
           <Routes>
@@ -34,7 +34,7 @@ function App() {
         </Router>
       ) : (
         <span>
-          {currentUser.role === "shopper-role" ? (
+          {currentUser.role === "Shopper" ? (
             <Router>
               <Header />
               <Routes>
