@@ -1,0 +1,12 @@
+C:\WebStore\WebAPI\WebStore.Service\bin\Debug\netcoreapp3.1\WebStore.Service.deps.json
+C:\WebStore\WebAPI\WebStore.Service\bin\Debug\netcoreapp3.1\WebStore.Service.dll
+C:\WebStore\WebAPI\WebStore.Service\bin\Debug\netcoreapp3.1\WebStore.Service.pdb
+C:\WebStore\WebAPI\WebStore.Service\bin\Debug\netcoreapp3.1\WebStore.Context.dll
+C:\WebStore\WebAPI\WebStore.Service\bin\Debug\netcoreapp3.1\WebStore.Context.pdb
+C:\WebStore\WebAPI\WebStore.Service\obj\Debug\netcoreapp3.1\WebStore.Service.csproj.AssemblyReference.cache
+C:\WebStore\WebAPI\WebStore.Service\obj\Debug\netcoreapp3.1\WebStore.Service.AssemblyInfoInputs.cache
+C:\WebStore\WebAPI\WebStore.Service\obj\Debug\netcoreapp3.1\WebStore.Service.AssemblyInfo.cs
+C:\WebStore\WebAPI\WebStore.Service\obj\Debug\netcoreapp3.1\WebStore.Service.csproj.CoreCompileInputs.cache
+C:\WebStore\WebAPI\WebStore.Service\obj\Debug\netcoreapp3.1\WebStore.Service.csproj.CopyComplete
+C:\WebStore\WebAPI\WebStore.Service\obj\Debug\netcoreapp3.1\WebStore.Service.dll
+C:\WebStore\WebAPI\WebStore.Service\obj\Debug\netcoreapp3.1\WebStore.Service.pdb

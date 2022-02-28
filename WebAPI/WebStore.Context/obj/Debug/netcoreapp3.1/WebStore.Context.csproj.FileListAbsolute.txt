@@ -1,0 +1,11 @@
+C:\WebStore\WebAPI\WebStore.Context\bin\Debug\netcoreapp3.1\WebStore.Context.deps.json
+C:\WebStore\WebAPI\WebStore.Context\bin\Debug\netcoreapp3.1\WebStore.Context.runtimeconfig.json
+C:\WebStore\WebAPI\WebStore.Context\bin\Debug\netcoreapp3.1\WebStore.Context.runtimeconfig.dev.json
+C:\WebStore\WebAPI\WebStore.Context\bin\Debug\netcoreapp3.1\WebStore.Context.dll
+C:\WebStore\WebAPI\WebStore.Context\bin\Debug\netcoreapp3.1\WebStore.Context.pdb
+C:\WebStore\WebAPI\WebStore.Context\obj\Debug\netcoreapp3.1\WebStore.Context.AssemblyInfoInputs.cache
+C:\WebStore\WebAPI\WebStore.Context\obj\Debug\netcoreapp3.1\WebStore.Context.AssemblyInfo.cs
+C:\WebStore\WebAPI\WebStore.Context\obj\Debug\netcoreapp3.1\WebStore.Context.csproj.CoreCompileInputs.cache
+C:\WebStore\WebAPI\WebStore.Context\obj\Debug\netcoreapp3.1\WebStore.Context.dll
+C:\WebStore\WebAPI\WebStore.Context\obj\Debug\netcoreapp3.1\WebStore.Context.pdb
+C:\WebStore\WebAPI\WebStore.Context\obj\Debug\netcoreapp3.1\WebStore.Context.genruntimeconfig.cache
