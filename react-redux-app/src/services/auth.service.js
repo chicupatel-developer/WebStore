@@ -6,8 +6,9 @@ class AuthService {
         return http.post(`/register/${myRole}`, data);
     }
 
-    login(data) {
-        return http.post(`/login`, data);
+
+    login = async (data) => {
+        return await http.post(`/login`, data);
     }
 
     logout() {

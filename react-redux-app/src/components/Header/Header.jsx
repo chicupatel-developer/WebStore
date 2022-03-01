@@ -105,11 +105,11 @@ const Header = () => {
 
   const { mobileView, drawerOpen } = state;
 
+  // when user refresh page, redux store will gets reset
+  // so check in browser local storage for currentUser object
+  // this will fire another useEffect() depending on [currentUser]
+  // and updates menu as per user's role
   useEffect(() => {
-    // when user refresh page, redux store will gets reset
-    // so check in browser local storage for currentUser object
-    // this will fire another useEffect() depending on [currentUser]
-    // and updates menu as per user's role
     let currentUserFromStorage = JSON.parse(
       localStorage.getItem("currentUser")
     );
@@ -440,9 +440,6 @@ const Header = () => {
   const webStoreLogo = (
     <Typography variant="h6" component="h1" className={classes.logo}>
       Web-Store
-      {currentUser.userName && (
-        <span>&nbsp;&nbsp;[{currentUser.userName}]</span>
-      )}
     </Typography>
   );
 
@@ -469,7 +466,9 @@ const Header = () => {
           color="inherit"
           onClick={(e) => logOut(e)}
         >
-          <ExitToAppIcon /> Logout
+          {currentUser.userName && <span>[{currentUser.userName}]</span>}
+          &nbsp;&nbsp;
+          <ExitToAppIcon />
         </Button>
       </>
     );
@@ -523,7 +522,9 @@ const Header = () => {
           color="inherit"
           onClick={(e) => logOut(e)}
         >
-          <ExitToAppIcon /> Logout
+          {currentUser.userName && <span>[{currentUser.userName}]</span>}
+          &nbsp;&nbsp;
+          <ExitToAppIcon />
         </Button>
       </>
     );

@@ -43,6 +43,10 @@ namespace WebStoreAPI.Controllers
                 // check for 500
                 // throw new Exception();
 
+                // check for ModeState
+                // ModelState.AddModelError("Username", "Username is Required!");
+                // ModelState.AddModelError("Password", "Password is Required!");
+
                 if (ModelState.IsValid)
                 {
                     var user = await userManager.FindByNameAsync(model.Username);

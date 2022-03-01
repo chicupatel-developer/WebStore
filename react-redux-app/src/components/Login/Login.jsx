@@ -32,7 +32,21 @@ const Login = () => {
     password: undefined,
   });
 
-  useEffect(() => {}, []);
+  const [modelErrors, setModelErrors] = useState([]);
+
+   const currentUser = useSelector(
+    (state) => state.auth.currentUser
+  );
+
+  useEffect(() => {
+      if (
+      currentUser.userName !== undefined && currentUser.userName !== null
+      ) {
+        // navigate to home page
+        navigate("/home");
+        window.location.reload();
+      }        
+  }, [currentUser]);
 
   const handleFormControlChangeEvent = (event) => {
     if (event.target.name === "userName") {
@@ -82,10 +96,21 @@ const Login = () => {
     return isValid;
   };
 
-  const handleSubmit = (e) => {
+  const handleModelState = (error) => {
+    var errors = [];
+    if (error.response.status === 400) {
+      for (let prop in error.response.data) {
+        errors.push(error.response.data[prop]);
+      }
+    } else {
+      console.log(modelErrors);
+    }
+    return errors;
+  };
 
+  const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     if (formValid(isError)) {
     } else {
       console.log("Form is invalid!");
@@ -125,17 +150,61 @@ const Login = () => {
         localStorage.setItem("currentUser", JSON.stringify(apiResponse));
 
         // navigate to home page
-        navigate("/home");
+        // navigate("/home");
+        // window.location.reload();
       })
       .catch((error) => {
-        console.log(error);
-      }); 
+        if (error.response.status === 400) {
+          // 400:401
+          if (
+            typeof error.response.data.response !== "undefined" &&
+            error.response.data.response.responseCode === 401
+          ) {
+            console.log(error.response.data.response.responseMessage);
+            var errors = [];
+            errors.push(error.response.data.response.responseMessage);
+            setModelErrors(errors);
+          } else if (
+            typeof error.response.data.response !== "undefined" &&
+            error.response.data.response.responseCode === 500
+          ) {
+            console.log(error.response.data.response.responseMessage);
+            var errors = [];
+            errors.push(error.response.data.response.responseMessage);
+            setModelErrors(errors);
+          }
+          // 400
+          else {
+            setModelErrors(handleModelState(error));
+          }
+        } else {
+          console.log("other error...");
+        }
+      });
   };
+
+  const modelErrorList =
+    modelErrors.length > 0 &&
+    modelErrors.map((item, i) => {
+      return (
+        <ul key={i} value={item}>
+          <li style={{ marginTop: 0 }}>{item}</li>
+        </ul>
+      );
+    }, this);
 
   return (
     <div className={classes.main}>
       <Container maxWidth="md">
         <h1>Login</h1>
+
+        <div className={classes.errorList}>
+          {modelErrors.length > 0 ? (
+            <span style={{ color: "red" }}>{modelErrorList}</span>
+          ) : (
+            <span></span>
+          )}
+        </div>
 
         <form noValidate>
           <Grid container spacing={3}>
@@ -155,6 +224,7 @@ const Login = () => {
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
+                type="password"
                 name="password"
                 fullWidth
                 label="Password"
