@@ -108,12 +108,6 @@ const Header = () => {
 
   const { mobileView, drawerOpen } = state;
 
-  const setResponsiveness = () => {
-    return window.innerWidth < 1100
-      ? setState((prevState) => ({ ...prevState, mobileView: true }))
-      : setState((prevState) => ({ ...prevState, mobileView: false }));
-  };
-
   // when user refresh page, redux store will gets reset
   // so check in browser local storage for currentUser object
   // this will fire another useEffect() depending on [currentUser]
@@ -138,9 +132,13 @@ const Header = () => {
       console.log("Not Logged In Yet!");
     }
 
+    const setResponsiveness = () => {
+      return window.innerWidth < 1100
+        ? setState((prevState) => ({ ...prevState, mobileView: true }))
+        : setState((prevState) => ({ ...prevState, mobileView: false }));
+    };
     setResponsiveness();
-
-    // fix it, when window resize, memory leack error @ console
+    // very first time, when window resize, memory leack error @ console
     window.addEventListener("resize", () => setResponsiveness());
 
     return () => {
@@ -169,9 +167,13 @@ const Header = () => {
       setCartItemCount(0);
     }
 
-
+    const setResponsiveness = () => {
+      return window.innerWidth < 1100
+        ? setState((prevState) => ({ ...prevState, mobileView: true }))
+        : setState((prevState) => ({ ...prevState, mobileView: false }));
+    };
     setResponsiveness();
-    // fix it, when window resize, memory leack error @ console
+    // very first time, when window resize, memory leack error @ console
     window.addEventListener("resize", () => setResponsiveness());
 
     return () => {
@@ -193,9 +195,13 @@ const Header = () => {
       console.log("Not Logged In Yet!");
     }
 
-
+    const setResponsiveness = () => {
+      return window.innerWidth < 1100
+        ? setState((prevState) => ({ ...prevState, mobileView: true }))
+        : setState((prevState) => ({ ...prevState, mobileView: false }));
+    };
     setResponsiveness();
-    // fix it, when window resize, memory leack error @ console
+    // very first time, when window resize, memory leack error @ console
     window.addEventListener("resize", () => setResponsiveness());
 
     return () => {
@@ -492,9 +498,13 @@ const Header = () => {
           color="inherit"
           onClick={(e) => logOut(e)}
         >
-          {currentUser.userName && <span>[{currentUser.userName}]</span>}
-          &nbsp;&nbsp;
-          <ExitToAppIcon />
+          <span>
+            {currentUser.userName && <span>[{currentUser.userName}]</span>}
+            &nbsp;&nbsp;
+            <ExitToAppIcon className={classes.logoutSymbol} />
+            <br />
+            <span className={classes.adminSpan}>Admin</span>
+          </span>
         </Button>
       </>
     );
@@ -548,9 +558,13 @@ const Header = () => {
           color="inherit"
           onClick={(e) => logOut(e)}
         >
-          {currentUser.userName && <span>[{currentUser.userName}]</span>}
-          &nbsp;&nbsp;
-          <ExitToAppIcon />
+          <span>
+            {currentUser.userName && <span>[{currentUser.userName}]</span>}
+            &nbsp;&nbsp;
+            <ExitToAppIcon className={classes.logoutSymbol}/>
+            <br />
+            <span className={classes.shopperSpan}>Shopper</span>
+          </span>
         </Button>
       </>
     );

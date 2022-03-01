@@ -46,9 +46,21 @@ export default makeStyles((theme) => ({
   },
   searchSymbol: {
     position: "absolute",
-    paddingleft: '35px',
-    marginLeft:'10px',
+    paddingleft: "35px",
+    marginLeft: "10px",
     marginTop: "22px",
-    color: 'green',
+    color: "green",
+  },
+  logoutSymbol: {
+    position: "absolute",
+    marginTop: "1px",
+  },
+  shopperSpan: {
+    color: "white",
+    backgroundColor: "black",
+  },
+  adminSpan: {
+    color: "red",
+    backgroundColor: "white",
   },
 }));
