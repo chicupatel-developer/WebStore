@@ -5,7 +5,7 @@ export default makeStyles((theme) => ({
     backgroundColor: "#400CCC",
     paddingRight: "79px",
     paddingLeft: "118px",
-    "@media (max-width: 900px)": {
+    "@media (max-width: 1100px)": {
       paddingLeft: 0,
     },
   },
@@ -62,5 +62,30 @@ export default makeStyles((theme) => ({
   adminSpan: {
     color: "red",
     backgroundColor: "white",
+  },
+  shopperHeader: {
+    backgroundColor: "lightBlue",
+    paddingRight: "79px",
+    paddingLeft: "118px",
+    "@media (max-width: 1100px)": {
+      paddingLeft: 0,
+    },
+  },
+  adminHeader: {
+    backgroundColor: "lightgreen",
+    color: 'black',
+    paddingRight: "79px",
+    paddingLeft: "118px",
+    "@media (max-width: 1100px)": {
+      paddingLeft: 0,
+    },
+  },
+  defaultHeader: {
+    backgroundColor: "black",
+    paddingRight: "79px",
+    paddingLeft: "118px",
+    "@media (max-width: 1100px)": {
+      paddingLeft: 0,
+    },
   },
 }));

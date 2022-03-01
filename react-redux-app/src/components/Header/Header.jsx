@@ -14,12 +14,12 @@ import {
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
+import StorefrontIcon from '@material-ui/icons/Storefront';
 
 import React, { useState, useEffect } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import HomeIcon from "@material-ui/icons/Home";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import StorefrontIcon from "@material-ui/icons/Storefront";
 import Badge from "@material-ui/core/Badge";
 import useStyles from "./styles";
 import { useDispatch, useSelector } from "react-redux";
@@ -631,9 +631,23 @@ const Header = () => {
 
   return (
     <header>
-      <AppBar className={classes.header}>
-        {mobileView ? displayMobile() : displayDesktop()}
-      </AppBar>
+      {currentUser.role === "Shopper" ? (
+        <AppBar className={classes.shopperHeader}>
+          {mobileView ? displayMobile() : displayDesktop()}
+        </AppBar>
+      ) : (
+        <span>
+          {currentUser.role === "Admin" ? (
+            <AppBar className={classes.adminHeader}>
+              {mobileView ? displayMobile() : displayDesktop()}
+            </AppBar>
+          ) : (
+            <AppBar className={classes.defaultHeader}>
+              {mobileView ? displayMobile() : displayDesktop()}
+            </AppBar>
+          )}
+        </span>
+      )}
     </header>
   );
 };

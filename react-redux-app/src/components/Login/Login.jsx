@@ -186,7 +186,7 @@ const Login = () => {
 
   return (
     <div className={classes.main}>
-      <Container maxWidth="md">
+      <Container maxWidth="xs">
         <h1>Login</h1>
 
         <div className={classes.errorList}>
@@ -198,8 +198,8 @@ const Login = () => {
         </div>
 
         <form noValidate>
-          <Grid container spacing={3}>
-            <Grid item xs={12} sm={6}>
+          <Grid container direction="row" spacing={3}>           
+            <Grid item xs={12} sm={12}>
               <TextField
                 name="userName"
                 fullWidth
@@ -213,7 +213,7 @@ const Login = () => {
                 )}
               </span>
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={12}>
               <TextField
                 type="password"
                 name="password"
@@ -227,7 +227,7 @@ const Login = () => {
                   <span className="invalid-feedback">{isError.password}</span>
                 )}
               </span>
-            </Grid>
+            </Grid>        
           </Grid>
           <br />
           <div style={{ display: "flex", justifyContent: "space-between" }}>
