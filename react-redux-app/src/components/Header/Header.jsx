@@ -24,7 +24,10 @@ import Badge from "@material-ui/core/Badge";
 import useStyles from "./styles";
 import { useDispatch, useSelector } from "react-redux";
 import { setSearchText } from "../../redux/actions/productsActions";
-import { setCurrentUser } from "../../redux/actions/authActions";
+import {
+  setCurrentUser,
+  setLoginStatus,
+} from "../../redux/actions/authActions";
 
 import SearchBar from "material-ui-search-bar";
 
@@ -105,6 +108,12 @@ const Header = () => {
 
   const { mobileView, drawerOpen } = state;
 
+  const setResponsiveness = () => {
+    return window.innerWidth < 1100
+      ? setState((prevState) => ({ ...prevState, mobileView: true }))
+      : setState((prevState) => ({ ...prevState, mobileView: false }));
+  };
+
   // when user refresh page, redux store will gets reset
   // so check in browser local storage for currentUser object
   // this will fire another useEffect() depending on [currentUser]
@@ -119,22 +128,19 @@ const Header = () => {
     ) {
       if (currentUserFromStorage.role === "Admin") {
         console.log("local-storage-Admin");
+        navigate("/");
       } else if (currentUserFromStorage.role === "Shopper") {
         console.log("local-storage-Shopper");
+        navigate("/");
       }
       dispatch(setCurrentUser(currentUserFromStorage));
     } else {
       console.log("Not Logged In Yet!");
     }
 
-    const setResponsiveness = () => {
-      return window.innerWidth < 1100
-        ? setState((prevState) => ({ ...prevState, mobileView: true }))
-        : setState((prevState) => ({ ...prevState, mobileView: false }));
-    };
-
     setResponsiveness();
 
+    // fix it, when window resize, memory leack error @ console
     window.addEventListener("resize", () => setResponsiveness());
 
     return () => {
@@ -162,6 +168,15 @@ const Header = () => {
       console.log("CART IS EMPTY!!! ,,,running init function @ header!!");
       setCartItemCount(0);
     }
+
+
+    setResponsiveness();
+    // fix it, when window resize, memory leack error @ console
+    window.addEventListener("resize", () => setResponsiveness());
+
+    return () => {
+      window.removeEventListener("resize", () => setResponsiveness());
+    };
   }, [myShoppingCart]);
 
   // updates when user login
@@ -169,12 +184,23 @@ const Header = () => {
     if (currentUser !== undefined && currentUser !== null) {
       if (currentUser.role === "Admin") {
         console.log("Admin");
+        navigate("/");
       } else if (currentUser.role === "Shopper") {
         console.log("Shopper");
+        navigate("/");
       }
     } else {
       console.log("Not Logged In Yet!");
     }
+
+
+    setResponsiveness();
+    // fix it, when window resize, memory leack error @ console
+    window.addEventListener("resize", () => setResponsiveness());
+
+    return () => {
+      window.removeEventListener("resize", () => setResponsiveness());
+    };
   }, [currentUser]);
 
   /*
@@ -583,7 +609,9 @@ const Header = () => {
   // when user log out
   const logOut = () => {
     localStorage.removeItem("currentUser");
+    localStorage.removeItem("loginStatus");
     dispatch(setCurrentUser({}));
+    dispatch(setLoginStatus(false));
     navigate("/");
   };
 

@@ -14,7 +14,10 @@ import {
 } from "@material-ui/core";
 
 import { useDispatch, useSelector } from "react-redux";
-import { setCurrentUser } from "../../redux/actions/authActions";
+import {
+  setCurrentUser,
+  setLoginStatus,
+} from "../../redux/actions/authActions";
 
 import { useNavigate } from "react-router-dom";
 
@@ -23,7 +26,6 @@ import AuthService from "../../services/auth.service";
 const Login = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -34,18 +36,10 @@ const Login = () => {
 
   const [modelErrors, setModelErrors] = useState([]);
 
-   const currentUser = useSelector(
-    (state) => state.auth.currentUser
-  );
+  const currentUser = useSelector((state) => state.auth.currentUser);
 
   useEffect(() => {
-      if (
-      currentUser.userName !== undefined && currentUser.userName !== null
-      ) {
-        // navigate to home page
-        navigate("/home");
-        window.location.reload();
-      }        
+    
   }, [currentUser]);
 
   const handleFormControlChangeEvent = (event) => {
@@ -144,14 +138,11 @@ const Login = () => {
           token: response.data.token, // "admin-token",
         };
         // store current user @ redux store
+        dispatch(setCurrentUser({}));
         dispatch(setCurrentUser(apiResponse));
 
         // store current user @ browser local storage
-        localStorage.setItem("currentUser", JSON.stringify(apiResponse));
-
-        // navigate to home page
-        // navigate("/home");
-        // window.location.reload();
+        localStorage.setItem("currentUser", JSON.stringify(apiResponse));        
       })
       .catch((error) => {
         if (error.response.status === 400) {

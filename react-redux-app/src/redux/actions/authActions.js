@@ -7,3 +7,9 @@ export const setCurrentUser = (user) => {
   };
 };
 
+export const setLoginStatus = (loginStatus) => {
+  return {
+    type: ActionTypes.SET_LOGIN_STATUS,
+    payload: loginStatus,
+  };
+};
