@@ -11,4 +11,10 @@ export default makeStyles((theme) => ({
     marginTop: "10px",
     marginBottom: "10px",
   },
+  registerSuccess: {
+    color: "green",
+  },
+  registerFail: {
+    color: "red",
+  },
 }));

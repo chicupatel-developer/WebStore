@@ -29,6 +29,9 @@ import validator from "validator";
 
 import CheckCircleRoundedIcon from "@material-ui/icons/CheckCircleRounded";
 import CancelIcon from "@material-ui/icons/Cancel";
+import { RegisterStatusTypes } from "../../redux/constants/registerStatus-types";
+import { setRegisterStatus } from "../../redux/actions/authActions";
+import { PaymentStatusTypes } from "../../redux/constants/paymentStauts-types";
 
 const Register = () => {
   const classes = useStyles();
@@ -48,9 +51,11 @@ const Register = () => {
 
   const [modelErrors, setModelErrors] = useState([]);
 
+  const registerStatus = useSelector((state) => state.auth.registerStatus);
+
   useEffect(() => {
     setRoles(getRoles());
-
+    dispatch(setRegisterStatus(RegisterStatusTypes.IN_PROGRESS));
     return () => {};
   }, []);
 
@@ -190,10 +195,12 @@ const Register = () => {
           responseCode: response.data.responseCode,
           responseMessage: response.data.responseMessage,
         };
-          console.log(apiResponse);
-          resetForm();
+        dispatch(setRegisterStatus(RegisterStatusTypes.SUCCESS));
+        console.log(apiResponse);
+        resetForm();
       })
       .catch((error) => {
+        dispatch(setRegisterStatus(RegisterStatusTypes.FAIL));
         setModelErrors([]);
         // 400-ModelState, 500
         // 400
@@ -234,7 +241,28 @@ const Register = () => {
   return (
     <div className={classes.main}>
       <Container maxWidth="xs">
-        <h1>Register</h1>
+        <h1>
+          Register
+          <span>
+            {registerStatus === RegisterStatusTypes.SUCCESS ? (
+              <span className={classes.registerSuccess}>
+                <CheckCircleRoundedIcon style={{ marginBottom: "-3px" }} />{" "}
+                &nbsp;&nbsp;&nbsp; SUCCESS !
+              </span>
+            ) : (
+              <span>
+                {registerStatus === RegisterStatusTypes.FAIL ? (
+                  <span className={classes.registerFail}>
+                    <CancelIcon style={{ marginBottom: "-3px" }} />
+                    &nbsp;&nbsp;&nbsp; FAIL !
+                  </span>
+                ) : (
+                  <span></span>
+                )}
+              </span>
+            )}
+          </span>
+        </h1>
 
         <div className={classes.errorList}>
           {modelErrors.length > 0 ? (

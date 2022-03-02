@@ -8,3 +8,9 @@ export const setCurrentUser = (user) => {
 };
 
 
+export const setRegisterStatus = (rStatus) => {
+  return {
+    type: ActionTypes.SET_REGISTER_STATUS,
+    payload: rStatus,
+  };
+};
