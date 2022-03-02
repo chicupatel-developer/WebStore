@@ -1,6 +1,8 @@
 ﻿EntityFrameworkCore\Add-Migration initial-webstore-auth-db-create -context WebStore.Context.Authentication.ApplicationDbContext -OutputDir AuthenticationMigrations
 EntityFrameworkCore\update-database -context WebStore.Context.Authentication.ApplicationDbContext
 
+EntityFrameworkCore\Add-Migration initial-webstore-db-create -context WebStore.Context.WebStoreContext -OutputDir Migrations
+EntityFrameworkCore\update-database -context WebStore.Context.WebStoreContext
 
 
 

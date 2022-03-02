@@ -25,12 +25,14 @@ import {
   setPaymentStatus,
   setPaymentDetails,
 } from "../../redux/actions/checkoutActions";
-import {
-  setMyShoppingCart,
-} from "../../redux/actions/productsActions";
+import { setMyShoppingCart } from "../../redux/actions/productsActions";
 import { PaymentStatusTypes } from "../../redux/constants/paymentStauts-types";
 
+import ProductService from "../../services/product.service";
+
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
+
+
 
 const Payment = ({ changeStep, backStep }) => {
   const classes = useStyles();
@@ -41,8 +43,21 @@ const Payment = ({ changeStep, backStep }) => {
   const cartTotalAmount = useSelector(
     (state) => state.checkout.cartTotalAmount
   );
+  const myShoppingCart = useSelector(
+    (state) => state.allProducts.myShoppingCart
+  );
 
   useEffect(() => {}, []);
+
+  const addProductSold = (data) => {    
+    ProductService.addProductSold(data)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   const doPayment = async (event, elements, stripe) => {
     console.log("do payment!");
@@ -84,13 +99,53 @@ const Payment = ({ changeStep, backStep }) => {
         amountPaid: cartTotalAmount,
       };
 
+
+
+
+
+      // product-sold
+      // call to web-api for sending my-shopping-cart info
+      console.log(myShoppingCart);
+      /*
+      (3) [{…}, {…}, {…}]
+        0:
+        category: "men's clothing"
+        id: 1
+        image: "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"
+        price: 109.95
+        qty: 1
+        title: "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops"
+        [[Prototype]]: Object
+        1: {id: 2, qty: 1, image: 'https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg', title: 'Mens Casual Premium Slim Fit T-Shirts ', category: "men's clothing", …}
+        2: {id: 3, qty: 1, image: 'https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg', title: 'Mens Cotton Jacket', category: "men's clothing", …}
+      */
+      let myPurchaseItems = [];
+      myShoppingCart.forEach(function (arrayItem) {
+        myPurchaseItems.push({
+          productId: arrayItem.id,
+          qty: arrayItem.qty,
+          price: arrayItem.price
+        });
+      });
+      console.log(myPurchaseItems);
+      addProductSold(myPurchaseItems);
+
+
+
+
+
+      
+
       // dispatch(setPaymentStatus(true));
-      dispatch(setPaymentStatus(PaymentStatusTypes.SUCCESS));      
+      dispatch(setPaymentStatus(PaymentStatusTypes.SUCCESS));
       dispatch(setPaymentDetails(paymentDetails));
       dispatch(setMyShoppingCart([]));
       changeStep();
     }
   };
+
+  
+
 
   return (
     <div>

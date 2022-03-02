@@ -21,6 +21,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration.Json;
+using WebStore.Service.Interfaces;
+using WebStore.Service.Repositories;
 
 namespace WebStoreAPI
 {
@@ -37,6 +39,18 @@ namespace WebStoreAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            #region Repositories
+            services.AddTransient<IProductRepository, ProductRepository>();         
+            #endregion
+
+            #region WebStoreContext
+            services.AddDbContext<WebStoreContext>(options =>
+                    options.UseSqlServer(
+                      Configuration.GetConnectionString("WebStoreConnection"),
+                      b => b.MigrationsAssembly(typeof(WebStoreContext).Assembly.FullName)));
+            #endregion
+
 
             #region token configuration
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AuthConnection")));
