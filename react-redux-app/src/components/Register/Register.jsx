@@ -23,24 +23,36 @@ import { useNavigate } from "react-router-dom";
 
 import AuthService from "../../services/auth.service";
 
-const Login = () => {
+import { getRoles } from "../../services/localService";
+
+import validator from "validator";
+
+import CheckCircleRoundedIcon from "@material-ui/icons/CheckCircleRounded";
+import CancelIcon from "@material-ui/icons/Cancel";
+
+const Register = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
+  const [roles, setRoles] = useState([]);
+  const [selectedRole, setSelectedRole] = useState("Shopper");
+
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
   const [isError, setIsError] = useState({
     userName: undefined,
     password: undefined,
+    email: undefined,
   });
 
   const [modelErrors, setModelErrors] = useState([]);
 
-  const currentUser = useSelector((state) => state.auth.currentUser);
-
   useEffect(() => {
-    
-  }, [currentUser]);
+    setRoles(getRoles());
+
+    return () => {};
+  }, []);
 
   const handleFormControlChangeEvent = (event) => {
     if (event.target.name === "userName") {
@@ -69,8 +81,32 @@ const Login = () => {
           password: "",
         });
       }
+    } else if (event.target.name === "email") {
+      setEmail(event.target.value);
+      if (event.target.value === "") {
+        setIsError({
+          ...isError,
+          email: "Email Is Required!",
+        });
+      } else if (validator.isEmail(event.target.value)) {
+        console.log("email ok...");
+        setIsError({
+          ...isError,
+          email: "",
+        });
+      } else {
+        setIsError({
+          ...isError,
+          email: "Invalid Email!",
+        });
+      }
     }
   };
+
+  const onRoleChange = (e) => {
+    setSelectedRole(e.target.value);
+  };
+
   const formValid = (isError) => {
     let isValid = false;
     var BreakException = {};
@@ -102,6 +138,13 @@ const Login = () => {
     return errors;
   };
 
+  const resetForm = () => {
+    setModelErrors([]);
+    setUserName("");
+    setPassword("");
+    setEmail("");
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -118,60 +161,52 @@ const Login = () => {
           ...isError,
           password: "Password Is Required!",
         });
+      if (email === "")
+        setIsError({
+          ...isError,
+          email: "Email Is Required!",
+        });
+      else if (!validator.isEmail(email)) {
+        setIsError({
+          ...isError,
+          email: "Invalid Email!",
+        });
+      }
       return;
     }
 
-    console.log("Login data Submitted!");
+    console.log("Register data Submitted!");
 
     var loginModel = {
       userName: userName,
       password: password,
+      email: email,
     };
 
     // api call
-    AuthService.login(loginModel)
+    AuthService.register(loginModel, selectedRole)
       .then((response) => {
-        console.log(response.data);
         let apiResponse = {
-          userName: response.data.userName,
-          role: response.data.myRole, // "admin-role",
-          token: response.data.token, // "admin-token",
+          responseCode: response.data.responseCode,
+          responseMessage: response.data.responseMessage,
         };
-        // store current user @ redux store
-        dispatch(setCurrentUser({}));
-        dispatch(setCurrentUser(apiResponse));
-
-        // store current user @ browser local storage
-        localStorage.setItem("currentUser", JSON.stringify(apiResponse));        
-        setModelErrors([]);
+          console.log(apiResponse);
+          resetForm();
       })
       .catch((error) => {
         setModelErrors([]);
+        // 400-ModelState, 500
+        // 400
         if (error.response.status === 400) {
-          // 400:401
-          if (
-            typeof error.response.data.response !== "undefined" &&
-            error.response.data.response.responseCode === 401
-          ) {
-            console.log(error.response.data.response.responseMessage);
-            var errors = [];
-            errors.push(error.response.data.response.responseMessage);
-            setModelErrors(errors);
-          } else if (
-            typeof error.response.data.response !== "undefined" &&
-            error.response.data.response.responseCode === 500
-          ) {
-            console.log(error.response.data.response.responseMessage);
-            var errors = [];
-            errors.push(error.response.data.response.responseMessage);
-            setModelErrors(errors);
-          }
-          // 400
-          else {
-            setModelErrors(handleModelState(error));
-          }
+          console.log(error.response.data);
+          setModelErrors(handleModelState(error));
         } else {
-          console.log("other error...");
+          // all other than 400 errors from api
+          // console.log('500 : Error');
+          // console.log(error.response.data.responseMessage);
+          var errors = [];
+          errors.push(error.response.data.responseMessage);
+          setModelErrors(errors);
         }
       });
   };
@@ -186,10 +221,20 @@ const Login = () => {
       );
     }, this);
 
+  const renderOptionsForRole = () => {
+    return roles.map((dt, i) => {
+      return (
+        <MenuItem value={dt.name} key={i} name={dt.name}>
+          {dt.name}
+        </MenuItem>
+      );
+    });
+  };
+
   return (
     <div className={classes.main}>
       <Container maxWidth="xs">
-        <h1>Login</h1>
+        <h1>Register</h1>
 
         <div className={classes.errorList}>
           {modelErrors.length > 0 ? (
@@ -200,7 +245,13 @@ const Login = () => {
         </div>
 
         <form noValidate>
-          <Grid container direction="row" spacing={3}>           
+          <Grid container direction="row" spacing={3}>
+            <Grid item xs={12} sm={6}>
+              Role : &nbsp;&nbsp;
+              <Select onChange={(e) => onRoleChange(e)} value={selectedRole}>
+                {renderOptionsForRole()}
+              </Select>
+            </Grid>
             <Grid item xs={12} sm={12}>
               <TextField
                 name="userName"
@@ -229,7 +280,21 @@ const Login = () => {
                   <span className="invalid-feedback">{isError.password}</span>
                 )}
               </span>
-            </Grid>        
+            </Grid>
+            <Grid item xs={12} sm={12}>
+              <TextField
+                name="email"
+                fullWidth
+                label="Email"
+                value={email}
+                onChange={(e) => handleFormControlChangeEvent(e)}
+              />
+              <span className={classes.controlInvalid}>
+                {isError.email && (
+                  <span className="invalid-feedback">{isError.email}</span>
+                )}
+              </span>
+            </Grid>
           </Grid>
           <br />
           <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -242,7 +307,7 @@ const Login = () => {
               variant="contained"
               color="primary"
             >
-              Login
+              Register
             </Button>
           </div>
         </form>
@@ -251,4 +316,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

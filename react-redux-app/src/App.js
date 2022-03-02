@@ -10,6 +10,7 @@ import NotFound from "./components/NotFound/NotFound";
 import Checkout from "./components/Checkout/Checkout";
 import Login from "./components/Login/Login";
 import AdminProductSales from "./components/Admin-ProductSales/AdminProductSales";
+import Register from "./components/Register/Register";
 
 import "./App.css";
 
@@ -54,9 +55,10 @@ function App() {
             <Router>
               <Header />
               <Routes>
-                <Route path="/" element={<Home />} />              
+                <Route path="/" element={<Home />} />
                 <Route path="/home" element={<Home />} />
-                <Route path="/login" element={<Login />} />              
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </Router>

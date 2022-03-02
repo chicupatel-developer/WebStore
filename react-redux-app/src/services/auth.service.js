@@ -2,8 +2,8 @@ import http from "../auth-http-common";
 
 class AuthService {
   
-    register(data, myRole) {
-        return http.post(`/register/${myRole}`, data);
+    register = async (data, myRole) => {
+        return await http.post(`/register/${myRole}`, data);
     }
 
 

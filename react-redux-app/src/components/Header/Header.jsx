@@ -14,7 +14,7 @@ import {
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
-import StorefrontIcon from '@material-ui/icons/Storefront';
+import StorefrontIcon from "@material-ui/icons/Storefront";
 
 import React, { useState, useEffect } from "react";
 import { Link as RouterLink } from "react-router-dom";
@@ -34,6 +34,7 @@ import SearchBar from "material-ui-search-bar";
 import PersonTwoToneIcon from "@material-ui/icons/PersonTwoTone";
 import SupervisorAccountTwoToneIcon from "@material-ui/icons/SupervisorAccountTwoTone";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import VpnKeyIcon from "@material-ui/icons/VpnKey";
 
 const headersData = [
   {
@@ -313,6 +314,15 @@ const Header = () => {
             <PersonTwoToneIcon /> Login
           </MenuItem>
         </Link>
+        <Link
+          className={classes.linkStyle}
+          color="inherit"
+          onClick={(e) => doComponentRedirect(e, "Register")}
+        >
+          <MenuItem>
+            <VpnKeyIcon /> Register
+          </MenuItem>
+        </Link>
       </>
     );
   };
@@ -561,7 +571,7 @@ const Header = () => {
           <span>
             {currentUser.userName && <span>[{currentUser.userName}]</span>}
             &nbsp;&nbsp;
-            <ExitToAppIcon className={classes.logoutSymbol}/>
+            <ExitToAppIcon className={classes.logoutSymbol} />
             <br />
             <span className={classes.shopperSpan}>Shopper</span>
           </span>
@@ -607,6 +617,13 @@ const Header = () => {
         >
           <PersonTwoToneIcon /> Login
         </Button>
+        <Button
+          className={classes.menuButton}
+          color="inherit"
+          onClick={(e) => doComponentRedirect(e, "Register")}
+        >
+          <VpnKeyIcon /> Register
+        </Button>
       </>
     );
   };
@@ -618,14 +635,13 @@ const Header = () => {
     if (routePath === "Products") navigate("/");
     if (routePath === "Cart") navigate("/cart");
     if (routePath === "Login") navigate("/login");
+    if (routePath === "Register") navigate("/register");
   };
 
   // when user log out
   const logOut = () => {
     localStorage.removeItem("currentUser");
-    localStorage.removeItem("loginStatus");
     dispatch(setCurrentUser({}));
-    dispatch(setLoginStatus(false));
     navigate("/");
   };
 

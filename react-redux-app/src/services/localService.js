@@ -169,3 +169,9 @@ export function getCountry() {
     { name: "Chad", code: "TD" },
   ];
 }
+export function getRoles() {
+  return [
+    { name: "Admin"},
+    { name: "Shopper" }
+  ];
+}

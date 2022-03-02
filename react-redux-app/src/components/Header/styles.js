@@ -64,7 +64,7 @@ export default makeStyles((theme) => ({
     backgroundColor: "white",
   },
   shopperHeader: {
-    backgroundColor: "lightBlue",
+    backgroundColor: "brown",
     paddingRight: "79px",
     paddingLeft: "118px",
     "@media (max-width: 1100px)": {
