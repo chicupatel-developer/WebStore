@@ -144,6 +144,10 @@ const Header = () => {
 
     return () => {
       window.removeEventListener("resize", () => setResponsiveness());
+
+      // FIXED,,,
+      // very first time, when window resize, memory leack error @ console
+      setState((prevState) => ({ ...prevState }));
     };
   }, []);
 
@@ -179,6 +183,10 @@ const Header = () => {
 
     return () => {
       window.removeEventListener("resize", () => setResponsiveness());
+
+      // FIXED,,,
+      // very first time, when window resize, memory leack error @ console
+      setState((prevState) => ({ ...prevState }));
     };
   }, [myShoppingCart]);
 
@@ -207,6 +215,10 @@ const Header = () => {
 
     return () => {
       window.removeEventListener("resize", () => setResponsiveness());
+
+      // FIXED,,,
+      // very first time, when window resize, memory leack error @ console
+      setState((prevState) => ({ ...prevState }));
     };
   }, [currentUser]);
 

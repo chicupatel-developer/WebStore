@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import useStyles from "./styles";
@@ -19,8 +20,6 @@ import {
   setLoginStatus,
 } from "../../redux/actions/authActions";
 
-import { useNavigate } from "react-router-dom";
-
 import AuthService from "../../services/auth.service";
 
 import { getRoles } from "../../services/localService";
@@ -36,6 +35,7 @@ import { PaymentStatusTypes } from "../../redux/constants/paymentStauts-types";
 const Register = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [roles, setRoles] = useState([]);
   const [selectedRole, setSelectedRole] = useState("Shopper");
@@ -198,6 +198,9 @@ const Register = () => {
         dispatch(setRegisterStatus(RegisterStatusTypes.SUCCESS));
         console.log(apiResponse);
         resetForm();
+
+        // redirect to login
+        setTimeout(() => navigate("/login"), 2000);
       })
       .catch((error) => {
         dispatch(setRegisterStatus(RegisterStatusTypes.FAIL));
@@ -241,19 +244,20 @@ const Register = () => {
   return (
     <div className={classes.main}>
       <Container maxWidth="xs">
-        <h1>
-          Register
+        <h1>Register</h1>
+
+        <div className={classes.registerStatus}>
           <span>
             {registerStatus === RegisterStatusTypes.SUCCESS ? (
               <span className={classes.registerSuccess}>
-                <CheckCircleRoundedIcon style={{ marginBottom: "-3px" }} />{" "}
+                <CheckCircleRoundedIcon style={{ marginBottom: "-6px" }} />{" "}
                 &nbsp;&nbsp;&nbsp; SUCCESS !
               </span>
             ) : (
               <span>
                 {registerStatus === RegisterStatusTypes.FAIL ? (
                   <span className={classes.registerFail}>
-                    <CancelIcon style={{ marginBottom: "-3px" }} />
+                    <CancelIcon style={{ marginBottom: "-6px" }} />
                     &nbsp;&nbsp;&nbsp; FAIL !
                   </span>
                 ) : (
@@ -262,7 +266,7 @@ const Register = () => {
               </span>
             )}
           </span>
-        </h1>
+        </div>
 
         <div className={classes.errorList}>
           {modelErrors.length > 0 ? (

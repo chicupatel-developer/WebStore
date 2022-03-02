@@ -17,4 +17,8 @@ export default makeStyles((theme) => ({
   registerFail: {
     color: "red",
   },
+  registerStatus: {
+    marginTop: "10px",
+    marginBottom: "10px",
+  },
 }));

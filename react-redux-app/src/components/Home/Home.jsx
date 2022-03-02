@@ -18,13 +18,12 @@ import {
 } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 
+import { useDispatch, useSelector } from "react-redux";
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
 const Home = () => {
   const classes = useStyles();
-
-  useEffect(() => {}, []); 
 
   return (
     <div className={classes.main}>
