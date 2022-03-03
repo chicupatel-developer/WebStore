@@ -8,6 +8,7 @@ const intialState = {
   // paymentStatus: false,
   paymentDetails: {},
   paymentStatus: PaymentStatusTypes.IN_PROGRESS,
+  productSoldResponse: {},
 };
 
 export const checkoutReducer = (state = intialState, { type, payload }) => {
@@ -22,6 +23,8 @@ export const checkoutReducer = (state = intialState, { type, payload }) => {
       return { ...state, paymentStatus: payload };
     case ActionTypes.SET_PAYMENT_DETAILS:
       return { ...state, paymentDetails: payload };
+    case ActionTypes.SET_PRODUCT_SOLD_RESPONSE:
+      return { ...state, productSoldResponse: payload };
     default:
       return state;
   }

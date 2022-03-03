@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebStore.Context.AuthDTO;
 using WebStore.Context.Models;
 using WebStore.Service.Interfaces;
 
@@ -26,18 +27,26 @@ namespace WebStoreAPI.Controllers
         [Route("addProductSold")]
         public IActionResult AddProductSold(List<ProductSold> productSold)
         {
+            var response = new Response();
             try
             {
                 // check for exception,,, 400
-                // throw new Exception();
+                throw new Exception();
 
-                _productRepo.AddProductSold(productSold);
-                return Ok("Sold Product Added To Database Successfully !");
-               
+                if (_productRepo.AddProductSold(productSold))
+                    return Ok("Sold Product Added To Database Successfully !");
+                else
+                    return StatusCode(StatusCodes.Status500InternalServerError, new Response { ResponseCode = 500, ResponseMessage = "Server Error !" });
+
             }
             catch (Exception ex)
             {
-                return BadRequest();
+                response.ResponseCode = 400;
+                response.ResponseMessage = "Bad Request !";
+                return BadRequest(new
+                {
+                    response = response,
+                });
             }
         }
 

@@ -25,7 +25,7 @@ namespace WebStore.Service.Repositories
                 foreach(var product in productSold)
                 {
                     appDbContext.ProductSold.Add(product);
-                    appDbContext.SaveChanges();                    
+                    appDbContext.SaveChanges();
                 }
                 transaction.Commit();
                 return true;

@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WebStore.Context.Migrations
 {
-    public partial class initialwebstoredbcreate : Migration
+    public partial class addproductsoldtable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -10,14 +11,16 @@ namespace WebStore.Context.Migrations
                 name: "ProductSold",
                 columns: table => new
                 {
-                    ProductId = table.Column<int>(nullable: false)
+                    ProductSoldId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductId = table.Column<int>(nullable: false),
                     Price = table.Column<decimal>(nullable: false),
-                    Qty = table.Column<int>(nullable: false)
+                    Qty = table.Column<int>(nullable: false),
+                    SoldDate = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductSold", x => x.ProductId);
+                    table.PrimaryKey("PK_ProductSold", x => x.ProductSoldId);
                 });
         }
 

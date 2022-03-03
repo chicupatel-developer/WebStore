@@ -14,6 +14,7 @@ import {
   Avatar,
   CardHeader,
   IconButton,
+  Divider,
 } from "@material-ui/core";
 
 import CheckCircleRoundedIcon from "@material-ui/icons/CheckCircleRounded";
@@ -35,9 +36,11 @@ const Confirmation = () => {
   );
   const paymentStatus = useSelector((state) => state.checkout.paymentStatus);
   const paymentDetails = useSelector((state) => state.checkout.paymentDetails);
+  const productSoldResponse = useSelector((state) => state.checkout.productSoldResponse);
 
   useEffect(() => {
     console.log(paymentStatus);
+    console.log(productSoldResponse);
 
     return () => {};
   }, []);
@@ -53,6 +56,10 @@ const Confirmation = () => {
           <Card className={classes.customerDetails}>
             <CardContent>
               <div>
+                <Typography variant="h5" gutterBottom>
+                  Stripe Payment Gateway Response
+                </Typography>
+
                 <Typography variant="h6" gutterBottom>
                   {paymentStatus === PaymentStatusTypes.SUCCESS ? (
                     <span className={classes.paymentSuccess}>
@@ -78,11 +85,26 @@ const Confirmation = () => {
                     Payment Date &amp; Time : &nbsp;
                     {paymentDetails.paymentDateAndTime}
                     <br />
-                    Amount Paid : &nbsp; $ {" "}
-                    {paymentDetails.amountPaid}
+                    Amount Paid : &nbsp; $ {paymentDetails.amountPaid}
                   </div>
                 ) : (
                   <></>
+                )}
+
+                <p></p>
+                <Divider />
+                <p></p>
+                <Typography variant="h5" gutterBottom>
+                  Web API Response
+                </Typography>
+                {productSoldResponse.responseCode === 200 ? (
+                  <div className={classes.paymentSuccess}>                    
+                    {productSoldResponse.responseMessage}
+                  </div>
+                ) : (
+                  <div className={classes.paymentFail}>                    
+                    {productSoldResponse.responseMessage}
+                  </div>
                 )}
               </div>
             </CardContent>

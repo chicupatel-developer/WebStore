@@ -13,9 +13,11 @@ namespace WebStore.Context.Models
         [Key]
         [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ProductId { get; set; }   
+        public int ProductSoldId { get; set; }   
+        public int ProductId { get; set; }
         public decimal Price { get; set; }
         public int Qty { get; set; }
+        public DateTime SoldDate { get; set; }
 
     }
 }

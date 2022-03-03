@@ -36,3 +36,10 @@ export const setPaymentDetails = (pDetails) => {
     payload: pDetails,
   };
 };
+
+export const setProductSoldResponse = (prSoldResponse) => {
+  return {
+    type: ActionTypes.SET_PRODUCT_SOLD_RESPONSE,
+    payload: prSoldResponse,
+  };
+};

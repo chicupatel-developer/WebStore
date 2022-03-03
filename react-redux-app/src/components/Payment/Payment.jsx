@@ -24,6 +24,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   setPaymentStatus,
   setPaymentDetails,
+  setProductSoldResponse,
 } from "../../redux/actions/checkoutActions";
 import { setMyShoppingCart } from "../../redux/actions/productsActions";
 import { PaymentStatusTypes } from "../../redux/constants/paymentStauts-types";
@@ -31,8 +32,6 @@ import { PaymentStatusTypes } from "../../redux/constants/paymentStauts-types";
 import ProductService from "../../services/product.service";
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
-
-
 
 const Payment = ({ changeStep, backStep }) => {
   const classes = useStyles();
@@ -49,13 +48,47 @@ const Payment = ({ changeStep, backStep }) => {
 
   useEffect(() => {}, []);
 
-  const addProductSold = (data) => {    
+  const addProductSold = (data) => {
     ProductService.addProductSold(data)
       .then((response) => {
-        console.log(response);
+        console.log(response.data);
+
+        // store product-sold-response from api to redux store
+        // and go to next step
+        let apiResponse = {
+          responseCode: 200,
+          responseMessage : response.data
+        };
+        dispatch(setProductSoldResponse(apiResponse));
+        changeStep();
       })
       .catch((error) => {
-        console.log(error);
+        if (error.response.status === 500) {
+          console.log(error.response.data.responseMessage);
+           let apiResponse = {
+             responseCode: error.response.status,
+             responseMessage: error.response.data.responseMessage,
+           };
+           dispatch(setProductSoldResponse(apiResponse));
+        }
+        else if (error.response.status === 400) {
+          console.log(error.response.data.response.responseMessage);
+            let apiResponse = {
+              responseCode: error.response.status,
+              responseMessage: error.response.data.response.responseMessage,
+            };
+            dispatch(setProductSoldResponse(apiResponse));
+        }
+        else {
+          console.log(error);
+            let apiResponse = {
+              responseCode: 400,
+              responseMessage: 'Other Error !',
+            };
+            dispatch(setProductSoldResponse(apiResponse));
+        }
+
+        changeStep();
       });
   };
 
@@ -102,7 +135,6 @@ const Payment = ({ changeStep, backStep }) => {
 
 
 
-
       // product-sold
       // call to web-api for sending my-shopping-cart info
       console.log(myShoppingCart);
@@ -119,33 +151,34 @@ const Payment = ({ changeStep, backStep }) => {
         1: {id: 2, qty: 1, image: 'https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg', title: 'Mens Casual Premium Slim Fit T-Shirts ', category: "men's clothing", …}
         2: {id: 3, qty: 1, image: 'https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg', title: 'Mens Cotton Jacket', category: "men's clothing", …}
       */
-      let myPurchaseItems = [];
+      let myPurchaseItems = [];      
+      let currentDate = new Date();
+      var CSToffSet = -360; //CST is -6:00 of UTC; i.e. 60*6 = -360 in minutes
+      var offset = CSToffSet * 60 * 1000;
+      var CSTTime = new Date(currentDate.getTime() + offset);
+
       myShoppingCart.forEach(function (arrayItem) {
         myPurchaseItems.push({
           productId: arrayItem.id,
           qty: arrayItem.qty,
-          price: arrayItem.price
+          price: arrayItem.price,
+          soldDate: CSTTime,
         });
       });
-      console.log(myPurchaseItems);
+      // console.log(myPurchaseItems);
       addProductSold(myPurchaseItems);
 
 
 
 
 
-      
-
       // dispatch(setPaymentStatus(true));
       dispatch(setPaymentStatus(PaymentStatusTypes.SUCCESS));
       dispatch(setPaymentDetails(paymentDetails));
       dispatch(setMyShoppingCart([]));
-      changeStep();
+      // changeStep();
     }
   };
-
-  
-
 
   return (
     <div>
