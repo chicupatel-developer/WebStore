@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Icon } from "semantic-ui-react";
 
 import useStyles from "./styles";
@@ -45,6 +45,7 @@ const Payment = ({ changeStep, backStep }) => {
   const myShoppingCart = useSelector(
     (state) => state.allProducts.myShoppingCart
   );
+  const currentUser = useSelector((state) => state.auth.currentUser);
 
   useEffect(() => {}, []);
 
@@ -57,7 +58,7 @@ const Payment = ({ changeStep, backStep }) => {
         // and go to next step
         let apiResponse = {
           responseCode: 200,
-          responseMessage : response.data
+          responseMessage: "SUCCESS! : " + response.data,
         };
         dispatch(setProductSoldResponse(apiResponse));
         changeStep();
@@ -65,27 +66,39 @@ const Payment = ({ changeStep, backStep }) => {
       .catch((error) => {
         if (error.response.status === 500) {
           console.log(error.response.data.responseMessage);
-           let apiResponse = {
-             responseCode: error.response.status,
-             responseMessage: error.response.data.responseMessage,
-           };
-           dispatch(setProductSoldResponse(apiResponse));
-        }
-        else if (error.response.status === 400) {
-          console.log(error.response.data.response.responseMessage);
-            let apiResponse = {
-              responseCode: error.response.status,
-              responseMessage: error.response.data.response.responseMessage,
-            };
-            dispatch(setProductSoldResponse(apiResponse));
-        }
-        else {
+          let apiResponse = {
+            responseCode: error.response.status,
+            responseMessage: "FAIL! : " + error.response.data.responseMessage,
+          };
+          dispatch(setProductSoldResponse(apiResponse));
+        } else if (error.response.status === 400) {
+          // Model State Invalid
+          if (error.response.data !== undefined) {
+            // 400 : Bad Request
+            if (error.response.data.response !== undefined) {
+              let apiResponse = {
+                responseCode: error.response.status,
+                responseMessage:
+                  "FAIL! : " + error.response.data.response.responseMessage,
+              };
+              dispatch(setProductSoldResponse(apiResponse));
+            }
+            // Model State Invalid 
+            else {
+              let apiResponse = {
+                responseCode: error.response.status,
+                responseMessage: "FAIL! : Invalid Model State!",
+              };
+              dispatch(setProductSoldResponse(apiResponse));
+            }
+          }
+        } else {
           console.log(error);
-            let apiResponse = {
-              responseCode: 400,
-              responseMessage: 'Other Error !',
-            };
-            dispatch(setProductSoldResponse(apiResponse));
+          let apiResponse = {
+            responseCode: 400,
+            responseMessage: "FAIL! : Other Error !",
+          };
+          dispatch(setProductSoldResponse(apiResponse));
         }
 
         changeStep();
@@ -132,10 +145,7 @@ const Payment = ({ changeStep, backStep }) => {
         amountPaid: cartTotalAmount,
       };
 
-
-
-
-      // product-sold
+      // product-sold db table
       // call to web-api for sending my-shopping-cart info
       console.log(myShoppingCart);
       /*
@@ -151,7 +161,7 @@ const Payment = ({ changeStep, backStep }) => {
         1: {id: 2, qty: 1, image: 'https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg', title: 'Mens Casual Premium Slim Fit T-Shirts ', category: "men's clothing", …}
         2: {id: 3, qty: 1, image: 'https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg', title: 'Mens Cotton Jacket', category: "men's clothing", …}
       */
-      let myPurchaseItems = [];      
+      let myPurchaseItems = [];
       let currentDate = new Date();
       var CSToffSet = -360; //CST is -6:00 of UTC; i.e. 60*6 = -360 in minutes
       var offset = CSToffSet * 60 * 1000;
@@ -163,16 +173,11 @@ const Payment = ({ changeStep, backStep }) => {
           qty: arrayItem.qty,
           price: arrayItem.price,
           soldDate: CSTTime,
+          userName: currentUser.userName,
         });
       });
-      // console.log(myPurchaseItems);
       addProductSold(myPurchaseItems);
 
-
-
-
-
-      // dispatch(setPaymentStatus(true));
       dispatch(setPaymentStatus(PaymentStatusTypes.SUCCESS));
       dispatch(setPaymentDetails(paymentDetails));
       dispatch(setMyShoppingCart([]));

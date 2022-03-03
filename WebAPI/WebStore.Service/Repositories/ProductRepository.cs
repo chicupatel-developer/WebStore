@@ -17,12 +17,14 @@ namespace WebStore.Service.Repositories
 
         public bool AddProductSold(List<ProductSold> productSold)
         {
-            // throw new NotImplementedException();
+            // throw new NotImplementedException();            
 
             using var transaction = appDbContext.Database.BeginTransaction();
             try
             {
-                foreach(var product in productSold)
+                // throw new Exception();
+
+                foreach (var product in productSold)
                 {
                     appDbContext.ProductSold.Add(product);
                     appDbContext.SaveChanges();

@@ -31,13 +31,23 @@ namespace WebStoreAPI.Controllers
             try
             {
                 // check for exception,,, 400
-                throw new Exception();
+                // throw new Exception();
 
-                if (_productRepo.AddProductSold(productSold))
-                    return Ok("Sold Product Added To Database Successfully !");
+
+                // check for ModeState
+                // ModelState.AddModelError("UserName", "UserName is Required!");
+
+                if (ModelState.IsValid)
+                {
+                    if (_productRepo.AddProductSold(productSold))
+                        return Ok("Sold Product Added To Database Successfully !");
+                    else
+                        return StatusCode(StatusCodes.Status500InternalServerError, new Response { ResponseCode = 500, ResponseMessage = "Server Error !" });
+                }
                 else
-                    return StatusCode(StatusCodes.Status500InternalServerError, new Response { ResponseCode = 500, ResponseMessage = "Server Error !" });
-
+                {
+                    return BadRequest(ModelState);
+                }
             }
             catch (Exception ex)
             {
