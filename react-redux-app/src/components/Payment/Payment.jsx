@@ -68,7 +68,7 @@ const Payment = ({ changeStep, backStep }) => {
           console.log(error.response.data.responseMessage);
           let apiResponse = {
             responseCode: error.response.status,
-            responseMessage: "FAIL! : " + error.response.data.responseMessage,
+            responseMessage: "FAIL ! : " + error.response.data.responseMessage,
           };
           dispatch(setProductSoldResponse(apiResponse));
         } else if (error.response.status === 400) {
@@ -79,7 +79,7 @@ const Payment = ({ changeStep, backStep }) => {
               let apiResponse = {
                 responseCode: error.response.status,
                 responseMessage:
-                  "FAIL! : " + error.response.data.response.responseMessage,
+                  "FAIL ! : " + error.response.data.response.responseMessage,
               };
               dispatch(setProductSoldResponse(apiResponse));
             }
@@ -87,7 +87,7 @@ const Payment = ({ changeStep, backStep }) => {
             else {
               let apiResponse = {
                 responseCode: error.response.status,
-                responseMessage: "FAIL! : Invalid Model State!",
+                responseMessage: "FAIL ! : Invalid Model State !",
               };
               dispatch(setProductSoldResponse(apiResponse));
             }
@@ -106,7 +106,7 @@ const Payment = ({ changeStep, backStep }) => {
   };
 
   const doPayment = async (event, elements, stripe) => {
-    console.log("do payment!");
+    console.log("do payment !");
 
     event.preventDefault();
 
@@ -123,7 +123,7 @@ const Payment = ({ changeStep, backStep }) => {
       // dispatch(setPaymentStatus(false));
       dispatch(setPaymentStatus(PaymentStatusTypes.FAIL));
     } else {
-      console.log("success!", paymentMethod);
+      console.log("success !", paymentMethod);
 
       // store payment details to redux store
       // and go to next step

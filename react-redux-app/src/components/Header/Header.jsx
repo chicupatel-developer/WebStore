@@ -35,6 +35,7 @@ import PersonTwoToneIcon from "@material-ui/icons/PersonTwoTone";
 import SupervisorAccountTwoToneIcon from "@material-ui/icons/SupervisorAccountTwoTone";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
+import HistoryIcon from "@material-ui/icons/History";
 
 const headersData = [
   {
@@ -382,6 +383,15 @@ const Header = () => {
         <Link
           className={classes.linkStyle}
           color="inherit"
+          onClick={(e) => doComponentRedirect(e, "History")}
+        >
+          <MenuItem>
+            <HistoryIcon /> History
+          </MenuItem>
+        </Link>
+        <Link
+          className={classes.linkStyle}
+          color="inherit"
           onClick={(e) => logOut(e)}
         >
           <MenuItem>
@@ -565,6 +575,14 @@ const Header = () => {
           </Badge>
         </Button>
 
+        <Button
+          className={classes.menuButton}
+          color="inherit"
+          onClick={(e) => doComponentRedirect(e, "History")}
+        >
+          <HistoryIcon /> History
+        </Button>
+
         <span className={classes.searchSymbol}>
           <SearchIcon />
         </span>
@@ -648,6 +666,7 @@ const Header = () => {
     if (routePath === "Cart") navigate("/cart");
     if (routePath === "Login") navigate("/login");
     if (routePath === "Register") navigate("/register");
+    if (routePath === "History") navigate("/shopping-history");
   };
 
   // when user log out

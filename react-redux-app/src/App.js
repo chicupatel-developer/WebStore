@@ -11,6 +11,7 @@ import Checkout from "./components/Checkout/Checkout";
 import Login from "./components/Login/Login";
 import AdminProductSales from "./components/Admin-ProductSales/AdminProductSales";
 import Register from "./components/Register/Register";
+import ShoppingHistory from "./components/ShoppingHistory/ShoppingHistory";
 
 import "./App.css";
 
@@ -48,6 +49,7 @@ function App() {
                 <Route path="/home" element={<Home />} />
                 <Route path="/cart" element={<ShoppingCart />} />
                 <Route path="/checkout" element={<Checkout />} />
+                <Route path="/shopping-history" element={<ShoppingHistory />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </Router>
