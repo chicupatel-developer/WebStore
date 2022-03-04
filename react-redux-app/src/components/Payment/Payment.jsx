@@ -29,7 +29,7 @@ import {
 import { setMyShoppingCart } from "../../redux/actions/productsActions";
 import { PaymentStatusTypes } from "../../redux/constants/paymentStauts-types";
 
-import ProductService from "../../services/product.service";
+import ShopperService from "../../services/product-shopper.service";
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
@@ -50,7 +50,7 @@ const Payment = ({ changeStep, backStep }) => {
   useEffect(() => {}, []);
 
   const addProductSold = (data) => {
-    ProductService.addProductSold(data)
+    ShopperService.addProductSold(data)
       .then((response) => {
         console.log(response.data);
 

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using WebStore.Context.AuthDTO;
+using WebStore.Context.DTO;
 using WebStore.Context.Authentication;
 using System;
 using System.Collections.Generic;

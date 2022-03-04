@@ -8,8 +8,4 @@
     <ProjectReference Include="..\WebStore.Context\WebStore.Context.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="DTO\" />
-  </ItemGroup>
-
 </Project>

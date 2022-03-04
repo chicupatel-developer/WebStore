@@ -41,7 +41,7 @@ namespace WebStoreAPI
             services.AddControllers();
 
             #region Repositories
-            services.AddTransient<IProductRepository, ProductRepository>();         
+            services.AddTransient<IShopperRepository, ShopperRepository>();         
             #endregion
 
             #region WebStoreContext
