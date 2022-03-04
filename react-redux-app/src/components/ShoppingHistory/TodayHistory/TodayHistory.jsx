@@ -10,6 +10,7 @@ import {
 } from "@material-ui/core";
 
 import { useDispatch, useSelector } from "react-redux";
+import { setUpdateHistory } from "../../../redux/actions/historyActions";
 
 import ShopperService from "../../../services/product-shopper.service";
 
@@ -20,9 +21,18 @@ const TodayHistory = () => {
   // redux
   // read
   const currentUser = useSelector((state) => state.auth.currentUser);
+  const updateHistory = useSelector(
+    (state) => state.shopperHistory.updateHistory
+  );
 
   useEffect(() => {
-    getTodayHistory();
+    if (updateHistory) {
+      console.log("get shopper history : call API");
+      getTodayHistory();
+      dispatch(setUpdateHistory(false));
+    } else {
+      console.log("No need for API call to get shopper history");
+    }
   }, []);
 
   const getStatisticalData = (apiResponse) => {
