@@ -10,12 +10,6 @@ import {
 } from "@material-ui/core";
 
 import { useDispatch, useSelector } from "react-redux";
-import {
-  setPaymentStatus,
-  setPaymentDetails,
-  setProductSoldResponse,
-} from "../../../redux/actions/checkoutActions";
-import { setMyShoppingCart } from "../../../redux/actions/productsActions";
 
 import ShopperService from "../../../services/product-shopper.service";
 
@@ -23,31 +17,49 @@ const TodayHistory = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
+  // redux
+  // read
+  const currentUser = useSelector((state) => state.auth.currentUser);
+
   useEffect(() => {
     getTodayHistory();
   }, []);
 
+  const getStatisticalData = (apiResponse) => {
+    let group = apiResponse.reduce((r, a) => {
+      r[a.productId] = [...(r[a.productId] || []), a];
+      return r;
+    }, {});
+    console.log("group", group);
+
+    let _history = [];
+
+    for (const key in group) {
+      console.log(`${key}: ${group[key]}`);
+
+      let productWiseQtyBought = 0;
+      group[key].forEach((product) => {
+        console.log(product);
+        productWiseQtyBought += product.qty;
+      });
+
+      let _productHistory = {
+        productId: group[key][0].productId,
+        qty: productWiseQtyBought,
+        date: group[key][0].soldDate,
+        productPrice: group[key][0].price,
+      };
+
+      _history.push(_productHistory);
+      console.log("------------------------");
+    }
+    console.log(_history);
+  };
   const getTodayHistory = () => {
-    ShopperService.getTodayHistory("haha")
+    ShopperService.getTodayHistory(currentUser.userName)
       .then((response) => {
         console.log(response);
-
-        let group = response.data.reduce((r, a) => {    
-          r[a.productId] = [...(r[a.productId] || []), a];
-          return r;
-        }, {});
-        console.log("group", group);
-
-       for (const key in group) {
-           console.log(`${key}: ${group[key]}`);
-           
-           group[key].forEach((product) => {
-               console.log(product);
-           });
-
-           console.log('------------------------');
-       }
-
+        getStatisticalData(response.data);
       })
       .catch((error) => {
         console.log(error);
