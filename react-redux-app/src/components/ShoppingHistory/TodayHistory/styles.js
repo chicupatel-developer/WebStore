@@ -2,9 +2,6 @@ import { makeStyles } from "@material-ui/core/styles";
 
 export default makeStyles((theme) => ({
   main: {
-    marginTop: "100px",
-    },
-    tabContentDiv: {
-      margin: '20px',  
-    },
+    marginTop: "20px",
+  },
 }));
