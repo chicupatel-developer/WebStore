@@ -12,7 +12,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import {
   setTodayHistoryData,
-  setHistoryData,
+  callApiForTodayData,
 } from "../../../redux/actions/historyActions";
 
 import ShopperService from "../../../services/product-shopper.service";
@@ -37,15 +37,17 @@ const TodayHistory = () => {
   const todayHistoryData = useSelector(
     (state) => state.shopperHistory.todayHistoryData
   );
-  const historyData = useSelector((state) => state.shopperHistory.historyData);
+  const getApiForTodayData = useSelector(
+    (state) => state.shopperHistory.callApiForTodayData
+  );
 
   useEffect(() => {
     // Moment.locale("en");
 
-    if (historyData) {
+    if (getApiForTodayData) {
       getTodayHistory();
     } else {
-      console.log("getting history data from Rudux store!");
+      console.log("getting today-history data from Rudux store!");
       console.log(todayHistoryData);
     }
   }, []);
@@ -85,7 +87,7 @@ const TodayHistory = () => {
   const getTodayHistory = () => {
     ShopperService.getTodayHistory(currentUser.userName)
       .then((response) => {
-        dispatch(setHistoryData(false));
+        dispatch(callApiForTodayData(false));
 
         console.log(response);
         getStatisticalData(response.data);
@@ -124,7 +126,7 @@ const TodayHistory = () => {
                   </TableCell>
                   <TableCell align="right">{row.productPrice}</TableCell>
                   <TableCell align="right">
-                    {Moment(row.date).format("ddd - DD MMM 'YY")}
+                    {Moment(row.date).format("ddd - DD MMM 'YY --- HH:mm A")}
                   </TableCell>
                   <TableCell align="right">{row.qty}</TableCell>
                 </TableRow>

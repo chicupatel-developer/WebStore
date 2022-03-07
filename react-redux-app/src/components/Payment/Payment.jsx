@@ -27,7 +27,9 @@ import {
   setProductSoldResponse,
 } from "../../redux/actions/checkoutActions";
 import {
-  setHistoryData,
+  callApiForTodayData,
+  callApiForWeeklyData,
+  callApiForMonthlyData,
 } from "../../redux/actions/historyActions";
 import { setMyShoppingCart } from "../../redux/actions/productsActions";
 import { PaymentStatusTypes } from "../../redux/constants/paymentStauts-types";
@@ -186,7 +188,9 @@ const Payment = ({ changeStep, backStep }) => {
       dispatch(setMyShoppingCart([]));
 
       // notify history data, so next time all history get updated from api
-      dispatch(setHistoryData(true));
+      dispatch(callApiForTodayData(true));
+      dispatch(callApiForWeeklyData(true));
+      dispatch(callApiForMonthlyData(true));
 
       // changeStep();
     }

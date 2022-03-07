@@ -29,7 +29,9 @@ import {
   setLoginStatus,
 } from "../../redux/actions/authActions";
 import {
-  setHistoryData,
+  callApiForTodayData,
+  callApiForWeeklyData,
+  callApiForMonthlyData,
 } from "../../redux/actions/historyActions";
 
 import SearchBar from "material-ui-search-bar";
@@ -676,7 +678,9 @@ const Header = () => {
   const logOut = () => {
     localStorage.removeItem("currentUser");
     dispatch(setCurrentUser({}));
-    dispatch(setHistoryData(true));
+    dispatch(callApiForTodayData(true));
+    dispatch(callApiForWeeklyData(true));
+    dispatch(callApiForMonthlyData(true));
     navigate("/");
   };
 
