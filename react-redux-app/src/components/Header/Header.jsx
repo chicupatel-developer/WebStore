@@ -28,6 +28,9 @@ import {
   setCurrentUser,
   setLoginStatus,
 } from "../../redux/actions/authActions";
+import {
+  setHistoryData,
+} from "../../redux/actions/historyActions";
 
 import SearchBar from "material-ui-search-bar";
 
@@ -673,6 +676,7 @@ const Header = () => {
   const logOut = () => {
     localStorage.removeItem("currentUser");
     dispatch(setCurrentUser({}));
+    dispatch(setHistoryData(true));
     navigate("/");
   };
 

@@ -157,12 +157,7 @@ const Customer = ({ changeStep }) => {
           ...isError,
           phoneNumber: "Invalid Phone Number!",
         });
-      } else {
-        setIsError({
-          ...isError,
-          phoneNumber: "",
-        });
-      }
+      } 
       return;
     }
 

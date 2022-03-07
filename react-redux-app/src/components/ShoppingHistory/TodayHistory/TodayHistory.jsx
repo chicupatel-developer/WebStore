@@ -10,9 +10,22 @@ import {
 } from "@material-ui/core";
 
 import { useDispatch, useSelector } from "react-redux";
-import { setUpdateHistory } from "../../../redux/actions/historyActions";
+import {
+  setTodayHistoryData,
+  setHistoryData,
+} from "../../../redux/actions/historyActions";
 
 import ShopperService from "../../../services/product-shopper.service";
+
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+
+import Moment from "moment";
 
 const TodayHistory = () => {
   const classes = useStyles();
@@ -21,17 +34,19 @@ const TodayHistory = () => {
   // redux
   // read
   const currentUser = useSelector((state) => state.auth.currentUser);
-  const updateHistory = useSelector(
-    (state) => state.shopperHistory.updateHistory
+  const todayHistoryData = useSelector(
+    (state) => state.shopperHistory.todayHistoryData
   );
+  const historyData = useSelector((state) => state.shopperHistory.historyData);
 
   useEffect(() => {
-    if (updateHistory) {
-      console.log("get shopper history : call API");
+    // Moment.locale("en");
+
+    if (historyData) {
       getTodayHistory();
-      dispatch(setUpdateHistory(false));
     } else {
-      console.log("No need for API call to get shopper history");
+      console.log("getting history data from Rudux store!");
+      console.log(todayHistoryData);
     }
   }, []);
 
@@ -64,10 +79,14 @@ const TodayHistory = () => {
       console.log("------------------------");
     }
     console.log(_history);
+
+    dispatch(setTodayHistoryData(_history));
   };
   const getTodayHistory = () => {
     ShopperService.getTodayHistory(currentUser.userName)
       .then((response) => {
+        dispatch(setHistoryData(false));
+
         console.log(response);
         getStatisticalData(response.data);
       })
@@ -75,10 +94,44 @@ const TodayHistory = () => {
         console.log(error);
       });
   };
+
+  const rows = todayHistoryData;
+
   return (
     <div className={classes.main}>
       <Container maxWidth="md">
         <h1>Today History</h1>
+        <p></p>
+
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 650 }} aria-label="History">
+            <TableHead>
+              <TableRow>
+                <TableCell>Product #</TableCell>
+                <TableCell align="right">Price</TableCell>
+                <TableCell align="right">Date</TableCell>
+                <TableCell align="right">Qty</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rows.map((row) => (
+                <TableRow
+                  key={row.productId}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
+                  <TableCell component="th" scope="row">
+                    {row.productId}
+                  </TableCell>
+                  <TableCell align="right">{row.productPrice}</TableCell>
+                  <TableCell align="right">
+                    {Moment(row.date).format("ddd - DD MMM 'YY")}
+                  </TableCell>
+                  <TableCell align="right">{row.qty}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
       </Container>
     </div>
   );
