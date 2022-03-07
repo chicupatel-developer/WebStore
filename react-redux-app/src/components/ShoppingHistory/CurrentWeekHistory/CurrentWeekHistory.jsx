@@ -126,7 +126,7 @@ const CurrentWeekHistory = () => {
                   </TableCell>
                   <TableCell align="right">{row.productPrice}</TableCell>
                   <TableCell align="right">
-                    {Moment(row.date).format("ddd - DD MMM 'YY --- HH:mm A")}
+                    {Moment(row.date).format("ddd  DD MMM , hh:mm a")}
                   </TableCell>
                   <TableCell align="right">{row.qty}</TableCell>
                 </TableRow>
