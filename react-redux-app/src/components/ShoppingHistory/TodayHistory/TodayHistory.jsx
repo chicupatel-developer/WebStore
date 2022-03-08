@@ -43,6 +43,9 @@ const TodayHistory = () => {
     (state) => state.shopperHistory.callApiForTodayData
   );
 
+  // this will read allProducts.products from redux-store
+  const products = useSelector((state) => state.allProducts.products);
+
   useEffect(() => {
     // Moment.locale("en");
 
@@ -72,11 +75,15 @@ const TodayHistory = () => {
         productWiseQtyBought += product.qty;
       });
 
+      // get image for related productId
+      let _product = products.find((p) => p.id === group[key][0].productId);
+
       let _productHistory = {
         productId: group[key][0].productId,
         qty: productWiseQtyBought,
         date: group[key][0].soldDate,
         productPrice: group[key][0].price,
+        image: _product.image,
       };
 
       _history.push(_productHistory);
@@ -140,11 +147,11 @@ const TodayHistory = () => {
           <Table sx={{ minWidth: 650 }} aria-label="History">
             <TableHead>
               <TableRow>
-                <TableCell>Product #</TableCell>
+                <TableCell>Product</TableCell>
                 <TableCell align="right">$ [Unit Price]</TableCell>
-                <TableCell align="right">Shopping Qty</TableCell>
+                <TableCell align="right">Purchased Qty</TableCell>
                 <TableCell align="right">$ [Total]</TableCell>
-                <TableCell align="right">Purchase Date</TableCell>
+                <TableCell align="right">Purchased Date</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -154,8 +161,10 @@ const TodayHistory = () => {
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell component="th" scope="row">
-                    {row.productId}
+                    {/* {row.productId} */}
+                    <img src={row.image} alt="Image__" width="90" height="90" />
                   </TableCell>
+
                   <TableCell align="right">$ {row.productPrice}</TableCell>
 
                   <TableCell align="right">{row.qty}</TableCell>
