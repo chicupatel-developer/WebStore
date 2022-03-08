@@ -34,7 +34,7 @@ const Checkout = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
 
-  const [activeStep, setActiveStep] = useState(1);
+  const [activeStep, setActiveStep] = useState(0);
 
   // redux
   // read

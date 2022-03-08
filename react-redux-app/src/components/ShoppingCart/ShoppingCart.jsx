@@ -1,23 +1,27 @@
 import React, { useEffect, useCallback, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  setMyShoppingCart,
-} from "../../redux/actions/productsActions";
-import {
-  setCartTotalAmount,
-} from "../../redux/actions/checkoutActions";
-
+import { setMyShoppingCart } from "../../redux/actions/productsActions";
+import { setCartTotalAmount } from "../../redux/actions/checkoutActions";
 
 import useStyles from "./styles";
-import Container from "@material-ui/core/Container";
-import Grid from "@material-ui/core/Grid";
 import AddBoxRoundedIcon from "@material-ui/icons/AddBoxRounded";
 import IndeterminateCheckBoxRoundedIcon from "@material-ui/icons/IndeterminateCheckBoxRounded";
 import CreditCardIcon from "@material-ui/icons/CreditCard";
-
-import { Divider } from "semantic-ui-react";
+import RemoveShoppingCartIcon from "@material-ui/icons/RemoveShoppingCart";
 
 import { useNavigate } from "react-router-dom";
+
+import {
+  Container,
+  Typography,
+  Button,
+  Divider,
+  Grid,
+  InputLabel,
+  Select,
+  MenuItem,
+  TextField,
+} from "@material-ui/core";
 
 const ShoppingCart = () => {
   const classes = useStyles();
@@ -85,6 +89,11 @@ const ShoppingCart = () => {
     navigate("/checkout");
   };
 
+  const onEmptyCart = () => {
+    dispatch(setMyShoppingCart([]));
+    navigate("/");
+  };
+
   const renderCart =
     myShoppingCart.length > 0 ? (
       myShoppingCart.map((product) => {
@@ -148,20 +157,45 @@ const ShoppingCart = () => {
     <div className={classes.main}>
       <Container maxWidth="md">
         <h2>Shopping Cart</h2>
-        <h4>
-          {myShoppingCart.length > 0 && (
-            <span>
-              <span className={classes.cartTotalAmount}>{getCartTotal()}</span>
-              &nbsp;&nbsp;&nbsp;
-              <div onClick={(e) => onPayment(e)} className="ui button">
-                <div className={classes.cartTotal}>
-                  <span>Pay By Visa </span>
-                  <CreditCardIcon style={{ fontSize: 50 }} />
-                </div>
-              </div>
-            </span>
-          )}
-        </h4>
+
+        <div className={classes.actions}>
+          <div>
+            {myShoppingCart.length > 0 && (
+              <span>
+                <span className={classes.cartTotalAmount}>
+                  {getCartTotal()}
+                </span>
+                &nbsp;&nbsp;
+                <Button
+                  color="primary"
+                  onClick={(e) => onPayment(e)}
+                  className={classes.actionButtonPayment}
+                >
+                  <span className={classes.cartTotal}>
+                    <span>Check out&nbsp;&nbsp;</span>
+                    <CreditCardIcon style={{ fontSize: 30 }} />
+                  </span>
+                </Button>
+              </span>
+            )}
+          </div>
+
+          <div>
+            {myShoppingCart.length > 0 && (
+              <Button
+                color="primary"
+                onClick={(e) => onEmptyCart(e)}
+                className={classes.actionButtonEmptyCart}
+              >
+                <span className={classes.cartTotal}>
+                  <span>Empty Cart&nbsp;&nbsp;</span>
+                  <RemoveShoppingCartIcon style={{ fontSize: 20 }} />
+                </span>
+              </Button>
+            )}
+          </div>
+        </div>
+
         <p></p>
         <div>{renderCart}</div>
       </Container>

@@ -38,4 +38,22 @@ export default makeStyles((theme) => ({
     color: "blue",
     fontSize: "large",
   },
+  actions: {
+    display: "flex",
+    justifyContent: "space-between",
+  },
+  actionButtonPayment: {
+    color: "green",
+    fontSize: "x-large",
+    marginBottom: "5px",
+    marginLeft: "20px",
+    backgroundColor: "lightBlue",
+  },
+  actionButtonEmptyCart: {
+    color: "red",
+    fontSize: "medium",
+    marginBottom: "5px",
+    marginLeft: "20px",
+    backgroundColor: "lightBlue",
+  },
 }));
