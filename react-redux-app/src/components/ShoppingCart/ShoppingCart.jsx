@@ -51,7 +51,8 @@ const ShoppingCart = () => {
       }
       // redux
       // write
-      dispatch(setMyShoppingCart(newCart));
+      if (newCart.length < 1) dispatch(setMyShoppingCart([]));
+      else dispatch(setMyShoppingCart(newCart));
     }
   };
   const onPlus = (e, id, product) => {

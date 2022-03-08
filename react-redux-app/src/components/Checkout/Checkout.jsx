@@ -41,11 +41,15 @@ const Checkout = () => {
   const cartTotalAmount = useSelector(
     (state) => state.checkout.cartTotalAmount
   );
+  const myShoppingCart = useSelector(
+    (state) => state.allProducts.myShoppingCart
+  );
   const paymentStatus = useSelector((state) => state.checkout.paymentStatus);
 
   useEffect(() => {
     console.log("Checkout is loading!!");
-    if (cartTotalAmount < 1) navigate("/");
+    //  if (cartTotalAmount < 1) navigate("/");
+    if (myShoppingCart.length < 1) navigate("/");
 
     dispatch(setPaymentStatus(PaymentStatusTypes.IN_PROGRESS));
 
@@ -56,9 +60,7 @@ const Checkout = () => {
   }, []);
 
   useEffect(() => {
-    return () => {
-      
-    };
+    return () => {};
   }, [paymentStatus]);
 
   const nextStep = () => setActiveStep((prevActiveStep) => prevActiveStep + 1);
