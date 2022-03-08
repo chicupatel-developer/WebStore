@@ -10,6 +10,7 @@ import NotFound from "./components/NotFound/NotFound";
 import Checkout from "./components/Checkout/Checkout";
 import Login from "./components/Login/Login";
 import AdminProductSales from "./components/Admin-ProductSales/AdminProductSales";
+import AdminProductDiscount from "./components/Admin-ProductDiscount/AdminProductDiscount";
 import Register from "./components/Register/Register";
 import ShoppingHistory from "./components/ShoppingHistory/ShoppingHistory";
 
@@ -31,6 +32,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/home" element={<Home />} />
             <Route path="/adminProductSales" element={<AdminProductSales />} />
+            <Route path="/adminProductDiscount" element={<AdminProductDiscount />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Router>

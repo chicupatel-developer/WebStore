@@ -424,10 +424,19 @@ const Header = () => {
         <Link
           className={classes.linkStyle}
           color="inherit"
-          onClick={(e) => doComponentRedirect(e, "Admin")}
+          onClick={(e) => doComponentRedirect(e, "AdminProductSales")}
         >
           <MenuItem>
-            <SupervisorAccountTwoToneIcon /> Admin
+            <SupervisorAccountTwoToneIcon /> Product-Sales
+          </MenuItem>
+        </Link>
+        <Link
+          className={classes.linkStyle}
+          color="inherit"
+          onClick={(e) => doComponentRedirect(e, "AdminProductDiscount")}
+        >
+          <MenuItem>
+            <SupervisorAccountTwoToneIcon /> Product-Discount
           </MenuItem>
         </Link>
         <Link
@@ -526,9 +535,16 @@ const Header = () => {
         <Button
           className={classes.menuButton}
           color="inherit"
-          onClick={(e) => doComponentRedirect(e, "Admin")}
+          onClick={(e) => doComponentRedirect(e, "AdminProductSales")}
         >
-          <SupervisorAccountTwoToneIcon /> Admin
+          <SupervisorAccountTwoToneIcon /> Product-Sales
+        </Button>
+        <Button
+          className={classes.menuButton}
+          color="inherit"
+          onClick={(e) => doComponentRedirect(e, "AdminProductDiscount")}
+        >
+          <SupervisorAccountTwoToneIcon /> Product-Discount
         </Button>
         <Button
           className={classes.menuButton}
@@ -666,7 +682,8 @@ const Header = () => {
   const doComponentRedirect = (e, routePath) => {
     console.log("redirect from header menu option", currentUser);
     if (routePath === "Home") navigate("/home");
-    if (routePath === "Admin") navigate("/adminProductSales");
+    if (routePath === "AdminProductSales") navigate("/adminProductSales");
+    if (routePath === "AdminProductDiscount") navigate("/adminProductDiscount");
     if (routePath === "Products") navigate("/");
     if (routePath === "Cart") navigate("/cart");
     if (routePath === "Login") navigate("/login");
