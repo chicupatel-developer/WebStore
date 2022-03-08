@@ -84,6 +84,13 @@ const TodayHistory = () => {
     }
     console.log(_history);
 
+    // order by date
+    _history.sort((a, b) => {
+      let da = new Date(a.date),
+        db = new Date(b.date);
+      return da - db;
+    });
+
     dispatch(setTodayHistoryData(_history));
   };
   const getTodayHistory = () => {
@@ -116,7 +123,7 @@ const TodayHistory = () => {
       console.log(productTotal);
       grandTotal += productTotal;
     });
-    return grandTotal;
+    return grandTotal.toFixed(2);
   };
 
   return (

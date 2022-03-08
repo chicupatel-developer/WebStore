@@ -82,6 +82,13 @@ const CurrentMonthHistory = () => {
     }
     console.log(_history);
 
+    // order by date
+    _history.sort((a, b) => {
+      let da = new Date(a.date),
+        db = new Date(b.date);
+      return da - db;
+    });
+
     dispatch(setMonthHistoryData(_history));
   };
   const getMonthHistory = () => {
@@ -97,21 +104,44 @@ const CurrentMonthHistory = () => {
       });
   };
 
+  const getTotalForProduct = (totalData) => {
+    var paymentAmount = totalData.toFixed(2);
+    return (Math.ceil(paymentAmount * 20 - 0.5) / 20).toFixed(2);
+  };
+
+  const getTotalForMonth = () => {
+    var grandTotal = 0.0;
+    monthHistoryData.forEach(function (arrayItem) {
+      var productTotal = Number(
+        getTotalForProduct(arrayItem.qty * arrayItem.productPrice)
+      );
+
+      console.log(productTotal);
+      grandTotal += productTotal;
+    });
+    return grandTotal.toFixed(2);
+  };
+
   const rows = monthHistoryData;
 
   return (
     <div className={classes.main}>
       <Container maxWidth="md">
         <h1>Current Month History</h1>
-        <p></p>
+        <h3>
+          <span className={classes.totalMonthlySpent}>
+            [ Total Spent &nbsp; $ {getTotalForMonth()} ]
+          </span>
+        </h3>
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="History">
             <TableHead>
               <TableRow>
                 <TableCell>Product #</TableCell>
-                <TableCell align="right">Price</TableCell>
-                <TableCell align="right">Date</TableCell>
-                <TableCell align="right">Qty</TableCell>
+                <TableCell align="right">$ [Unit Price]</TableCell>
+                <TableCell align="right">Shopping Qty</TableCell>
+                <TableCell align="right">$ [Total]</TableCell>
+                <TableCell align="right">Purchase Date</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -123,11 +153,15 @@ const CurrentMonthHistory = () => {
                   <TableCell component="th" scope="row">
                     {row.productId}
                   </TableCell>
-                  <TableCell align="right">{row.productPrice}</TableCell>
+                  <TableCell align="right">$ {row.productPrice}</TableCell>
+
+                  <TableCell align="right">{row.qty}</TableCell>
+                  <TableCell align="right">
+                    $ {getTotalForProduct(row.qty * row.productPrice)}
+                  </TableCell>
                   <TableCell align="right">
                     {Moment(row.date).format("ddd  DD MMM , hh:mm a")}
                   </TableCell>
-                  <TableCell align="right">{row.qty}</TableCell>
                 </TableRow>
               ))}
             </TableBody>

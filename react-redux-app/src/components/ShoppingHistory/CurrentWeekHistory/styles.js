@@ -4,4 +4,7 @@ export default makeStyles((theme) => ({
   main: {
     marginTop: "20px",
   },
+  totalWeeklySpent: {
+    color: "blue",
+  },
 }));
