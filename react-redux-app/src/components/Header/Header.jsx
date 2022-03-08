@@ -424,6 +424,15 @@ const Header = () => {
         <Link
           className={classes.linkStyle}
           color="inherit"
+          onClick={(e) => doComponentRedirect(e, "Products")}
+        >
+          <MenuItem>
+            <StorefrontIcon /> Products
+          </MenuItem>
+        </Link>
+        <Link
+          className={classes.linkStyle}
+          color="inherit"
           onClick={(e) => doComponentRedirect(e, "AdminProductSales")}
         >
           <MenuItem>
@@ -531,6 +540,13 @@ const Header = () => {
           onClick={(e) => doComponentRedirect(e, "Home")}
         >
           <HomeIcon /> Home
+        </Button>
+        <Button
+          className={classes.menuButton}
+          color="inherit"
+          onClick={(e) => doComponentRedirect(e, "Products")}
+        >
+          <StorefrontIcon /> Products
         </Button>
         <Button
           className={classes.menuButton}
@@ -684,7 +700,8 @@ const Header = () => {
     if (routePath === "Home") navigate("/home");
     if (routePath === "AdminProductSales") navigate("/adminProductSales");
     if (routePath === "AdminProductDiscount") navigate("/adminProductDiscount");
-    if (routePath === "Products") navigate("/");
+    if (routePath === "Products" && currentUser.role === "Shopper") navigate("/");
+    if (routePath === "Products" && currentUser.role==='Admin' ) navigate("/products");
     if (routePath === "Cart") navigate("/cart");
     if (routePath === "Login") navigate("/login");
     if (routePath === "Register") navigate("/register");

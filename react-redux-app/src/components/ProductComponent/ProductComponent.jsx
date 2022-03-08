@@ -23,6 +23,8 @@ import {
   Button,
 } from "@material-ui/core";
 
+import StarsIcon from "@material-ui/icons/Stars";
+
 const ProductComponent = () => {
   const classes = useStyles();
   const navigate = useNavigate();
@@ -30,6 +32,7 @@ const ProductComponent = () => {
 
   // redux
   // read
+  const currentUser = useSelector((state) => state.auth.currentUser);
   const newShoppingCart = useSelector(
     (state) => state.allProducts.myShoppingCart
   );
@@ -87,6 +90,17 @@ const ProductComponent = () => {
     navigate(`/product/${product.id}`);
   };
 
+  // admin
+  // set product-discount
+  const onProductDiscount = (e, product) => {
+    console.log("Product-discount", product);
+
+    // toDo
+    // set product for discount @ redux store
+
+    navigate(`/adminProductDiscount`);
+  };
+
   const renderList =
     filterProducts.length > 0 ? (
       filterProducts.map((product) => {
@@ -108,16 +122,19 @@ const ProductComponent = () => {
                   <div className={classes.category}>[ {category} ]</div>
                 </CardContent>
                 <CardActions className={classes.actions}>
-                  <Button                    
-                    onClick={(e) => onClick(e, product)}
-                  >
-                    + Cart
-                  </Button>
-                  <Button
-                    onClick={(e) => onDetailsClick(e, product)}                    
-                  >
-                    Details
-                  </Button>
+                  {currentUser.role === "Shopper" && (
+                    <Button onClick={(e) => onClick(e, product)}>+ Cart</Button>
+                  )}
+                  {currentUser.role === "Admin" && (
+                    <Button onClick={(e) => onProductDiscount(e, product)}>
+                      Discount
+                    </Button>
+                  )}
+                  {currentUser.role === "Shopper" && (
+                    <Button onClick={(e) => onDetailsClick(e, product)}>
+                      Details
+                    </Button>
+                  )}
                 </CardActions>
               </Card>
             </Paper>
@@ -132,7 +149,7 @@ const ProductComponent = () => {
 
   return (
     <>
-      <Grid container spacing={1} >
+      <Grid container spacing={1}>
         {renderList}
       </Grid>
     </>

@@ -1,15 +1,24 @@
-import React, { useEffect } from "react";
-import useStyles from "./styles";
+import React, { useState, useEffect } from "react";
+import validator from "validator";
+
 import {
   Container,
-  Typography,
+  InputLabel,
+  Select,
+  MenuItem,
   Button,
-  Divider,
   Grid,
+  Typography,
+  TextField,
 } from "@material-ui/core";
+import { Link } from "react-router-dom";
+import useStyles from "./styles";
+import { useDispatch, useSelector } from "react-redux";
 
 const AdminProductDiscount = () => {
   const classes = useStyles();
+
+  const currentUser = useSelector((state) => state.auth.currentUser);
 
   useEffect(() => {}, []);
 
@@ -17,7 +26,6 @@ const AdminProductDiscount = () => {
     <div className={classes.main}>
       <Container maxWidth="md">
         <h1>Admin Area [ Product Discount ]</h1>
-       
       </Container>
     </div>
   );

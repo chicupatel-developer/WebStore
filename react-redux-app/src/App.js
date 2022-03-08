@@ -31,8 +31,12 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/home" element={<Home />} />
+            <Route path="/products" element={<ProductListing />} />
             <Route path="/adminProductSales" element={<AdminProductSales />} />
-            <Route path="/adminProductDiscount" element={<AdminProductDiscount />} />
+            <Route
+              path="/adminProductDiscount"
+              element={<AdminProductDiscount />}
+            />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Router>
