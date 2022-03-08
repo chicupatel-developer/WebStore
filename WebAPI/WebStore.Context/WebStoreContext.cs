@@ -11,5 +11,6 @@ namespace WebStore.Context
         {
         }
         public DbSet<ProductSold> ProductSold { get; set; }
+        public DbSet<ProductDiscount> ProductDiscount { get; set; }
     }
 }
