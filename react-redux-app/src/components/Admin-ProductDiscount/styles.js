@@ -37,6 +37,12 @@ export default makeStyles((theme) => ({
   },
   discountedPrice: {
     color: "green",
-      fontSize: "x-large",
+    fontSize: "x-large",
+  },
+  apiError: {
+    color: "red",
+  },
+  apiSuccess: {
+    color: "green",
   },
 }));

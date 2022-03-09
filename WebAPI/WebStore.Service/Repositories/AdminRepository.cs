@@ -24,6 +24,9 @@ namespace WebStore.Service.Repositories
 
             bool retFlag = false;
 
+            // check for 500 @ api controller
+            // return false;
+
             var productDiscount_ = appDbContext.ProductDiscount
                                     .Where(x => x.FirstDateForDiscountedPrice.Year == productDiscount.FirstDateForDiscountedPrice.Year && x.FirstDateForDiscountedPrice.Month == productDiscount.FirstDateForDiscountedPrice.Month);
             if (productDiscount_ != null && productDiscount_.Count() > 0)

@@ -13,7 +13,7 @@ namespace WebStore.Service.Utils
         {
             get
             {
-                return "Discount Is Already Set For This Date Range!";
+                return "Discount Is Already Set For This Date Range !";
             }
         }
     }

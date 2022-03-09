@@ -96,6 +96,7 @@ const AdminProductDiscount = () => {
   const { productId, title, description, category, price, image } =
     discountOnProduct;
 
+  const [apiResponse, setApiResponse] = useState("");
   const [discountPercentage, setDiscountPercentage] = useState(0);
   const [discountedPrice, setDiscountedPrice] = useState(0.0);
   const [discountAfterQty, setDiscountAfterQty] = useState(0);
@@ -184,7 +185,7 @@ const AdminProductDiscount = () => {
   };
 
   const formReset = () => {
-    setDiscountedPrice(0.0);
+    // setDiscountedPrice(0.0);
     setDiscountPercentage(0);
     setDiscountAfterQty(0);
     setStartDate(null);
@@ -284,9 +285,21 @@ const AdminProductDiscount = () => {
     AdminService.addProductDiscount(productDiscount)
       .then((response) => {
         console.log(response.data);
+        setApiResponse("200" + response.data);
+        setTimeout(() => {
+          setApiResponse("");
+        }, 3000);
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error.response);
+        if (error.response.status === 400) {
+          setApiResponse("400" + error.response.data.response.responseMessage);
+        } else if (error.response.status === 500) {
+          setApiResponse("500" + error.response.data.responseMessage);
+        }
+        setTimeout(() => {
+          setApiResponse("");
+        }, 3000);
       });
   };
   return (
@@ -306,6 +319,22 @@ const AdminProductDiscount = () => {
                   subheader={getSubHeader(category)}
                 />
                 <CardContent>
+                  <div>
+                    {apiResponse && (
+                      <span>
+                        {apiResponse.substring(0, 3) === "200" ? (
+                          <span className={classes.apiSuccess}>
+                            <h3>{apiResponse.substring(3)}</h3>
+                          </span>
+                        ) : (
+                          <span className={classes.apiError}>
+                            <h3>{apiResponse.substring(3)}</h3>
+                          </span>
+                        )}
+                      </span>
+                    )}
+                  </div>
+                  <p></p>
                   {discountedPrice < price && discountedPrice > 0 && (
                     <span className={classes.discountedPrice}>
                       Discounted Price : $ {discountedPrice}
