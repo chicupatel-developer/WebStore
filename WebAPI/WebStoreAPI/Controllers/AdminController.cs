@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using WebStore.Context.DTO;
 using WebStore.Context.Models;
 using WebStore.Service.Interfaces;
+using WebStore.Service.Utils;
 
 namespace WebStoreAPI.Controllers
 {
@@ -48,6 +49,10 @@ namespace WebStoreAPI.Controllers
                 {
                     return BadRequest(ModelState);
                 }
+            }
+            catch (InvalidDiscountRange ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { ResponseCode = 500, ResponseMessage = ex.Message });
             }
             catch (Exception ex)
             {

@@ -20,18 +20,30 @@ namespace WebStore.Service.Repositories
 
         public bool AddProductDiscount(ProductDiscount productDiscount)
         {
-            try
-            {
-                // throw new Exception();
+            // throw new Exception();
 
-                appDbContext.ProductDiscount.Add(productDiscount);
-                appDbContext.SaveChanges();
-                return true;
-            }
-            catch (Exception ex)
+            bool retFlag = false;
+
+            var productDiscount_ = appDbContext.ProductDiscount
+                                    .Where(x => x.FirstDateForDiscountedPrice.Year == productDiscount.FirstDateForDiscountedPrice.Year && x.FirstDateForDiscountedPrice.Month == productDiscount.FirstDateForDiscountedPrice.Month);
+            if (productDiscount_ != null && productDiscount_.Count() > 0)
             {
-                return false;
+                foreach (var pd in productDiscount_)
+                {
+                    if (productDiscount.FirstDateForDiscountedPrice.Date >= pd.FirstDateForDiscountedPrice.Date && productDiscount.FirstDateForDiscountedPrice.Date <= pd.LastDateForDiscountedPrice.Date)
+                        throw new InvalidDiscountRange();
+                    if (productDiscount.LastDateForDiscountedPrice.Date >= pd.FirstDateForDiscountedPrice.Date && productDiscount.LastDateForDiscountedPrice.Date <= pd.LastDateForDiscountedPrice.Date)
+                        throw new InvalidDiscountRange();
+                    if (productDiscount.FirstDateForDiscountedPrice.Date <= pd.FirstDateForDiscountedPrice && productDiscount.LastDateForDiscountedPrice.Date >= pd.LastDateForDiscountedPrice.Date)
+                        throw new InvalidDiscountRange();
+                }
             }
+
+            appDbContext.ProductDiscount.Add(productDiscount);
+            appDbContext.SaveChanges();
+            retFlag = true;
+
+            return retFlag;
         }
     }
 }

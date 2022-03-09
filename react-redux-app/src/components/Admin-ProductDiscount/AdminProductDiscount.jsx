@@ -272,8 +272,8 @@ const AdminProductDiscount = () => {
       productId: productId,
       price: price,
       discountedPrice: Number(discountedPrice),
-      discountPercentage: discountPercentage,
-      discountQty: discountAfterQty,
+      discountPercentage: Number(discountPercentage),
+      discountQty: Number(discountAfterQty),
       firstDateForDiscountedPrice: startDate,
       lastDateForDiscountedPrice: endDate,
     };
