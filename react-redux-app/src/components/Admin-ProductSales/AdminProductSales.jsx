@@ -16,7 +16,7 @@ const AdminProductSales = () => {
   return (
     <div className={classes.main}>
       <Container maxWidth="md">
-        <h1>Admin Area [ Product Sales ]</h1>
+        <h1>[ Product Sales ]</h1>
         <p></p>
         <div>
           <ul>

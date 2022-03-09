@@ -6,7 +6,7 @@ const intialState = {
 export const adminReducer = (state = intialState, { type, payload }) => {
   switch (type) {
     case ActionTypes.SET_PRODUCT_FOR_DISCOUNT:
-      return { ...state, products: payload }; 
+      return { ...state, productForDiscount: payload }; 
     default:
       return state;
   }

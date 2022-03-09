@@ -3,10 +3,9 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { setProductForDiscount } from "../../redux/actions/adminActions";
 import {
   setMyShoppingCart,
-  selectedProduct,
-  removeSelectedProduct,
 } from "../../redux/actions/productsActions";
 
 import useStyles from "./styles";
@@ -93,11 +92,18 @@ const ProductComponent = () => {
   // admin
   // set product-discount
   const onProductDiscount = (e, product) => {
-    console.log("Product-discount", product);
+    // console.log("Product-discount", product);
 
-    // toDo
     // set product for discount @ redux store
-
+    let discountOnProduct = {
+      productId: product.id,
+      price: product.price,
+      title: product.title,
+      description: product.description,
+      category: product.category,
+      image: product.image,
+    };
+    dispatch(setProductForDiscount(discountOnProduct));    
     navigate(`/adminProductDiscount`);
   };
 
