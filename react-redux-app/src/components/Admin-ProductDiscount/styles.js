@@ -35,4 +35,8 @@ export default makeStyles((theme) => ({
   controlInvalid: {
     color: "red",
   },
+  discountedPrice: {
+    color: "green",
+      fontSize: "x-large",
+  },
 }));

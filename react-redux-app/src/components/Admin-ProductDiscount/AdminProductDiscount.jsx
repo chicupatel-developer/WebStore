@@ -30,6 +30,8 @@ import {
   KeyboardDatePicker,
 } from "@material-ui/pickers";
 
+import AdminService from "../../services/product-admin.service";
+
 const AdminProductDiscount = () => {
   const classes = useStyles();
   const navigate = useNavigate();
@@ -46,11 +48,18 @@ const AdminProductDiscount = () => {
         startDate: "Start Date Is Required!",
       });
     } else {
-      setStartDate(date);
-      setIsError({
-        ...isError,
-        startDate: "",
-      });
+      if (date >= endDate && endDate !== null) {
+        setIsError({
+          ...isError,
+          startDate: "Start Date Must be < End Date!",
+        });
+      } else {
+        setStartDate(date);
+        setIsError({
+          ...isError,
+          startDate: "",
+        });
+      }
     }
   };
   // const [endDate, setEndDate] = useState(new Date());
@@ -88,6 +97,7 @@ const AdminProductDiscount = () => {
     discountOnProduct;
 
   const [discountPercentage, setDiscountPercentage] = useState(0);
+  const [discountedPrice, setDiscountedPrice] = useState(0.0);
   const [discountAfterQty, setDiscountAfterQty] = useState(0);
   const [isError, setIsError] = useState({
     discountPercentage: undefined,
@@ -123,6 +133,14 @@ const AdminProductDiscount = () => {
           ...isError,
           discountPercentage: "",
         });
+
+        setDiscountedPrice(
+          (
+            Math.ceil(
+              (price - (Number(e.target.value) * price) / 100) * 20 - 0.5
+            ) / 20
+          ).toFixed(2)
+        );
       }
       if (e.target.value === "")
         setIsError({
@@ -165,6 +183,13 @@ const AdminProductDiscount = () => {
     return isValid;
   };
 
+  const formReset = () => {
+    setDiscountedPrice(0.0);
+    setDiscountPercentage(0);
+    setDiscountAfterQty(0);
+    setStartDate(null);
+    setEndDate(null);
+  };
   const setDiscount = (evt) => {
     if (formValid(isError)) {
       if (discountAfterQty === "" || Number(discountAfterQty) < 1) {
@@ -242,6 +267,27 @@ const AdminProductDiscount = () => {
       return;
     }
     console.log("Discount is Set for Product!");
+
+    let productDiscount = {
+      productId: productId,
+      price: price,
+      discountedPrice: Number(discountedPrice),
+      discountPercentage: discountPercentage,
+      discountQty: discountAfterQty,
+      firstDateForDiscountedPrice: startDate,
+      lastDateForDiscountedPrice: endDate,
+    };
+    console.log(productDiscount);
+
+    formReset();
+
+    AdminService.addProductDiscount(productDiscount)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
   return (
     <div className={classes.main}>
@@ -249,10 +295,10 @@ const AdminProductDiscount = () => {
         <h1>[ Product Discount ]</h1>
 
         <Grid container>
-          <Grid item xs={12} sm={6} md={6} lg={6}>
+          <Grid item xs={12} sm={12} md={6} lg={6}>
             <img src={image} className={classes.img} />
           </Grid>
-          <Grid item xs={12} sm={6} md={6} lg={6}>
+          <Grid item xs={12} sm={12} md={6} lg={6}>
             <Box className={classes.root}>
               <Card>
                 <CardHeader
@@ -260,6 +306,13 @@ const AdminProductDiscount = () => {
                   subheader={getSubHeader(category)}
                 />
                 <CardContent>
+                  {discountedPrice < price && discountedPrice > 0 && (
+                    <span className={classes.discountedPrice}>
+                      Discounted Price : $ {discountedPrice}
+                    </span>
+                  )}
+                  <p></p>
+
                   <div>
                     <Grid container spacing={3}>
                       <Grid item xs={12} sm={6}>
