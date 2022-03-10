@@ -2,17 +2,20 @@ import { ActionTypes } from "../constants/action-types";
 const intialState = {
   products: [],
   searchText: "",
-  myShoppingCart: []
+  myShoppingCart: [],
+  discountedProducts: [],
 };
 
 export const productsReducer = (state = intialState, { type, payload }) => {
-  switch (type) {  
+  switch (type) {
     case ActionTypes.SET_PRODUCTS:
       return { ...state, products: payload };
     case ActionTypes.SET_SEARCH_TEXT:
       return { ...state, searchText: payload };
     case ActionTypes.SET_MY_SHOPPING_CART:
       return { ...state, myShoppingCart: payload };
+    case ActionTypes.SET_DISCOUNT_DATA:
+      return { ...state, discountedProducts: payload };
     default:
       return state;
   }

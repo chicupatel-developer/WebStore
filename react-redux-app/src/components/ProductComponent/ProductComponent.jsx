@@ -37,6 +37,10 @@ const ProductComponent = () => {
   );
 
   const products = useSelector((state) => state.allProducts.products);
+  const discountedProducts = useSelector(
+    (state) => state.allProducts.discountedProducts
+  );
+
   const searchText = useSelector((state) => state.allProducts.searchText);
   let filterProducts = [];
   if (searchText !== "") {

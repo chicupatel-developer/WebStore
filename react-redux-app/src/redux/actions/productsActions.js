@@ -21,6 +21,13 @@ export const setProducts = (products) => {
   };
 };
 
+export const setDiscountData = (discountedProducts_) => {
+  return {
+    type: ActionTypes.SET_DISCOUNT_DATA,
+    payload: discountedProducts_,
+  };
+};
+
 export const selectedProduct = (product) => {
   return {
     type: ActionTypes.SELECTED_PRODUCT,

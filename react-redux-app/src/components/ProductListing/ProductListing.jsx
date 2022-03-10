@@ -1,16 +1,19 @@
 import React, { useEffect, useCallback, useMemo } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { setProducts } from "../../redux/actions/productsActions";
+import { setProducts, setDiscountData } from "../../redux/actions/productsActions";
 import ProductComponent from "../ProductComponent/ProductComponent";
 
 import useStyles from "./styles";
 import Container from "@material-ui/core/Container";
 
+import ShopperService from "../../services/product-shopper.service";
+
 const ProductListing = () => {
   const classes = useStyles();
 
   const products = useSelector((state) => state.allProducts.products);
+  const currentUser = useSelector((state) => state.auth.currentUser);
 
   const dispatch = useDispatch();
 
@@ -23,8 +26,20 @@ const ProductListing = () => {
     dispatch(setProducts(response.data));
   };
 
+  const getProductDiscountData = () => {
+    ShopperService.getProductDiscountData(currentUser.userName)
+      .then((response) => {
+        dispatch(setDiscountData(response.data));
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   useEffect(() => {
     fetchProducts();
+    getProductDiscountData();
   }, []);
 
   console.log("Products :", products);

@@ -22,4 +22,8 @@ export const ActionTypes = {
 
   // Admin
   SET_PRODUCT_FOR_DISCOUNT: "SET_PRODUCT_FOR_DISCOUNT",
+
+  // SHOPPER
+  // set just right after when shopper login
+  SET_DISCOUNT_DATA: "SET_DISCOUNT_DATA",
 };

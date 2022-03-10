@@ -16,5 +16,9 @@ class ShopperService {
   getMonthHistory = async (userName) => {
     return await http.get(`/getCurrentMonthHistory?userName=${userName}`);
   };
+
+  getProductDiscountData = async (userName) => {
+    return await http.get(`/getProductDiscountData?userName=${userName}`);
+  };
 }
 export default new ShopperService();
