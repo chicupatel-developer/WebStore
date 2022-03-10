@@ -61,7 +61,7 @@ namespace WebStoreAPI.Controllers
         }
 
 
-        // https://localhost:44309/api/Shopper/getTodayHistory?userName=haha
+        // https://localhost:44309/api/Shopper/getTodayHistory?userName=UserName
         [HttpGet]
         [Route("getTodayHistory")]
         public IActionResult GetTodayHistory(string userName)
@@ -77,7 +77,7 @@ namespace WebStoreAPI.Controllers
             }
         }
 
-        // https://localhost:44309/api/Shopper/getCurrentWeekHistory?userName=haha
+        // https://localhost:44309/api/Shopper/getCurrentWeekHistory?userName=UserName
         [HttpGet]
         [Route("getCurrentWeekHistory")]
         public IActionResult GetCurrentWeekHistory(string userName)
@@ -93,7 +93,7 @@ namespace WebStoreAPI.Controllers
             }
         }
 
-        // https://localhost:44309/api/Shopper/getCurrentMonthHistory?userName=haha
+        // https://localhost:44309/api/Shopper/getCurrentMonthHistory?userName=UserName
         [HttpGet]
         [Route("getCurrentMonthHistory")]
         public IActionResult GetCurrentMonthHistory(string userName)
@@ -111,7 +111,7 @@ namespace WebStoreAPI.Controllers
 
 
 
-        // https://localhost:44309/api/Shopper/getProductDiscountData?userName=haha
+        // https://localhost:44309/api/Shopper/getProductDiscountData?userName=UserName
         [HttpGet]
         [Route("getProductDiscountData")]
         public IActionResult GetProductDiscountData(string userName)

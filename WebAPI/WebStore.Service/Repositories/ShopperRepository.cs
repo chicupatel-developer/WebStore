@@ -89,6 +89,43 @@ namespace WebStore.Service.Repositories
             return products;
         }
 
+
+
+        /*
+        [
+            {
+                "productDiscountId": 20,
+                "userName": "UserName",
+                "productId": 1,
+                "originalPrice": 109.95,
+                "discountedPrice": 87.95,
+                "discountStartDate": "2022-03-09T12:56:00",
+                "discountEndDate": "2022-03-15T11:56:00",
+                "discountActivationQty": 10,
+                "userBoughtQtySoFar": 13
+            },
+            {
+                "productDiscountId": 21,
+                "userName": "UserName",
+                "productId": 2,
+                "originalPrice": 22.30,
+                "discountedPrice": 17.85,
+                "discountStartDate": "2022-03-08T13:01:00",
+                "discountEndDate": "2022-03-15T12:01:00",
+                "discountActivationQty": 5,
+                "userBoughtQtySoFar": 9
+            }
+        ]
+        when this shopper go for shopping, then shopper will see
+        discounted-price for productid=1 & 2
+
+        // business logic:
+        - check qty bought by shopper for every product 
+            @ProductSold for last 30 days,
+        - if this qty is = or > than (discount-qty) of [ 
+            - check current-date is between first-date-for-discounted-price
+                and last-date-for-discounted-price for related product ]
+        */
         public List<DiscountData> GetProductDiscountData(string userName)
         {
             List<DiscountData> discountDatas = new List<DiscountData>();
@@ -125,8 +162,8 @@ namespace WebStore.Service.Repositories
                                 DiscountedPrice = productDis.DiscountedPrice,
                                 DiscountEndDate = productDis.LastDateForDiscountedPrice,
                                 DiscountStartDate = productDis.FirstDateForDiscountedPrice,
-                                DiscountQty = productDis.DiscountQty,
-                                Price = productDis.Price,
+                                DiscountActivationQty = productDis.DiscountQty,
+                                OriginalPrice = productDis.Price,
                                 ProductId = productDis.ProductId,
                                 UserName = userName,
                                 UserBoughtQtySoFar = totalQty,

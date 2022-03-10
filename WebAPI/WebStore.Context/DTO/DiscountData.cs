@@ -9,11 +9,11 @@ namespace WebStore.Context.DTO
         public int ProductDiscountId { get; set; }
         public string UserName { get; set; }
         public int ProductId { get; set; }
-        public decimal Price { get; set; }
+        public decimal OriginalPrice { get; set; }
         public decimal DiscountedPrice { get; set; }
         public DateTime DiscountStartDate { get; set; }
         public DateTime DiscountEndDate { get; set; }
-        public int DiscountQty { get; set; }
+        public int DiscountActivationQty { get; set; }
         public int UserBoughtQtySoFar { get; set; }
         
     }
