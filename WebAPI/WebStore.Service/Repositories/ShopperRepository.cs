@@ -6,6 +6,7 @@ using WebStore.Context.Models;
 using WebStore.Service.Interfaces;
 using System.Linq;
 using WebStore.Service.Utils;
+using WebStore.Context.DTO;
 
 namespace WebStore.Service.Repositories
 {
@@ -86,6 +87,55 @@ namespace WebStore.Service.Repositories
                 products = products_.ToList();
             }
             return products;
+        }
+
+        public List<DiscountData> GetProductDiscountData(string userName)
+        {
+            List<DiscountData> discountDatas = new List<DiscountData>();
+
+            DateTime currentDate = DateTime.Now;
+            DateTime eligibleStartDate = currentDate.AddDays(-30);
+
+
+            // check discount data from ProductDiscount
+            var productDiscount = appDbContext.ProductDiscount
+                                                .Where(x => currentDate >= x.FirstDateForDiscountedPrice && currentDate <= x.LastDateForDiscountedPrice);
+            if (productDiscount != null && productDiscount.Count() > 0)
+            {
+                foreach (var productDis in productDiscount)
+                {
+                    int productId = productDis.ProductId;
+
+                    // check in ProductSold for given UserName and this productId
+                    var productSold = appDbContext.ProductSold
+                                        .Where(y => y.ProductId == productId && y.UserName == userName && y.SoldDate >= eligibleStartDate && y.SoldDate <= currentDate);
+                    if (productSold != null && productSold.Count() > 0)
+                    {
+                        int totalQty = 0;
+                        foreach (var productSold_ in productSold)
+                        {
+                            totalQty += productSold_.Qty;
+                        }
+                        if (productDis.DiscountQty <= totalQty)
+                        {
+                            // discount is approved for this UserName and ProductId
+                            discountDatas.Add(new DiscountData()
+                            {
+                                ProductDiscountId = productDis.ProductDiscountId,
+                                DiscountedPrice = productDis.DiscountedPrice,
+                                DiscountEndDate = productDis.LastDateForDiscountedPrice,
+                                DiscountStartDate = productDis.FirstDateForDiscountedPrice,
+                                DiscountQty = productDis.DiscountQty,
+                                Price = productDis.Price,
+                                ProductId = productDis.ProductId,
+                                UserName = userName,
+                                UserBoughtQtySoFar = totalQty,
+                            });
+                        }
+                    }
+                }
+            }
+            return discountDatas;
         }
     }
 }

@@ -1,0 +1,92 @@
+﻿// Last30DaysSalesFromUserName
+
+// SQL
+select * from ProductSold
+where UserName=@UserName 
+and 
+SoldDate>=DATEADD(day,-30,GETDATE())
+and SoldDate<=GETDATE()
+
+// PROC
+create procedure Last30DaysSalesFromUserName
+@UserName nvarchar(50)
+As 
+Begin
+	DECLARE @currentDate DATETIME = GETDATE()
+	DECLARE @pastDate DATETIME = DATEADD(day,-30,GETDATE())
+	SELECT * FROM  ProductSold
+	WHERE SoldDate >= @pastDate 
+	and   SoldDate <= @currentDate
+	and UserName = @UserName
+end
+
+--------------------------------------------
+select sum(Qty) as Total_Qty_Bought, ProductId, UserName from ProductSold
+where UserName=@UserName 
+and 
+SoldDate>=DATEADD(day,-30,GETDATE())
+and SoldDate<=GETDATE()
+group by ProductId, UserName
+
+13	1	username
+9	2	username
+1	3	username
+2	4	username
+1	11	username
+1	12	username
+1	17	username
+1	18	username
+1	19	username
+1	20	username
+
+
+alter procedure Last30DaysSalesFromUserName
+@UserName nvarchar(50)
+As 
+Begin
+
+	DECLARE @currentDate DATETIME = GETDATE()
+	DECLARE @pastDate DATETIME = DATEADD(day,-30,GETDATE())
+
+	select sum(Qty) as Total_Qty_Bought, ProductId, UserName from ProductSold
+	WHERE SoldDate >= @pastDate 
+	and   SoldDate <= @currentDate
+	and UserName = @UserName
+	group by ProductId, UserName
+
+end
+
+----------------------------------------------XXX-------------------
+
+// Last30DaysSalesByProduct
+
+// SQL
+select sum(Qty) as Total_Qty_Sold, UserName, ProductId from ProductSold
+where ProductId=1
+and 
+SoldDate>=DATEADD(day,-30,GETDATE())
+and SoldDate<=GETDATE()
+group by UserName,ProductId
+
+
+
+// PROC
+create procedure Last30DaysSalesByProduct
+@ProductId int
+As 
+Begin
+	DECLARE @currentDate DATETIME = GETDATE()
+	DECLARE @pastDate DATETIME = DATEADD(day,-30,GETDATE())
+
+	select sum(Qty) as Total_Qty_Sold, UserName, ProductId  from ProductSold
+	WHERE SoldDate >= @pastDate 
+	and   SoldDate <= @currentDate
+	and ProductId = @ProductId
+	group by UserName, ProductId
+end
+
+13	UserName1	1
+11	UserName2	1
+
+
+--------------------------------------------------------

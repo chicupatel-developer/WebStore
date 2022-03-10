@@ -108,5 +108,25 @@ namespace WebStoreAPI.Controllers
                 return BadRequest();
             }
         }
+
+
+
+        // https://localhost:44309/api/Shopper/getProductDiscountData?userName=haha
+        [HttpGet]
+        [Route("getProductDiscountData")]
+        public IActionResult GetProductDiscountData(string userName)
+        {
+            try
+            {
+                var discountDatas = _shopperRepo.GetProductDiscountData(userName);
+                return Ok(discountDatas);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest();
+            }
+        }
+
+
     }
 }

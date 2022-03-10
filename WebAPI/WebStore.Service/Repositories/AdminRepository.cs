@@ -28,7 +28,7 @@ namespace WebStore.Service.Repositories
             // return false;
 
             var productDiscount_ = appDbContext.ProductDiscount
-                                    .Where(x => x.FirstDateForDiscountedPrice.Year == productDiscount.FirstDateForDiscountedPrice.Year && x.FirstDateForDiscountedPrice.Month == productDiscount.FirstDateForDiscountedPrice.Month);
+                                    .Where(x => x.FirstDateForDiscountedPrice.Year == productDiscount.FirstDateForDiscountedPrice.Year && x.FirstDateForDiscountedPrice.Month == productDiscount.FirstDateForDiscountedPrice.Month && x.ProductId==productDiscount.ProductId);
             if (productDiscount_ != null && productDiscount_.Count() > 0)
             {
                 foreach (var pd in productDiscount_)

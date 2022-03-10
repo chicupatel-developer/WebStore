@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using WebStore.Context.DTO;
 
 namespace WebStore.Service.Interfaces
 {
@@ -11,5 +12,8 @@ namespace WebStore.Service.Interfaces
         List<ProductSold> GetTodayHistory(string userName);
         List<ProductSold> GetCurrentWeekHistory(string userName);
         List<ProductSold> GetCurrentMonthHistory(string userName);
+
+
+        List<DiscountData> GetProductDiscountData(string userName);
     }
 }

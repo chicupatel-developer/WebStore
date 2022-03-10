@@ -185,7 +185,7 @@ const AdminProductDiscount = () => {
   };
 
   const formReset = () => {
-    // setDiscountedPrice(0.0);
+    setDiscountedPrice(0.0);
     setDiscountPercentage(0);
     setDiscountAfterQty(0);
     setStartDate(null);
@@ -269,14 +269,22 @@ const AdminProductDiscount = () => {
     }
     console.log("Discount is Set for Product!");
 
+    let currentDate = new Date();
+    var CSToffSet = -360; //CST is -6:00 of UTC; i.e. 60*6 = -360 in minutes
+    var offset = CSToffSet * 60 * 1000;
+    var CSTTimeStartDate = new Date(startDate.getTime() + offset);
+    var CSTTimeEndDate = new Date(endDate.getTime() + offset);
+
     let productDiscount = {
       productId: productId,
       price: price,
       discountedPrice: Number(discountedPrice),
       discountPercentage: Number(discountPercentage),
       discountQty: Number(discountAfterQty),
-      firstDateForDiscountedPrice: startDate,
-      lastDateForDiscountedPrice: endDate,
+      // firstDateForDiscountedPrice: startDate,
+      // lastDateForDiscountedPrice: endDate,
+      firstDateForDiscountedPrice: CSTTimeStartDate,
+      lastDateForDiscountedPrice: CSTTimeEndDate,
     };
     console.log(productDiscount);
 
