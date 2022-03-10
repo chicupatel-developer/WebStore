@@ -4,9 +4,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setProductForDiscount } from "../../redux/actions/adminActions";
-import {
-  setMyShoppingCart,
-} from "../../redux/actions/productsActions";
+import { setMyShoppingCart } from "../../redux/actions/productsActions";
 
 import useStyles from "./styles";
 
@@ -47,9 +45,40 @@ const ProductComponent = () => {
     filterProducts = products.filter((p) =>
       p.title.toLowerCase().includes(searchText.toLowerCase())
     );
+
+    filterProducts.forEach(function (p) {
+      discountedProducts.forEach(function (dp) {
+        if (p.id === dp.productId) {
+          p.discountedPrice = dp.discountedPrice;
+        }
+      });
+    });
   } else {
     filterProducts = products;
+
+    filterProducts.forEach(function (p) {
+      discountedProducts.forEach(function (dp) {
+        if (p.id === dp.productId) {
+          p.discountedPrice = dp.discountedPrice;
+        }
+      });
+    });
   }
+
+  const mergeDiscountInfoToProducts = () => {
+    products.forEach(function (p) {
+      discountedProducts.forEach(function (dp) {
+        if (p.id === dp.productId) {
+          p.discountedPrice = dp.discountedPrice;
+        }
+      });
+    });
+    console.log("products with discount! ", products);
+  };
+
+  useEffect(() => {
+    // mergeDiscountInfoToProducts();
+  }, []);
 
   const onClick = (e, product) => {
     let item = newShoppingCart.find((x) => x.id === product.id);
@@ -107,7 +136,7 @@ const ProductComponent = () => {
       category: product.category,
       image: product.image,
     };
-    dispatch(setProductForDiscount(discountOnProduct));    
+    dispatch(setProductForDiscount(discountOnProduct));
     navigate(`/adminProductDiscount`);
   };
 
