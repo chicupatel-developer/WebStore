@@ -65,20 +65,7 @@ const ProductComponent = () => {
     });
   }
 
-  const mergeDiscountInfoToProducts = () => {
-    products.forEach(function (p) {
-      discountedProducts.forEach(function (dp) {
-        if (p.id === dp.productId) {
-          p.discountedPrice = dp.discountedPrice;
-        }
-      });
-    });
-    console.log("products with discount! ", products);
-  };
-
-  useEffect(() => {
-    // mergeDiscountInfoToProducts();
-  }, []);
+  useEffect(() => {}, []);
 
   const onClick = (e, product) => {
     let item = newShoppingCart.find((x) => x.id === product.id);
@@ -143,7 +130,7 @@ const ProductComponent = () => {
   const renderList =
     filterProducts.length > 0 ? (
       filterProducts.map((product) => {
-        const { id, title, image, price, category } = product;
+        const { id, title, image, price, category, discountedPrice } = product;
         return (
           <Grid item xs={12} sm={6} md={3} key={id}>
             <Paper className={classes.paper}>
@@ -157,21 +144,41 @@ const ProductComponent = () => {
                       <span>{title.substring(0, 32)}...</span>
                     )}
                   </div>
-                  <div className={classes.price}>$ {price}</div>
                   <div className={classes.category}>[ {category} ]</div>
+
+                  {discountedPrice ? (
+                    <div className={classes.discounterPriceDiv}>
+                      <div>
+                        <span className={classes.was}>Was $ </span>
+                        <span className={classes.erasePrice}>{price}</span>
+                      </div>
+                      <div>
+                        <span className={classes.now}>Now $ </span>
+                        <span className={classes.discountedPrice}>
+                          <b>{discountedPrice}</b>
+                        </span>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className={classes.priceDiv}>
+                      <span className={classes.price}>$ {price}</span>
+                    </div>
+                  )}
                 </CardContent>
                 <CardActions className={classes.actions}>
                   {currentUser.role === "Shopper" && (
-                    <Button onClick={(e) => onClick(e, product)}>+ Cart</Button>
+                    <Button onClick={(e) => onClick(e, product)}>
+                      <b>+ Cart</b>
+                    </Button>
                   )}
                   {currentUser.role === "Admin" && (
                     <Button onClick={(e) => onProductDiscount(e, product)}>
-                      Discount
+                      <b>Set Discount</b>
                     </Button>
                   )}
                   {currentUser.role === "Shopper" && (
                     <Button onClick={(e) => onDetailsClick(e, product)}>
-                      Details
+                      <b>Details</b>
                     </Button>
                   )}
                 </CardActions>

@@ -45,4 +45,8 @@ export default makeStyles((theme) => ({
   apiSuccess: {
     color: "green",
   },
+  discountNote: {
+    marginBottom: "15px",
+    fontStyle: "oblique",
+  },
 }));

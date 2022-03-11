@@ -313,7 +313,26 @@ const AdminProductDiscount = () => {
   return (
     <div className={classes.main}>
       <Container maxWidth="md">
-        <h1>[ Product Discount ]</h1>
+        <h3>[ Set - Product Discount ]</h3>
+
+        <div className={classes.discountNote}>
+          <span>
+            if Admin sets Discount-Starts-After-Qty = 10 for any specific
+            Product <b>[AND]</b>
+            <br />
+            if any user has bought that specific Product More Or Equal to 10 in
+            Last 30 Days <b>[AND]</b>
+            <br />
+            if Discount is still Active [ if current-date is between
+            start-date-of-discount and end-date-of-discount ] for that specific
+            Product <b>then,,,</b>
+            <br />
+            this{" "}
+            <b>
+              user will see and get discounted-price for that specific Product
+            </b>
+          </span>
+        </div>
 
         <Grid container>
           <Grid item xs={12} sm={12} md={6} lg={6}>
@@ -356,7 +375,7 @@ const AdminProductDiscount = () => {
                         <TextField
                           name="discountPercentage"
                           fullWidth
-                          label="Discount In Percentage"
+                          label="Discount In %"
                           value={discountPercentage}
                           onChange={(e) => handleFormControlChangeEvent(e)}
                         />
@@ -373,7 +392,7 @@ const AdminProductDiscount = () => {
                         <TextField
                           name="discountAfterQty"
                           fullWidth
-                          label="Discount Starts After Qty"
+                          label="Discount-Starts-After-Qty"
                           value={discountAfterQty}
                           onChange={(e) => handleFormControlChangeEvent(e)}
                         />
@@ -388,7 +407,7 @@ const AdminProductDiscount = () => {
                       <Grid item xs={12} sm={6}>
                         <MuiPickersUtilsProvider utils={DateFnsUtils}>
                           <KeyboardDatePicker
-                            label="Discount Start Date"
+                            label="Discount-Start-Date"
                             value={startDate}
                             onChange={handleStartDateChange}
                           />
@@ -404,7 +423,7 @@ const AdminProductDiscount = () => {
                       <Grid item xs={12} sm={6}>
                         <MuiPickersUtilsProvider utils={DateFnsUtils}>
                           <KeyboardDatePicker
-                            label="Discount End Date"
+                            label="Discount-End-Date"
                             value={endDate}
                             onChange={handleEndDateChange}
                           />
