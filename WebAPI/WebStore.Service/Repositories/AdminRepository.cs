@@ -48,5 +48,17 @@ namespace WebStore.Service.Repositories
 
             return retFlag;
         }
+
+        public List<ProductDiscount> GetProductDiscountData(int productId)
+        {
+            List<ProductDiscount> datas = new List<ProductDiscount>();
+
+            var datas_ = appDbContext.ProductDiscount
+                            .Where(x => x.ProductId == productId);
+            if (datas_ != null && datas_.Count() > 0)
+                datas = datas_.ToList();
+
+            return datas;
+        }
     }
 }

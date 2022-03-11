@@ -11,6 +11,7 @@ import Checkout from "./components/Checkout/Checkout";
 import Login from "./components/Login/Login";
 import AdminProductSales from "./components/Admin-ProductSales/AdminProductSales";
 import AdminProductDiscount from "./components/Admin-ProductDiscount/AdminProductDiscount";
+import AdminViewProductDiscount from "./components/Admin-ViewProductDiscount/AdminViewProductDiscount";
 import Register from "./components/Register/Register";
 import ShoppingHistory from "./components/ShoppingHistory/ShoppingHistory";
 
@@ -36,6 +37,10 @@ function App() {
             <Route
               path="/adminProductDiscount"
               element={<AdminProductDiscount />}
+            />
+            <Route
+              path="/adminViewProductDiscount"
+              element={<AdminViewProductDiscount />}
             />
             <Route path="*" element={<NotFound />} />
           </Routes>

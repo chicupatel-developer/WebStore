@@ -64,6 +64,24 @@ namespace WebStoreAPI.Controllers
                 });
             }
         }
-      
+
+
+        // https://localhost:44309/api/Admin/getProductDiscountData?productId=1
+        [HttpGet]
+        [Route("getProductDiscountData")]
+        public IActionResult GetProductDiscountData(int productId)
+        {
+            try
+            {
+                var discountDatas = _adminRepo.GetProductDiscountData(productId);
+                return Ok(discountDatas);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest();
+            }
+        }
+
+
     }
 }

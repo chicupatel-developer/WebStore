@@ -7,6 +7,8 @@ namespace WebStore.Service.Interfaces
 {
     public interface IAdminRepository
     {
-        bool AddProductDiscount(ProductDiscount productDiscount);       
+        bool AddProductDiscount(ProductDiscount productDiscount);
+        List<ProductDiscount> GetProductDiscountData(int productId);
+
     }
 }
