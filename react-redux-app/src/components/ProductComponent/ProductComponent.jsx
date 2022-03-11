@@ -106,7 +106,9 @@ const ProductComponent = () => {
       newCart[index] = {
         ...product,
         qty: qty_ + 1,
-        price: product.discountedPrice ? product.discountedPrice : product.price,
+        price: product.discountedPrice
+          ? product.discountedPrice
+          : product.price,
       };
 
       // redux
@@ -121,9 +123,7 @@ const ProductComponent = () => {
 
   // admin
   // set product-discount
-  const onProductDiscount = (e, product) => {
-    // console.log("Product-discount", product);
-
+  const onSetProductDiscount = (e, product) => {
     // set product for discount @ redux store
     let discountOnProduct = {
       productId: product.id,
@@ -135,6 +135,21 @@ const ProductComponent = () => {
     };
     dispatch(setProductForDiscount(discountOnProduct));
     navigate(`/adminProductDiscount`);
+  };
+  // admin
+  // set product-discount
+  const onViewProductDiscount = (e, product) => {
+    // set product for discount @ redux store
+    let discountOnProduct = {
+      productId: product.id,
+      price: product.price,
+      title: product.title,
+      description: product.description,
+      category: product.category,
+      image: product.image,
+    };
+    dispatch(setProductForDiscount(discountOnProduct));
+    navigate(`/adminViewProductDiscount`);
   };
 
   const renderList =
@@ -182,8 +197,13 @@ const ProductComponent = () => {
                     </Button>
                   )}
                   {currentUser.role === "Admin" && (
-                    <Button onClick={(e) => onProductDiscount(e, product)}>
+                    <Button onClick={(e) => onSetProductDiscount(e, product)}>
                       <b>Set Discount</b>
+                    </Button>
+                  )}
+                  {currentUser.role === "Admin" && (
+                    <Button onClick={(e) => onViewProductDiscount(e, product)}>
+                      <b>View Discount</b>
                     </Button>
                   )}
                   {currentUser.role === "Shopper" && (
