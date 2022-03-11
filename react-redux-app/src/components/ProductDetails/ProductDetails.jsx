@@ -8,7 +8,7 @@ import {
   removeSelectedProduct,
 } from "../../redux/actions/productsActions";
 
-
+import { useNavigate } from "react-router-dom";
 
 import useStyles from "./styles";
 import {
@@ -26,18 +26,53 @@ import {
 } from "@material-ui/core";
 import AddShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 
-
 const ProductDetails = () => {
   const classes = useStyles();
-  
-  // redux
-  // read
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const newShoppingCart = useSelector(
     (state) => state.allProducts.myShoppingCart
   );
+  const { productId } = useParams();
+
+  let product = useSelector((state) => state.product);
+  // const { image, title, price, category, description } = product;
+
+  const selectedProduct = useSelector(
+    (state) => state.allProducts.productForDetails
+  );
+  const { image, title, price, category, description, discountedPrice } =
+    selectedProduct;
+
+  useEffect(() => {
+    // if (productId && productId !== "") fetchProductDetail(productId);
+
+    if (selectedProduct && selectedProduct.productId !== "") {
+      console.log("selected product for details!", selectedProduct);
+    } else navigate("/");
+
+    return () => {
+      dispatch(removeSelectedProduct());
+    };
+    // }, [productId]);
+  }, [selectedProduct]);
+
+  /*
+  const fetchProductDetail = async (id) => {
+    const response = await axios
+      .get(`https://fakestoreapi.com/products/${id}`)
+      .catch((err) => {
+        console.log("Err: ", err);
+      });
+    dispatch(selectedProduct(response.data));
+  };
+  */
 
   // cart
   const addToCart = (product) => {
+    console.log("adding to cart!", product);
+
     let item = newShoppingCart.find((x) => x.id === product.id);
     console.log(item);
     if (item === undefined) {
@@ -53,10 +88,14 @@ const ProductDetails = () => {
         image: product.image,
         title: product.title,
         category: product.category,
-        price: product.price,
+        price: product.discountedPrice
+          ? product.discountedPrice
+          : product.price,
       };
+
       // newShoppingCart.push(cartItem);
       _newShoppingCart.push(cartItem);
+      console.log("added to cart!", cartItem);
 
       // redux
       // write
@@ -69,55 +108,47 @@ const ProductDetails = () => {
       var index = newShoppingCart.findIndex((x) => x.id === product.id);
       var qty_ = newShoppingCart[index].qty;
       const newCart = [...newShoppingCart];
-      newCart[index] = { ...product, qty: qty_ + 1 };
+      newCart[index] = {
+        ...product,
+        qty: qty_ + 1,
+        price: product.discountedPrice ? product.discountedPrice : product.price,
+      };
 
       // redux
       // write
       dispatch(setMyShoppingCart(newCart));
     }
   };
- 
-  const { productId } = useParams();
-
-  let product = useSelector((state) => state.product);
-  const { image, title, price, category, description } = product;
-
-  const dispatch = useDispatch();
-
-  const fetchProductDetail = async (id) => {
-    const response = await axios
-      .get(`https://fakestoreapi.com/products/${id}`)
-      .catch((err) => {
-        console.log("Err: ", err);
-      });
-    dispatch(selectedProduct(response.data));
-  };
-
-  useEffect(() => {
-    if (productId && productId !== "") fetchProductDetail(productId);
-   
-    return () => {
-      dispatch(removeSelectedProduct());
-    };
-  }, [productId]);
 
   const getSubHeader = (subHeaderString) => {
+    return <div className={classes.subHeader}>{subHeaderString}</div>;
+  };
+  const getTitle = (titleString, priceString) => {
     return (
-      <div className={classes.subHeader}>
-        {subHeaderString}     
+      <div className={classes.title}>
+        {discountedPrice ? (
+          <div className={classes.discounterPriceDiv}>
+            <div>
+              <span className={classes.was}>Was $ </span>
+              <span className={classes.erasePrice}>{priceString}</span>
+            </div>
+            <div>
+              <span className={classes.now}>Now $ </span>
+              <span className={classes.discountedPrice}>
+                <b>{discountedPrice}</b>
+              </span>
+            </div>
+          </div>
+        ) : (
+          <div className={classes.priceDiv}>
+            <span className={classes.price}>$ {priceString}</span>
+          </div>
+        )}
+
+        {titleString}
       </div>
     );
   };
- const getTitle = (titleString, priceString) => {
-   return (
-     <div className={classes.title}>
-       <div className={classes.price}>
-         <b>$ {priceString}</b>
-       </div>
-       {titleString}       
-     </div>
-   );
- };
 
   return (
     <div className={classes.main}>
@@ -137,7 +168,7 @@ const ProductDetails = () => {
                   <div>{description}</div>
                 </CardContent>
                 <CardActions style={{ float: "right" }}>
-                  <Button onClick={() => addToCart(product)}>
+                  <Button onClick={() => addToCart(selectedProduct)}>
                     <b>+ Cart</b>
                     <AddShoppingCartIcon
                       style={{ fontSize: 50, color: "green" }}

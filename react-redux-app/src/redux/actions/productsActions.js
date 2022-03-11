@@ -14,6 +14,13 @@ export const setSearchText = (searchText) => {
     };
 };
 
+export const setProductForDetails = (product) => {
+  return {
+    type: ActionTypes.SET_PRODUCT_FOR_DETAILS,
+    payload: product,
+  };
+};
+
 export const setProducts = (products) => {
   return {
     type: ActionTypes.SET_PRODUCTS,

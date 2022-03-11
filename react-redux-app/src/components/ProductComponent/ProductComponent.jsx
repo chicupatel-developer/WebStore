@@ -4,7 +4,10 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setProductForDiscount } from "../../redux/actions/adminActions";
-import { setMyShoppingCart } from "../../redux/actions/productsActions";
+import {
+  setMyShoppingCart,
+  setProductForDetails,
+} from "../../redux/actions/productsActions";
 
 import useStyles from "./styles";
 
@@ -27,8 +30,6 @@ const ProductComponent = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // redux
-  // read
   const currentUser = useSelector((state) => state.auth.currentUser);
   const newShoppingCart = useSelector(
     (state) => state.allProducts.myShoppingCart
@@ -67,6 +68,7 @@ const ProductComponent = () => {
 
   useEffect(() => {}, []);
 
+  // add to cart
   const onClick = (e, product) => {
     let item = newShoppingCart.find((x) => x.id === product.id);
     console.log(item);
@@ -83,14 +85,16 @@ const ProductComponent = () => {
         image: product.image,
         title: product.title,
         category: product.category,
-        price: product.price,
+        // price: product.price,
+        price: product.discountedPrice
+          ? product.discountedPrice
+          : product.price,
       };
       // newShoppingCart.push(cartItem);
       _newShoppingCart.push(cartItem);
 
       // redux
       // write
-      // dispatch(setMyShoppingCart(newShoppingCart));
       dispatch(setMyShoppingCart(_newShoppingCart));
     } else {
       // item already in cart
@@ -98,7 +102,12 @@ const ProductComponent = () => {
       var index = newShoppingCart.findIndex((x) => x.id === product.id);
       var qty_ = newShoppingCart[index].qty;
       const newCart = [...newShoppingCart];
-      newCart[index] = { ...product, qty: qty_ + 1 };
+      // newCart[index] = { ...product, qty: qty_ + 1 };
+      newCart[index] = {
+        ...product,
+        qty: qty_ + 1,
+        price: product.discountedPrice ? product.discountedPrice : product.price,
+      };
 
       // redux
       // write
@@ -106,6 +115,7 @@ const ProductComponent = () => {
     }
   };
   const onDetailsClick = (e, product) => {
+    dispatch(setProductForDetails(product));
     navigate(`/product/${product.id}`);
   };
 

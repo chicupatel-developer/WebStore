@@ -32,5 +32,38 @@ export default makeStyles((theme) => ({
     color: "skyblue",
     marginBottom: "10px",
   },
- 
+  price: {
+    textAlign: "left",
+    color: "blue",
+    fontSize: "large",
+    marginTop: "10px",
+  },
+  erasePrice: {
+    textAlign: "left",
+    color: "blue",
+    fontSize: "large",
+    marginTop: "10px",
+    textDecoration: "line-through",
+  },
+  discountedPrice: {
+    textAlign: "left",
+    color: "red",
+    fontSize: "large",
+    marginTop: "10px",
+  },
+  was: {
+    fontSize: "small",
+    marginTop: "15px",
+  },
+  now: { fontSize: "small", marginTop: "15px" },
+  discounterPriceDiv: {
+    display: "flex",
+    justifyContent: "space-between",
+    marginBottom: "20px",
+  },
+  priceDiv: {
+    display: "flex",
+    justifyContent: "left",
+    marginBottom: "20px",
+  },
 }));

@@ -34,7 +34,9 @@ const ShoppingCart = () => {
     (state) => state.allProducts.myShoppingCart
   );
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    console.log("cart : ", myShoppingCart);
+  }, []);
 
   const onMinus = (e, id, product) => {
     let item = myShoppingCart.find((x) => x.id === id);
@@ -139,7 +141,7 @@ const ShoppingCart = () => {
                 Item-Price:- $ {price}
                 <br />
                 <span className={classes.itemTotal}>
-                  Item-Total:- $ {qty * price}
+                  Item-Total:- $ {(qty * price).toFixed(2)}
                 </span>
               </Grid>
             </Grid>
