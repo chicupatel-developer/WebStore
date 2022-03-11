@@ -120,11 +120,10 @@ namespace WebStore.Service.Repositories
         discounted-price for productid=1 & 2
 
         // business logic:
-        - check qty bought by shopper for every product 
-            @ProductSold for last 30 days,
-        - if this qty is = or > than (discount-qty) of [ 
-            - check current-date is between first-date-for-discounted-price
-                and last-date-for-discounted-price for related product ]
+        if Admin sets (DiscountQty)Discount-Starts-After-Qty = 10(DiscountPercentage) for any specific Product [AND]
+        if any user has bought that specific Product More Or Equal to 10 in Last 30 Days [AND]
+        if Discount is still Active(RUNNING) [ if current-date is between start-date-of-discount and end-date-of-discount ] for that specific Product then,,,
+            this user will see and get discounted-price for that specific Product
         */
         public List<DiscountData> GetProductDiscountData(string userName)
         {

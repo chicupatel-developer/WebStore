@@ -323,14 +323,16 @@ const AdminProductDiscount = () => {
             if any user has bought that specific Product More Or Equal to 10 in
             Last 30 Days <b>[AND]</b>
             <br />
-            if Discount is still Active [ if current-date is between
-            start-date-of-discount and end-date-of-discount ] for that specific
-            Product <b>then,,,</b>
+            if <b>Discount is still Active(RUNNING)</b> [ if current-date is
+            between start-date-of-discount and end-date-of-discount ] for that
+            specific Product <b>then,,,</b>
             <br />
-            this{" "}
-            <b>
-              user will see and get discounted-price for that specific Product
-            </b>
+            <u>
+              this{" "}
+              <b>
+                user will see and get discounted-price for that specific Product
+              </b>
+            </u>
           </span>
         </div>
 
