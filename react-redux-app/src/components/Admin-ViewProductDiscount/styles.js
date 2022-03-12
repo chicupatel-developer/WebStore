@@ -32,4 +32,28 @@ export default makeStyles((theme) => ({
     color: "skyblue",
     marginBottom: "10px",
   },
+  runningDiscount: {
+    color: "green",
+  },
+  expiredDiscount: {
+    color: "red",
+  },
+  comingSoonDiscount: {
+    color: "blue",
+  },
+
+  root: {
+    height: "100%",
+    width: "100%",
+    display: "flex",
+    flexWrap: "wrap",
+    "& > *": {
+      margin: theme.spacing(3),
+    },
+  },
+  noDiscountData: {
+    color: "red",
+    fontSize: "x-large",
+    padding: "100px",
+  },
 }));

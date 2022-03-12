@@ -45,11 +45,34 @@ const AdminViewProductDiscount = () => {
   const { productId, title, description, category, price, image } =
     discountOnProduct;
 
+  const setDiscountStatus = (data) => {
+    let currentDate = new Date();
+    console.log(currentDate);
+
+    data.forEach((prDis) => {
+      if (
+        currentDate >= new Date(prDis.firstDateForDiscountedPrice) &&
+        currentDate <= new Date(prDis.lastDateForDiscountedPrice)
+      ) {
+        // discount scheme is still ACTIVE/RUNNING
+        prDis.discountStatus = "RUNNING";
+      } else {
+        // discount either EXPIRED or COMING-SOON
+        if (currentDate > new Date(prDis.lastDateForDiscountedPrice))
+          prDis.discountStatus = "EXPIRED";
+        if (currentDate < new Date(prDis.firstDateForDiscountedPrice))
+          prDis.discountStatus = "COMING-SOON";
+      }
+    });
+    setDiscountData(data);
+  };
+
   const getProductDiscountData = () => {
     AdminService.getProductDiscountData(productId)
       .then((response) => {
         console.log(response.data);
-        setDiscountData(response.data);
+        setDiscountStatus(response.data);
+        // setDiscountData(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -97,65 +120,91 @@ const AdminViewProductDiscount = () => {
                 />
                 <CardContent>
                   <div>
-                    <TableContainer component={Paper}>
-                      <Table sx={{ minWidth: 350 }} aria-label="History">
-                        <TableHead>
-                          <TableRow>
-                            <TableCell>Product</TableCell>                            
-                            <TableCell align="right">
-                              $ Discounted Price
-                            </TableCell>
-                            <TableCell align="right">Discount %</TableCell>
-                            <TableCell align="right">
-                              Discount Qty
-                            </TableCell>
-                            <TableCell align="right">
-                              Discount Start Date
-                            </TableCell>
-                            <TableCell align="right">
-                              Discount End Date
-                            </TableCell>
-                          </TableRow>
-                        </TableHead>
-                        <TableBody>
-                          {rows.map((row) => (
-                            <TableRow
-                              key={row.productDiscountId}
-                              sx={{
-                                "&:last-child td, &:last-child th": {
-                                  border: 0,
-                                },
-                              }}
-                            >
-                              <TableCell component="th" scope="row">
-                                {row.productId}
-                              </TableCell>
-
+                    {rows && rows.length > 0 ? (
+                      <TableContainer component={Paper}>
+                        <Table sx={{ minWidth: 350 }} aria-label="History">
+                          <TableHead>
+                            <TableRow>
+                              <TableCell>Product</TableCell>
                               <TableCell align="right">
-                                $ {row.discountedPrice}
+                                $ Discounted Price
                               </TableCell>
-
+                              <TableCell align="right">Discount %</TableCell>
+                              <TableCell align="right">Discount Qty</TableCell>
                               <TableCell align="right">
-                                {row.discountPercentage}
+                                Discount Start Date
                               </TableCell>
                               <TableCell align="right">
-                                {row.discountQty}
-                              </TableCell>
-                              <TableCell align="right">
-                                {Moment(row.firstDateForDiscountedPrice).format(
-                                  "ddd  DD MMM"
-                                )}
-                              </TableCell>
-                              <TableCell align="right">
-                                {Moment(row.lastDateForDiscountedPrice).format(
-                                  "ddd  DD MMM"
-                                )}
+                                Discount End Date
                               </TableCell>
                             </TableRow>
-                          ))}
-                        </TableBody>
-                      </Table>
-                    </TableContainer>
+                          </TableHead>
+                          <TableBody>
+                            {rows.map((row) => (
+                              <TableRow
+                                key={row.productDiscountId}
+                                sx={{
+                                  "&:last-child td, &:last-child th": {
+                                    border: 0,
+                                  },
+                                }}
+                              >
+                                <TableCell align="left">
+                                  {/* {row.productId} */}
+
+                                  {row.discountStatus === "RUNNING" ? (
+                                    <span className={classes.runningDiscount}>
+                                      <h3>{row.discountStatus}</h3>
+                                    </span>
+                                  ) : (
+                                    <span>
+                                      {row.discountStatus === "EXPIRED" ? (
+                                        <span
+                                          className={classes.expiredDiscount}
+                                        >
+                                          <h5>{row.discountStatus}</h5>
+                                        </span>
+                                      ) : (
+                                        <span
+                                          className={classes.comingSoonDiscount}
+                                        >
+                                          <h5>{row.discountStatus}</h5>
+                                        </span>
+                                      )}
+                                    </span>
+                                  )}
+                                </TableCell>
+
+                                <TableCell align="right">
+                                  $ {row.discountedPrice}
+                                </TableCell>
+
+                                <TableCell align="right">
+                                  {row.discountPercentage}
+                                </TableCell>
+                                <TableCell align="right">
+                                  {row.discountQty}
+                                </TableCell>
+                                <TableCell align="right">
+                                  {Moment(
+                                    row.firstDateForDiscountedPrice
+                                  ).format("ddd  DD MMM")}
+                                </TableCell>
+                                <TableCell align="right">
+                                  {Moment(
+                                    row.lastDateForDiscountedPrice
+                                  ).format("ddd  DD MMM")}
+                                </TableCell>
+                              </TableRow>
+                            ))}
+                          </TableBody>
+                        </Table>
+                      </TableContainer>
+                    ) : (
+                      <span className={classes.noDiscountData}>
+                        Discount-Data Not Available !
+                      </span>
+                    )}
                   </div>
                 </CardContent>
               </Card>
