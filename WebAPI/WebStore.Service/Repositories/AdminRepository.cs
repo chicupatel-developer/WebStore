@@ -6,7 +6,7 @@ using WebStore.Context.Models;
 using WebStore.Service.Interfaces;
 using System.Linq;
 using WebStore.Service.Utils;
-
+using WebStore.Context.DTO;
 
 namespace WebStore.Service.Repositories
 {
@@ -59,6 +59,23 @@ namespace WebStore.Service.Repositories
                 datas = datas_.ToList();
 
             return datas;
+        }
+    
+    
+        public MonthlyProductSales GetMonthlyProductSales(MonthlyProductSales data)
+        {
+            data.Months = new List<string>();
+            data.Sales = new List<decimal>();
+
+            data.Months.Add("January");
+            data.Months.Add("February");
+            data.Months.Add("March");
+
+            data.Sales.Add(1000.50m);
+            data.Sales.Add(2000.75m);
+            data.Sales.Add(1500.55m);
+
+            return data;
         }
     }
 }

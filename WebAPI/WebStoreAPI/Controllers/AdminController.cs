@@ -82,6 +82,25 @@ namespace WebStoreAPI.Controllers
             }
         }
 
+        // https://localhost:44309/api/Admin/getMonthlyProductSales
+        [HttpPost]
+        [Route("getMonthlyProductSales")]
+        public IActionResult GetMonthlyProductSales(MonthlyProductSales data)
+        {
+            try
+            {
+                data.ProductId = 1;
+                data.Year = 2022;
+
+                var monthlySalesData = _adminRepo.GetMonthlyProductSales(data);
+                return Ok(monthlySalesData);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest();
+            }
+        }
+
 
     }
 }

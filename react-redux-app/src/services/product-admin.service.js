@@ -8,5 +8,9 @@ class AdminService {
   getProductDiscountData = async (productId) => {
     return await http.get(`/getProductDiscountData?productId=${productId}`);
   };
+
+  getMonthlyProductSales = async (data) => {
+    return await http.post(`/getMonthlyProductSales`, data);
+  };
 }
 export default new AdminService();

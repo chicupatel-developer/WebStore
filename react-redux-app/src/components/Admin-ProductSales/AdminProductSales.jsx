@@ -26,6 +26,17 @@ import AdminService from "../../services/product-admin.service";
 
 import Moment from "moment";
 
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
+import { Bar } from "react-chartjs-2";
+
 const AdminProductSales = () => {
   const classes = useStyles();
   const navigate = useNavigate();
@@ -57,6 +68,8 @@ const AdminProductSales = () => {
       if (e.target.value === pr.id) selectedProduct_ = pr;
     });
     setSelectedProduct(selectedProduct_);
+
+    getMonthlyProductSalesData();
   };
 
   const getSubHeader = (subHeaderString) => {
@@ -76,6 +89,55 @@ const AdminProductSales = () => {
   };
 
   const { id, title, category, price, image } = selectedProduct;
+
+  const [data_, setData_] = useState([]);
+  const [labels_, setLabels_] = useState([]);
+
+  const getMonthlyProductSalesData = () => {
+    let monthlyProductSales = {};
+    AdminService.getMonthlyProductSales(monthlyProductSales)
+      .then((response) => {
+        setLabels_(response.data.months);
+        setData_(response.data.sales);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend
+  );
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "top",
+      },
+      title: {
+        display: true,
+        text: "Monthly Sales Data",
+      },
+    },
+  };
+
+  const data = {
+    labels: labels_,
+    datasets: [
+      {
+        label: "Monthly Sales $",
+        data: data_,
+        backgroundColor: "rgba(255, 99, 132, 0.5)",
+      },
+    ],
+  };
+
+
   return (
     <div className={classes.main}>
       <Container maxWidth="md">
@@ -94,13 +156,15 @@ const AdminProductSales = () => {
           {selectedProduct && selectedProduct.id > 0 ? (
             <Grid item xs={12} sm={12} md={12} lg={12}>
               <Box className={classes.root}>
-                <Card>               
-                  <CardHeader                  
+                <Card>
+                  <CardHeader
                     title={getTitle(image, title, price)}
                     subheader={getSubHeader(category)}
                   />
                   <CardContent>
-                    <div>product sales report by chart</div>
+                    <div>
+                      <Bar options={options} data={data} />
+                    </div>
                   </CardContent>
                 </Card>
               </Box>

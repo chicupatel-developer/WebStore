@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using WebStore.Context.DTO;
 
 namespace WebStore.Service.Interfaces
 {
@@ -9,6 +10,7 @@ namespace WebStore.Service.Interfaces
     {
         bool AddProductDiscount(ProductDiscount productDiscount);
         List<ProductDiscount> GetProductDiscountData(int productId);
+        MonthlyProductSales GetMonthlyProductSales(MonthlyProductSales data);
 
     }
 }
