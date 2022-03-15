@@ -125,7 +125,7 @@ const AdminViewProductDiscount = () => {
                         <Table sx={{ minWidth: 350 }} aria-label="History">
                           <TableHead>
                             <TableRow>
-                              <TableCell>Product</TableCell>
+                              <TableCell>Discount</TableCell>
                               <TableCell align="right">
                                 $ Discounted Price
                               </TableCell>

@@ -7,4 +7,8 @@ export default makeStyles((theme) => ({
   totalWeeklySpent: {
     color: "blue",
   },
+  noHistoryData: {
+    color: "red",
+    fontSize: "x-large",
+  },
 }));

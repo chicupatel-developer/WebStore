@@ -141,42 +141,51 @@ const CurrentWeekHistory = () => {
           </span>
         </h3>
 
-        <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} aria-label="History">
-            <TableHead>
-              <TableRow>
-                <TableCell>Product</TableCell>
-                <TableCell align="right">$ [Unit Price]</TableCell>
-                <TableCell align="right">Purchased Qty</TableCell>
-                <TableCell align="right">$ [Total]</TableCell>
-                <TableCell align="right">Purchased Date</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {rows.map((row) => (
-                <TableRow
-                  key={row.productId}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <TableCell component="th" scope="row">
-                    {/* {row.productId} */}
-                    <img src={row.image} alt="Image__" width="90" height="90" />
-                  </TableCell>
-
-                  <TableCell align="right">$ {row.productPrice}</TableCell>
-
-                  <TableCell align="right">{row.qty}</TableCell>
-                  <TableCell align="right">
-                    $ {getTotalForProduct(row.qty * row.productPrice)}
-                  </TableCell>
-                  <TableCell align="right">
-                    {Moment(row.date).format("ddd  DD MMM , hh:mm a")}
-                  </TableCell>
+        {rows && rows.length > 0 ? (
+          <TableContainer component={Paper}>
+            <Table sx={{ minWidth: 650 }} aria-label="History">
+              <TableHead>
+                <TableRow>
+                  <TableCell>Product</TableCell>
+                  <TableCell align="right">$ [Unit Price]</TableCell>
+                  <TableCell align="right">Purchased Qty</TableCell>
+                  <TableCell align="right">$ [Total]</TableCell>
+                  <TableCell align="right">Purchased Date</TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+              </TableHead>
+              <TableBody>
+                {rows.map((row) => (
+                  <TableRow
+                    key={row.productId}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell component="th" scope="row">
+                      {/* {row.productId} */}
+                      <img
+                        src={row.image}
+                        alt="Image__"
+                        width="90"
+                        height="90"
+                      />
+                    </TableCell>
+
+                    <TableCell align="right">$ {row.productPrice}</TableCell>
+
+                    <TableCell align="right">{row.qty}</TableCell>
+                    <TableCell align="right">
+                      $ {getTotalForProduct(row.qty * row.productPrice)}
+                    </TableCell>
+                    <TableCell align="right">
+                      {Moment(row.date).format("ddd  DD MMM , hh:mm a")}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        ) : (
+          <span className={classes.noHistoryData}>No Purchase History !</span>
+        )}
       </Container>
     </div>
   );
