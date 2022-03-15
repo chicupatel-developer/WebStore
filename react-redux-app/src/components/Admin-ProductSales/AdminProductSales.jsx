@@ -62,10 +62,12 @@ const AdminProductSales = () => {
   const getSubHeader = (subHeaderString) => {
     return <div className={classes.subHeader}>{subHeaderString}</div>;
   };
-  const getTitle = (titleString, priceString) => {
+  const getTitle = (image, titleString, priceString) => {
     return (
       <div className={classes.title}>
         <div className={classes.price}>
+          <img src={image} className={classes.imgDisplay} />
+          &nbsp;&nbsp;
           <b>$ {priceString}</b>
         </div>
         {titleString}
@@ -92,9 +94,9 @@ const AdminProductSales = () => {
           {selectedProduct && selectedProduct.id > 0 ? (
             <Grid item xs={12} sm={12} md={12} lg={12}>
               <Box className={classes.root}>
-                <Card>
-                  <CardHeader
-                    title={getTitle(title, price)}
+                <Card>               
+                  <CardHeader                  
+                    title={getTitle(image, title, price)}
                     subheader={getSubHeader(category)}
                   />
                   <CardContent>

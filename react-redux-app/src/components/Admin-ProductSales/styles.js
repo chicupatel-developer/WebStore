@@ -4,11 +4,16 @@ export default makeStyles((theme) => ({
   main: {
     marginTop: "100px",
   },
- 
+
   img: {
     height: "40px",
     width: "30px",
-    verticalAlign: 'middle',
+    verticalAlign: "middle",
+  },
+  imgDisplay: {
+    height: "100px",
+    width: '80px',
+    verticalAlign: "middle",
   },
   root: {
     height: "100%",
