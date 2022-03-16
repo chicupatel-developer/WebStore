@@ -43,12 +43,15 @@ const AdminProductSales = () => {
 
   const currentUser = useSelector((state) => state.auth.currentUser);
   const products = useSelector((state) => state.allProducts.products);
+  const years = [2018, 2019, 2020, 2021, 2022];
 
   const [selectedProduct, setSelectedProduct] = useState({});
+  const [selectedYear, setSelectedYear] = useState(0);
   useEffect(() => {
     console.log(products);
   }, []);
 
+  // product
   const renderOptionsForProduct = () => {
     return products.map((dt, i) => {
       return (
@@ -71,9 +74,23 @@ const AdminProductSales = () => {
 
     let monthlyProductSales = {
       productId: selectedProduct_.id,
-      year: 2022,
+      year: Number(selectedYear),
     };
     getMonthlyProductSalesData(monthlyProductSales);
+  };
+
+  // year
+  const renderOptionsForYear = () => {
+    return years.map((dt, i) => {
+      return (
+        <MenuItem value={Number(dt)} key={i} name={dt}>
+          <div>{dt}</div>
+        </MenuItem>
+      );
+    });
+  };
+  const onYearChange = (e) => {
+    setSelectedYear(e.target.value);  
   };
 
   const getSubHeader = (subHeaderString) => {
@@ -131,24 +148,26 @@ const AdminProductSales = () => {
 
   const data = {
     labels: labels_,
-    // labels: [1, 2, 3],
     datasets: [
       {
         label: "Monthly Sales $",
         data: data_,
-        // data: [24, 4350, 4950],
         backgroundColor: "rgba(255, 99, 132, 0.5)",
       },
     ],
   };
-
-  console.log(data);
 
   return (
     <div className={classes.main}>
       <Container maxWidth="md">
         <h1>[ Product Sales ]</h1>
         <Grid container>
+          <Grid item xs={12} sm={12} md={12} lg={12}>
+            Year : &nbsp;&nbsp;
+            <Select onChange={(e) => onYearChange(e)} value={selectedYear}>
+              {renderOptionsForYear()}
+            </Select>
+          </Grid>
           <Grid item xs={12} sm={12} md={12} lg={12}>
             Product : &nbsp;&nbsp;
             <Select
@@ -159,7 +178,7 @@ const AdminProductSales = () => {
             </Select>
           </Grid>
 
-          {selectedProduct && selectedProduct.id > 0 ? (
+          {(selectedProduct && selectedProduct.id > 0) ? (
             <Grid item xs={12} sm={12} md={12} lg={12}>
               <Box className={classes.root}>
                 <Card>
@@ -167,11 +186,11 @@ const AdminProductSales = () => {
                     title={getTitle(image, title, price)}
                     subheader={getSubHeader(category)}
                   />
-                  <CardContent>
-                    <div>
+                  <div className={classes.chartSize}>
+                    <CardContent>
                       <Bar options={options} data={data} />
-                    </div>
-                  </CardContent>
+                    </CardContent>
+                  </div>
                 </Card>
               </Box>
             </Grid>

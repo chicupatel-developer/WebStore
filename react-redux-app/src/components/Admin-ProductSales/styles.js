@@ -54,4 +54,9 @@ export default makeStyles((theme) => ({
     fontSize: "x-large",
     padding: "100px",
   },
+  chartSize: {
+    position: 'relative',
+    height: '120vh',
+    width: '150vh',
+  }
 }));
