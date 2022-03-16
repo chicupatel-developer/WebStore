@@ -7,6 +7,7 @@ using WebStore.Service.Interfaces;
 using System.Linq;
 using WebStore.Service.Utils;
 using WebStore.Context.DTO;
+using System.Globalization;
 
 namespace WebStore.Service.Repositories
 {
@@ -65,15 +66,26 @@ namespace WebStore.Service.Repositories
         public MonthlyProductSales GetMonthlyProductSales(MonthlyProductSales data)
         {
             data.Months = new List<string>();
-            data.Sales = new List<decimal>();
+            data.Sales = new List<decimal>();        
 
-            data.Months.Add("January");
-            data.Months.Add("February");
-            data.Months.Add("March");
+            var productSoldData = appDbContext.ProductSold
+                                    .Where(x => x.ProductId == data.ProductId && x.SoldDate.Year == data.Year);
 
-            data.Sales.Add(1000.50m);
-            data.Sales.Add(2000.75m);
-            data.Sales.Add(1500.55m);
+            var groupedMonthly = from p in productSoldData                          
+                                 group p
+                                   by new { month = p.SoldDate.Month.ToString()} into d
+                                 select new
+                                 {
+                                     Month = d.Key.month,
+                                     TotalSales = d.Sum(x => x.Qty)
+                                 };
+
+            foreach (var data_ in groupedMonthly)
+            {
+                data.Months.Add(data_.Month);
+                data.Sales.Add(data_.TotalSales);
+            }
+
 
             return data;
         }

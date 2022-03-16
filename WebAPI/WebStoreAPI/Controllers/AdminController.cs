@@ -89,9 +89,6 @@ namespace WebStoreAPI.Controllers
         {
             try
             {
-                data.ProductId = 1;
-                data.Year = 2022;
-
                 var monthlySalesData = _adminRepo.GetMonthlyProductSales(data);
                 return Ok(monthlySalesData);
             }

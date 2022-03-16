@@ -90,3 +90,71 @@ end
 
 
 --------------------------------------------------------
+
+SELECT *
+FROM ProductSold
+WHERE year(SoldDate) + month(SoldDate) BETWEEN 2022 + 3 AND
+                                                 2022 + 3;
+
+
+												 
+SELECT DATEADD(DAY, 1, '2017/08/25') AS DateAdd;
+select SoldDate, DATEADD(DAY, 1, SoldDate) AS NextDate from ProductSold
+
+---------------------------------------------
+
+
+exec AddTestDataToProductSold @ProductId=1, @Price=109.95
+
+alter PROCEDURE AddTestDataToProductSold  
+@ProductId int,
+@Price int
+AS
+BEGIN
+       SET NOCOUNT ON;
+
+       BEGIN TRAN
+              BEGIN TRY                     
+					DECLARE @cnt INT = 0; 	
+
+					WHILE @cnt < 30
+					BEGIN	
+					
+					   SET @cnt = @cnt + 1;
+					   print @cnt;
+					   insert into ProductSold
+					   (ProductId, Price, Qty, SoldDate, UserName)
+					   values
+					   (@ProductId, @Price, @cnt*10, (select DATEADD(DAY, 1, concat('2022/05/',@cnt))), 'haha')
+										   
+					END;
+					COMMIT TRANSACTION
+					PRINT 'Done...';				
+			 END TRY
+		     BEGIN CATCH
+				  -- if error, roll back any chanegs done by any of the sql statements
+				  ROLLBACK TRANSACTION
+				  THROW;
+		     END CATCH
+END
+
+------------------------------------------
+
+
+group by YEAR and MONTH for specific ProductId=1
+
+
+SELECT sum(Qty) as QTY_SOLD, year(SoldDate) as Year, month(SoldDate) as Month
+FROM ProductSold
+WHERE ProductId=1 
+group by year(SoldDate), month(SoldDate)
+
+QTY_SOLD	Year	Month
+10			2018	3
+24			2022	3
+4350		2022	4
+4950		2022	5
+
+------------------------------------------
+
+

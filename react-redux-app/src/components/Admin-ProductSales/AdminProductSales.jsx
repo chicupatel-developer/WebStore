@@ -69,7 +69,11 @@ const AdminProductSales = () => {
     });
     setSelectedProduct(selectedProduct_);
 
-    getMonthlyProductSalesData();
+    let monthlyProductSales = {
+      productId: selectedProduct_.productId,
+      year: 2022,
+    };
+    getMonthlyProductSalesData(monthlyProductSales);
   };
 
   const getSubHeader = (subHeaderString) => {
@@ -93,8 +97,7 @@ const AdminProductSales = () => {
   const [data_, setData_] = useState([]);
   const [labels_, setLabels_] = useState([]);
 
-  const getMonthlyProductSalesData = () => {
-    let monthlyProductSales = {};
+  const getMonthlyProductSalesData = (monthlyProductSales) => {
     AdminService.getMonthlyProductSales(monthlyProductSales)
       .then((response) => {
         setLabels_(response.data.months);
@@ -128,15 +131,18 @@ const AdminProductSales = () => {
 
   const data = {
     labels: labels_,
+    // labels: [1, 2, 3],
     datasets: [
       {
         label: "Monthly Sales $",
         data: data_,
+        // data: [24, 4350, 4950],
         backgroundColor: "rgba(255, 99, 132, 0.5)",
       },
     ],
   };
 
+  console.log(data);
 
   return (
     <div className={classes.main}>
