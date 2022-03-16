@@ -70,7 +70,7 @@ const AdminProductSales = () => {
     setSelectedProduct(selectedProduct_);
 
     let monthlyProductSales = {
-      productId: selectedProduct_.productId,
+      productId: selectedProduct_.id,
       year: 2022,
     };
     getMonthlyProductSalesData(monthlyProductSales);

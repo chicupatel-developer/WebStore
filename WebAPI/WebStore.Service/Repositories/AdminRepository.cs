@@ -8,6 +8,7 @@ using System.Linq;
 using WebStore.Service.Utils;
 using WebStore.Context.DTO;
 using System.Globalization;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebStore.Service.Repositories
 {
@@ -71,23 +72,40 @@ namespace WebStore.Service.Repositories
             var productSoldData = appDbContext.ProductSold
                                     .Where(x => x.ProductId == data.ProductId && x.SoldDate.Year == data.Year);
 
-            var groupedMonthly = from p in productSoldData                          
+            var groupedMonthly = (from p in productSoldData                          
                                  group p
-                                   by new { month = p.SoldDate.Month.ToString()} into d
+                                   by new { month = p.SoldDate.Month} into d
                                  select new
                                  {
                                      Month = d.Key.month,
                                      TotalSales = d.Sum(x => x.Qty)
-                                 };
+                                 }).ToList();
 
-            foreach (var data_ in groupedMonthly)
+            var missingMonths = Enumerable
+               .Range(1, 12)
+               .Except(groupedMonthly.Select(m => m.Month));
+            // Insert missing months back into months list
+            foreach (var month in missingMonths)
             {
-                data.Months.Add(data_.Month);
-                data.Sales.Add(data_.TotalSales);
+                groupedMonthly.Add(new 
+                {
+                    Month = month,
+                    TotalSales = 0
+                });
             }
 
-
+            foreach (var data_ in groupedMonthly.OrderBy(x=>x.Month))
+            {
+                data.Months.Add(GetMonthName(data_.Month));
+                data.Sales.Add(data_.TotalSales);
+            }
             return data;
         }
+
+        private static string GetMonthName(int monthNumber)
+        {
+            return CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(monthNumber);
+        }
+
     }
 }
