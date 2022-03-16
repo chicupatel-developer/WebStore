@@ -9,11 +9,11 @@ import ShoppingCart from "./components/ShoppingCart/ShoppingCart";
 import NotFound from "./components/NotFound/NotFound";
 import Checkout from "./components/Checkout/Checkout";
 import Login from "./components/Login/Login";
-import AdminProductSales from "./components/Admin-ProductSales/AdminProductSales";
 import AdminProductDiscount from "./components/Admin-ProductDiscount/AdminProductDiscount";
 import AdminViewProductDiscount from "./components/Admin-ViewProductDiscount/AdminViewProductDiscount";
 import Register from "./components/Register/Register";
 import ShoppingHistory from "./components/ShoppingHistory/ShoppingHistory";
+import AdminReport from './components/Admin-Reports/Admin-Reports'
 
 import "./App.css";
 
@@ -33,7 +33,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/home" element={<Home />} />
             <Route path="/products" element={<ProductListing />} />
-            <Route path="/adminProductSales" element={<AdminProductSales />} />
+            <Route path="/adminReports" element={<AdminReport />} />
             <Route
               path="/adminProductDiscount"
               element={<AdminProductDiscount />}

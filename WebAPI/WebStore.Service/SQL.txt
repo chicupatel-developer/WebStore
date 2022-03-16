@@ -165,4 +165,40 @@ QTY_SOLD	Year	Month
 
 ------------------------------------------
 
+Quarterly Sales of Product
+
+SELECT DATEPART(YEAR,SoldDate) [Year],
+ DATEPART(QUARTER,SoldDate) [Quarter], sum(Qty) [Quarterly Sales]
+FROM ProductSold
+where ProductId=1
+GROUP BY DATEPART(YEAR,SoldDate),DATEPART(QUARTER,SoldDate)
+ORDER BY 1,2
+
+
+Year	Quarter	Quarterly Sales
+2022	1			4650
+2022	2			9300
+
+
+------------------------------
+
+Quarterly Sales of Product
+-- i.p = productid=1, year=2022
+
+SELECT  -- DATEPART(YEAR,SoldDate) [Year],
+ DATEPART(QUARTER,SoldDate) [Quarter], sum(Qty) [Quarterly Sales]
+FROM ProductSold
+where ProductId=1 and DATEPART(YEAR,SoldDate) = 2022
+GROUP BY DATEPART(YEAR,SoldDate),DATEPART(QUARTER,SoldDate)
+-- ORDER BY 1,2
+ORDER BY 1
+
+Quarter	Quarterly Sales
+1			4650
+2			9300
+
+---------------------------------------
+
+
+
 

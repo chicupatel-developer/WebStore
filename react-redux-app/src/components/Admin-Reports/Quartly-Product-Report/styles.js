@@ -2,7 +2,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 export default makeStyles((theme) => ({
   main: {
-    marginTop: "100px",
+    marginTop: "20px",
   },
 
   img: {
@@ -12,7 +12,7 @@ export default makeStyles((theme) => ({
   },
   imgDisplay: {
     height: "100px",
-    width: '80px',
+    width: "80px",
     verticalAlign: "middle",
   },
   root: {
@@ -21,7 +21,7 @@ export default makeStyles((theme) => ({
     display: "flex",
     flexWrap: "wrap",
     "& > *": {
-      margin: theme.spacing(3),
+      margin: theme.spacing(1),
     },
   },
   subHeader: {
@@ -40,27 +40,18 @@ export default makeStyles((theme) => ({
     marginBottom: "10px",
   },
 
-  root: {
-    height: "100%",
-    width: "100%",
-    display: "flex",
-    flexWrap: "wrap",
-    "& > *": {
-      margin: theme.spacing(3),
-    },
-  },
   noDiscountData: {
     color: "red",
     fontSize: "x-large",
     padding: "100px",
   },
   chartSize: {
-    position: 'relative',
-    height: '120vh',
-    width: '150vh',
+    position: "relative",
+    // height: "130vh",
+    // width: "170vh",
   },
   totalYearSales: {
-    color: 'blue',
-    fontSize: 'x-large',
+    color: "blue",
+    fontSize: "x-large",
   },
 }));

@@ -102,6 +102,44 @@ namespace WebStore.Service.Repositories
             return data;
         }
 
+        public QuarterlyProductSales GetQuarterlyProductSales(QuarterlyProductSales data)
+        {
+            data.Quarters = new List<decimal>();
+            data.Sales = new List<decimal>();
+
+            var productSoldData = appDbContext.ProductSold
+                                    .Where(x => x.ProductId == data.ProductId && x.SoldDate.Year == data.Year);
+
+            var groupedQuarterly = (from p in productSoldData
+                                  group p
+                                    by new { quarter = (p.SoldDate.Month-1)/3 } into d
+                                  select new
+                                  {
+                                      Quarter = d.Key.quarter+1,
+                                      // TotalSales = d.Sum(x => (x.Qty * x.Price))
+                                      TotalSales = d.Sum(x => (x.Qty))
+                                  }).ToList();
+
+            var missingQuarters = Enumerable
+               .Range(1, 4)
+               .Except(groupedQuarterly.Select(m => m.Quarter));
+            foreach (var q in missingQuarters)
+            {
+                groupedQuarterly.Add(new
+                {
+                    Quarter = q,
+                    TotalSales = 0
+                });
+            }
+
+
+            foreach (var data_ in groupedQuarterly.OrderBy(x => x.Quarter))
+            {
+                data.Quarters.Add(data_.Quarter);
+                data.Sales.Add(data_.TotalSales);
+            }
+            return data;
+        }
         private static string GetMonthName(int monthNumber)
         {
             return CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(monthNumber);

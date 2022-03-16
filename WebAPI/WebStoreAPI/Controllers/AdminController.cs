@@ -99,5 +99,21 @@ namespace WebStoreAPI.Controllers
         }
 
 
+        // https://localhost:44309/api/Admin/getQuarterlyProductSales
+        [HttpPost]
+        [Route("getQuarterlyProductSales")]
+        public IActionResult GetQuarterlyProductSales(QuarterlyProductSales data)
+        {
+            try
+            {
+                var quarterlySalesData = _adminRepo.GetQuarterlyProductSales(data);
+                return Ok(quarterlySalesData);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest();
+            }
+        }
+
     }
 }

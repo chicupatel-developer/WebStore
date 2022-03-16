@@ -22,7 +22,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { useNavigate } from "react-router-dom";
 
-import AdminService from "../../services/product-admin.service";
+import AdminService from "../../../services/product-admin.service";
 
 import Moment from "moment";
 
@@ -37,7 +37,7 @@ import {
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 
-const AdminProductSales = () => {
+const QuartlyProductReport = () => {
   const classes = useStyles();
   const navigate = useNavigate();
 
@@ -50,7 +50,6 @@ const AdminProductSales = () => {
 
   const [showChart, setShowChart] = useState(false);
   const [totalSalesForYear, setTotalSalesForYear] = useState(0.0);
-
 
   useEffect(() => {
     console.log(products);
@@ -95,7 +94,7 @@ const AdminProductSales = () => {
     });
   };
   const onYearChange = (e) => {
-    setSelectedYear(e.target.value);  
+    setSelectedYear(e.target.value);
     setShowChart(false);
   };
 
@@ -120,12 +119,12 @@ const AdminProductSales = () => {
   const [data_, setData_] = useState([]);
   const [labels_, setLabels_] = useState([]);
 
-  const formatter = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    minimumFractionDigits: 2
+  const formatter = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 2,
   });
-  
+
   const getMonthlyProductSalesData = (monthlyProductSales) => {
     AdminService.getMonthlyProductSales(monthlyProductSales)
       .then((response) => {
@@ -134,7 +133,7 @@ const AdminProductSales = () => {
 
         let totalSales = 0.0;
         response.data.sales.forEach(function (sales) {
-          totalSales+=sales;
+          totalSales += sales;
         });
         setTotalSalesForYear(formatter.format(totalSales));
 
@@ -170,7 +169,7 @@ const AdminProductSales = () => {
     labels: labels_,
     datasets: [
       {
-        label: "Monthly Sales $",
+        label: "Quarterly Sales $",
         data: data_,
         backgroundColor: "rgba(255, 99, 132, 0.5)",
       },
@@ -180,7 +179,7 @@ const AdminProductSales = () => {
   return (
     <div className={classes.main}>
       <Container maxWidth="md">
-        <h1>[ Product Sales ]</h1>
+        <h1>[ Quarterly - Product - Sales - Report ]</h1>
         <Grid container>
           <Grid item xs={12} sm={12} md={12} lg={12}>
             Year : &nbsp;&nbsp;
@@ -209,9 +208,9 @@ const AdminProductSales = () => {
                   <div className={classes.chartSize}>
                     <CardContent>
                       <div className={classes.totalYearSales}>
-                        {totalSalesForYear  && (
+                        {totalSalesForYear && (
                           <span>
-                            Total Sales For Year {selectedYear} : &nbsp; 
+                            Total Sales For Year {selectedYear} : &nbsp;
                             {totalSalesForYear}
                           </span>
                         )}
@@ -233,4 +232,4 @@ const AdminProductSales = () => {
   );
 };
 
-export default AdminProductSales;
+export default QuartlyProductReport;

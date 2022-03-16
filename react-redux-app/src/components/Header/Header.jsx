@@ -433,10 +433,10 @@ const Header = () => {
         <Link
           className={classes.linkStyle}
           color="inherit"
-          onClick={(e) => doComponentRedirect(e, "AdminProductSales")}
+          onClick={(e) => doComponentRedirect(e, "AdminReports")}
         >
           <MenuItem>
-            <SupervisorAccountTwoToneIcon /> Product-Sales
+            <SupervisorAccountTwoToneIcon /> Admin-Reports
           </MenuItem>
         </Link>       
         <Link
@@ -542,9 +542,9 @@ const Header = () => {
         <Button
           className={classes.menuButton}
           color="inherit"
-          onClick={(e) => doComponentRedirect(e, "AdminProductSales")}
+          onClick={(e) => doComponentRedirect(e, "AdminReports")}
         >
-          <SupervisorAccountTwoToneIcon /> Product-Sales
+          <SupervisorAccountTwoToneIcon /> Admin-Reports
         </Button>      
         <Button
           className={classes.menuButton}
@@ -682,7 +682,7 @@ const Header = () => {
   const doComponentRedirect = (e, routePath) => {
     console.log("redirect from header menu option", currentUser);
     if (routePath === "Home") navigate("/home");
-    if (routePath === "AdminProductSales") navigate("/adminProductSales");    
+    if (routePath === "AdminReports") navigate("/adminReports");    
     if (routePath === "Products" && currentUser.role === "Shopper") navigate("/");
     if (routePath === "Products" && currentUser.role==='Admin' ) navigate("/products");
     if (routePath === "Cart") navigate("/cart");
