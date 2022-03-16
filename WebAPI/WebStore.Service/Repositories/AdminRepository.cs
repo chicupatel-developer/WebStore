@@ -78,7 +78,7 @@ namespace WebStore.Service.Repositories
                                  select new
                                  {
                                      Month = d.Key.month,
-                                     TotalSales = d.Sum(x => x.Qty)
+                                     TotalSales = d.Sum(x => (x.Qty*x.Price))
                                  }).ToList();
 
             var missingMonths = Enumerable
@@ -90,7 +90,7 @@ namespace WebStore.Service.Repositories
                 groupedMonthly.Add(new 
                 {
                     Month = month,
-                    TotalSales = 0
+                    TotalSales = 0m
                 });
             }
 

@@ -47,6 +47,11 @@ const AdminProductSales = () => {
 
   const [selectedProduct, setSelectedProduct] = useState({});
   const [selectedYear, setSelectedYear] = useState(0);
+
+  const [showChart, setShowChart] = useState(false);
+  const [totalSalesForYear, setTotalSalesForYear] = useState(0.0);
+
+
   useEffect(() => {
     console.log(products);
   }, []);
@@ -91,6 +96,7 @@ const AdminProductSales = () => {
   };
   const onYearChange = (e) => {
     setSelectedYear(e.target.value);  
+    setShowChart(false);
   };
 
   const getSubHeader = (subHeaderString) => {
@@ -114,11 +120,25 @@ const AdminProductSales = () => {
   const [data_, setData_] = useState([]);
   const [labels_, setLabels_] = useState([]);
 
+  const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 2
+  });
+  
   const getMonthlyProductSalesData = (monthlyProductSales) => {
     AdminService.getMonthlyProductSales(monthlyProductSales)
       .then((response) => {
         setLabels_(response.data.months);
         setData_(response.data.sales);
+
+        let totalSales = 0.0;
+        response.data.sales.forEach(function (sales) {
+          totalSales+=sales;
+        });
+        setTotalSalesForYear(formatter.format(totalSales));
+
+        setShowChart(true);
       })
       .catch((error) => {
         console.log(error);
@@ -141,7 +161,7 @@ const AdminProductSales = () => {
       },
       title: {
         display: true,
-        text: "Monthly Sales Data",
+        text: "Monthly Sales Data  : Year [ " + selectedYear + " ] ",
       },
     },
   };
@@ -178,7 +198,7 @@ const AdminProductSales = () => {
             </Select>
           </Grid>
 
-          {(selectedProduct && selectedProduct.id > 0) ? (
+          {showChart && selectedProduct && selectedProduct.id > 0 ? (
             <Grid item xs={12} sm={12} md={12} lg={12}>
               <Box className={classes.root}>
                 <Card>
@@ -188,6 +208,16 @@ const AdminProductSales = () => {
                   />
                   <div className={classes.chartSize}>
                     <CardContent>
+                      <div className={classes.totalYearSales}>
+                        {totalSalesForYear  && (
+                          <span>
+                            Total Sales For Year {selectedYear} : &nbsp; 
+                            {totalSalesForYear}
+                          </span>
+                        )}
+                      </div>
+
+                      <p></p>
                       <Bar options={options} data={data} />
                     </CardContent>
                   </div>

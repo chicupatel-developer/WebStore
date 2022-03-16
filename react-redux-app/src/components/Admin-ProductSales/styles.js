@@ -58,5 +58,9 @@ export default makeStyles((theme) => ({
     position: 'relative',
     height: '120vh',
     width: '150vh',
-  }
+  },
+  totalYearSales: {
+    color: 'blue',
+    fontSize: 'x-large',
+  },
 }));

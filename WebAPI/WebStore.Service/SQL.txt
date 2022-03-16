@@ -106,9 +106,17 @@ select SoldDate, DATEADD(DAY, 1, SoldDate) AS NextDate from ProductSold
 
 exec AddTestDataToProductSold @ProductId=1, @Price=109.95
 
-alter PROCEDURE AddTestDataToProductSold  
+USE [WebStore_DB]
+GO
+/****** Object:  StoredProcedure [dbo].[AddTestDataToProductSold]    Script Date: 2022-03-16 2:35:14 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+ALTER PROCEDURE [dbo].[AddTestDataToProductSold]  
 @ProductId int,
-@Price int
+@Price money
 AS
 BEGIN
        SET NOCOUNT ON;
