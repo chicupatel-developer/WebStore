@@ -115,5 +115,21 @@ namespace WebStoreAPI.Controllers
             }
         }
 
+        // https://localhost:44309/api/Admin/getQuarterlyProductSales
+        [HttpPost]
+        [Route("getDiscountZoneProductSales")]
+        public IActionResult GetDiscountZoneProductSales(DiscountZoneProductSales data)
+        {
+            try
+            {
+                var discountZoneProductSalesData = _adminRepo.GetDiscountZoneProductSales(data);
+                return Ok(discountZoneProductSalesData);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest();
+            }
+        }
+
     }
 }

@@ -32,11 +32,14 @@ import Paper from "@mui/material/Paper";
 
 import Moment from "moment";
 
+import TrendingUpIcon from "@material-ui/icons/TrendingUp";
+
 const AdminViewProductDiscount = () => {
   const classes = useStyles();
   const navigate = useNavigate();
 
   const [discountData, setDiscountData] = useState([]);
+  const [discountZoneSales, setDiscountZoneSales] = useState({});
 
   const currentUser = useSelector((state) => state.auth.currentUser);
   const discountOnProduct = useSelector(
@@ -72,7 +75,6 @@ const AdminViewProductDiscount = () => {
       .then((response) => {
         console.log(response.data);
         setDiscountStatus(response.data);
-        // setDiscountData(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -101,6 +103,35 @@ const AdminViewProductDiscount = () => {
   };
 
   const rows = discountData;
+
+  const getDiscountZoneProductSales = (e, row) => {
+    console.log(
+      "getting sales!",
+      row.firstDateForDiscountedPrice,
+      row.lastDateForDiscountedPrice
+    );
+
+    let data = {
+      productId: row.productId,
+      discountStartDate: row.firstDateForDiscountedPrice,
+      discountEndDate: row.lastDateForDiscountedPrice,
+      id: row.productDiscountId,
+    };
+    console.log(data);
+
+    AdminService.getDiscountZoneProductSales(data)
+      .then((response) => {
+        console.log(response.data);
+
+        setDiscountZoneSales({
+          sales: response.data.sales,
+          id: data.id,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <div className={classes.main}>
@@ -151,7 +182,6 @@ const AdminViewProductDiscount = () => {
                               >
                                 <TableCell align="left">
                                   {/* {row.productId} */}
-
                                   {row.discountStatus === "RUNNING" ? (
                                     <span className={classes.runningDiscount}>
                                       <h3>{row.discountStatus}</h3>
@@ -171,6 +201,34 @@ const AdminViewProductDiscount = () => {
                                           <h5>{row.discountStatus}</h5>
                                         </span>
                                       )}
+                                    </span>
+                                  )}
+                                  &nbsp;
+                                  {row.discountStatus !== "COMING-SOON" && (
+                                    <span>
+                                      <Button
+                                        onClick={(e) =>
+                                          getDiscountZoneProductSales(e, row)
+                                        }
+                                      >
+                                        <TrendingUpIcon />
+                                      </Button>
+                                      &nbsp;
+                                      <span>
+                                        {discountZoneSales &&
+                                        discountZoneSales.id ===
+                                          row.productDiscountId ? (
+                                          <span
+                                            className={
+                                              classes.discountZoneSalesSpan
+                                            }
+                                          >
+                                            Sales [$ {discountZoneSales.sales}]
+                                          </span>
+                                        ) : (
+                                          <span></span>
+                                        )}
+                                      </span>
                                     </span>
                                   )}
                                 </TableCell>

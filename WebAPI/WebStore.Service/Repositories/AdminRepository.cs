@@ -140,6 +140,26 @@ namespace WebStore.Service.Repositories
             }
             return data;
         }
+
+        public DiscountZoneProductSales GetDiscountZoneProductSales(DiscountZoneProductSales data)
+        {
+            var sales_ = appDbContext.ProductSold
+                            .Where(x => x.ProductId == data.ProductId && x.SoldDate >= data.DiscountStartDate && x.SoldDate <= data.DiscountEndDate);
+
+            if (sales_ != null && sales_.Count() > 0)
+            {
+                var totalSales = 0.0m;
+                foreach(var sale_ in sales_)
+                {
+                    totalSales += (sale_.Price * sale_.Qty);
+                }
+                data.Sales = totalSales;
+            }
+            else
+                data.Sales = 0.0m;
+            return data;
+        }
+
         private static string GetMonthName(int monthNumber)
         {
             return CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(monthNumber);

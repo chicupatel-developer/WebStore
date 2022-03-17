@@ -12,5 +12,6 @@ namespace WebStore.Service.Interfaces
         List<ProductDiscount> GetProductDiscountData(int productId);
         MonthlyProductSales GetMonthlyProductSales(MonthlyProductSales data);
         QuarterlyProductSales GetQuarterlyProductSales(QuarterlyProductSales data);
+        DiscountZoneProductSales GetDiscountZoneProductSales(DiscountZoneProductSales data);
     }
 }

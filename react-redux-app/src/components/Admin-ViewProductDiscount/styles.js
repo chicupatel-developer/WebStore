@@ -42,4 +42,11 @@ export default makeStyles((theme) => ({
     fontSize: "x-large",
     padding: "100px",
   },
+  discountZoneSalesSpan: {
+    color: 'white',
+    fontSize: 'large',
+    backgroundColor: 'black',
+    padding: '10px',
+    marginLeft: '30px',
+  },
 }));

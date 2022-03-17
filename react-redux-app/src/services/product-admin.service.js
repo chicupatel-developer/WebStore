@@ -16,5 +16,9 @@ class AdminService {
   getQuarterlyProductSales = async (data) => {
     return await http.post(`/getQuarterlyProductSales`, data);
   };
+
+  getDiscountZoneProductSales = async (data) => {
+    return await http.post(`/getDiscountZoneProductSales`, data);
+  };
 }
 export default new AdminService();
