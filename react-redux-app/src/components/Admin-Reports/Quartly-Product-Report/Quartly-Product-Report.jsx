@@ -26,6 +26,10 @@ import AdminService from "../../../services/product-admin.service";
 
 import moment from "moment";
 
+// google chart api
+import Chart from "react-google-charts";
+
+// chart.js, react-chartjs-2
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -50,6 +54,10 @@ const QuartlyProductReport = () => {
 
   const [showChart, setShowChart] = useState(false);
   const [totalSalesForYear, setTotalSalesForYear] = useState(0.0);
+
+  // google chart api
+  // line chart
+  const [lineData, setLineData] = useState([]);
 
   useEffect(() => {
     console.log(products);
@@ -137,6 +145,10 @@ const QuartlyProductReport = () => {
         });
         setTotalSalesForYear(formatter.format(totalSales));
 
+        // google chart api
+        // set data for line chart
+        converDataToLineData(response.data.quarters, response.data.sales);
+
         setShowChart(true);
       })
       .catch((error) => {
@@ -144,6 +156,7 @@ const QuartlyProductReport = () => {
       });
   };
 
+  // chart.js, react-chartjs-2
   ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -176,6 +189,33 @@ const QuartlyProductReport = () => {
         borderColor: "green",
       },
     ],
+  };
+
+  // google chart api
+  // line chart
+  const converDataToLineData = (quarters, sales) => {
+    let arrDatas = [];
+    var arrData = [];
+    arrData.push("x");
+    arrData.push("Sales");
+    arrDatas.push(arrData);
+
+    for (let step = 0; step < 4; step++) {
+      var arr = [Number(quarters[step]), Number(sales[step])];
+      arrDatas.push(arr);
+    }
+    setLineData(arrDatas);
+  };
+  const LineChartOptions = {
+    hAxis: {
+      title: "Quarter",
+    },
+    vAxis: {
+      title: "Sales",
+    },
+    series: {
+      1: { curveType: "function" },
+    },
   };
 
   return (
@@ -216,6 +256,19 @@ const QuartlyProductReport = () => {
                             {totalSalesForYear}
                           </span>
                         )}
+                      </div>
+
+                      <p></p>
+                      <div>
+                        <Chart
+                          // width={"700px"}
+                          // height={"410px"}
+                          chartType="LineChart"
+                          loader={<div>Loading Chart</div>}
+                          data={lineData}
+                          options={LineChartOptions}
+                          rootProps={{ "data-testid": "2" }}
+                        />
                       </div>
 
                       <p></p>

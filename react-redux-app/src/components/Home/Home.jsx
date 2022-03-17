@@ -13,6 +13,8 @@ import {
 const Home = () => {
   const classes = useStyles();
 
+  useEffect(() => {}, []);
+
   return (
     <div className={classes.main}>
       <Container maxWidth="md">
