@@ -199,6 +199,17 @@ Quarter	Quarterly Sales
 
 ---------------------------------------
 
+sales between 2 dates (discount start-date and end-date)
+
+select * from ProductSold 
+where UserName = 'haha' and ProductId=1
+and SoldDate between '2022/03/15' and '2022/03/25'
+
+--------------------------------------------
+
+
+
+
 
 
 

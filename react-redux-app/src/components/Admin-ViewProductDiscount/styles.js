@@ -5,17 +5,13 @@ export default makeStyles((theme) => ({
     marginTop: "100px",
   },
   img: {
-    height: 100,
+    height: 120,
     width: "100%",
   },
   root: {
+    paddingLeft : '50px',
     height: "100%",
     width: "100%",
-    display: "flex",
-    flexWrap: "wrap",
-    "& > *": {
-      margin: theme.spacing(3),
-    },
   },
   subHeader: {
     margin: "10px",
@@ -40,16 +36,6 @@ export default makeStyles((theme) => ({
   },
   comingSoonDiscount: {
     color: "blue",
-  },
-
-  root: {
-    height: "100%",
-    width: "100%",
-    display: "flex",
-    flexWrap: "wrap",
-    "& > *": {
-      margin: theme.spacing(3),
-    },
   },
   noDiscountData: {
     color: "red",

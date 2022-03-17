@@ -17,7 +17,7 @@ namespace WebStore.Context.Models
         [Required(ErrorMessage = "Product Id is Required!")]
         public int ProductId { get; set; }
         [Required(ErrorMessage = "Product Price is Required!")]
-        public decimal Price { get; set; }
+        public decimal Price { get; set; }    
         [Required(ErrorMessage = "Product Qty is Required!")]
         public int Qty { get; set; }
         public DateTime SoldDate { get; set; }

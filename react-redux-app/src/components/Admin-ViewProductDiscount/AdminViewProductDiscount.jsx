@@ -104,7 +104,7 @@ const AdminViewProductDiscount = () => {
 
   return (
     <div className={classes.main}>
-      <Container maxWidth="md">
+      <Container maxWidth="lg">
         <h3>[ View - Product Discount ]</h3>
 
         <Grid container>
