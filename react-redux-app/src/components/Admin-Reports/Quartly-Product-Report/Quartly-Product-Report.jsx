@@ -24,7 +24,7 @@ import { useNavigate } from "react-router-dom";
 
 import AdminService from "../../../services/product-admin.service";
 
-import Moment from "moment";
+import moment from "moment";
 
 import {
   Chart as ChartJS,
@@ -76,11 +76,11 @@ const QuartlyProductReport = () => {
     });
     setSelectedProduct(selectedProduct_);
 
-    let monthlyProductSales = {
+    let quartlyProductSales = {
       productId: selectedProduct_.id,
       year: Number(selectedYear),
     };
-    getMonthlyProductSalesData(monthlyProductSales);
+    getQuarterlyProductSalesData(quartlyProductSales);
   };
 
   // year
@@ -125,10 +125,10 @@ const QuartlyProductReport = () => {
     minimumFractionDigits: 2,
   });
 
-  const getMonthlyProductSalesData = (monthlyProductSales) => {
-    AdminService.getMonthlyProductSales(monthlyProductSales)
+  const getQuarterlyProductSalesData = (quartlyProductSales) => {
+    AdminService.getQuarterlyProductSales(quartlyProductSales)
       .then((response) => {
-        setLabels_(response.data.months);
+        setLabels_(response.data.quarters);
         setData_(response.data.sales);
 
         let totalSales = 0.0;
@@ -160,11 +160,10 @@ const QuartlyProductReport = () => {
       },
       title: {
         display: true,
-        text: "Monthly Sales Data  : Year [ " + selectedYear + " ] ",
+        text: "Quarterly Sales Data  : Year [ " + selectedYear + " ] ",
       },
     },
   };
-
   const data = {
     labels: labels_,
     datasets: [
@@ -172,6 +171,9 @@ const QuartlyProductReport = () => {
         label: "Quarterly Sales $",
         data: data_,
         backgroundColor: "rgba(255, 99, 132, 0.5)",
+        borderWidth: 3,
+        fill: false,
+        borderColor: "green",
       },
     ],
   };

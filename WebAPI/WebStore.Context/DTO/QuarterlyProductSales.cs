@@ -8,7 +8,7 @@ namespace WebStore.Context.DTO
     {
         public int ProductId { get; set; }
         public int Year { get; set; }
-        public List<decimal> Quarters { get; set; }
+        public List<int> Quarters { get; set; }
         public List<decimal> Sales { get; set; }
     }
 }

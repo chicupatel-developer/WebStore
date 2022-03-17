@@ -104,7 +104,7 @@ namespace WebStore.Service.Repositories
 
         public QuarterlyProductSales GetQuarterlyProductSales(QuarterlyProductSales data)
         {
-            data.Quarters = new List<decimal>();
+            data.Quarters = new List<int>();
             data.Sales = new List<decimal>();
 
             var productSoldData = appDbContext.ProductSold
@@ -116,8 +116,8 @@ namespace WebStore.Service.Repositories
                                   select new
                                   {
                                       Quarter = d.Key.quarter+1,
-                                      // TotalSales = d.Sum(x => (x.Qty * x.Price))
-                                      TotalSales = d.Sum(x => (x.Qty))
+                                      TotalSales = d.Sum(x => (x.Qty * x.Price))
+                                      // TotalSales = d.Sum(x => (x.Qty))
                                   }).ToList();
 
             var missingQuarters = Enumerable
@@ -128,7 +128,7 @@ namespace WebStore.Service.Repositories
                 groupedQuarterly.Add(new
                 {
                     Quarter = q,
-                    TotalSales = 0
+                    TotalSales = 0.0m
                 });
             }
 
