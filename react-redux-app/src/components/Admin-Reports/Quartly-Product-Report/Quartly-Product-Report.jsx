@@ -200,7 +200,7 @@ const QuartlyProductReport = () => {
     arrData.push("Sales");
     arrDatas.push(arrData);
 
-    for (let step = 0; step < 4; step++) {
+    for (let step = 0; step < quarters.length; step++) {
       var arr = [Number(quarters[step]), Number(sales[step])];
       arrDatas.push(arr);
     }

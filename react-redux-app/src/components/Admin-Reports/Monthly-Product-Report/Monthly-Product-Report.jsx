@@ -26,6 +26,10 @@ import AdminService from "../../../services/product-admin.service";
 
 import Moment from "moment";
 
+// google chart api
+import Chart from "react-google-charts";
+
+// chart.js, react-chartjs-2
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -38,146 +42,178 @@ import {
 import { Bar } from "react-chartjs-2";
 
 const MonthlyProductReport = () => {
+  const classes = useStyles();
+  const navigate = useNavigate();
 
- const classes = useStyles();
- const navigate = useNavigate();
+  const currentUser = useSelector((state) => state.auth.currentUser);
+  const products = useSelector((state) => state.allProducts.products);
+  const years = [2018, 2019, 2020, 2021, 2022];
 
- const currentUser = useSelector((state) => state.auth.currentUser);
- const products = useSelector((state) => state.allProducts.products);
- const years = [2018, 2019, 2020, 2021, 2022];
+  const [selectedProduct, setSelectedProduct] = useState({});
+  const [selectedYear, setSelectedYear] = useState(0);
 
- const [selectedProduct, setSelectedProduct] = useState({});
- const [selectedYear, setSelectedYear] = useState(0);
+  const { id, title, category, price, image } = selectedProduct;
 
- const [showChart, setShowChart] = useState(false);
- const [totalSalesForYear, setTotalSalesForYear] = useState(0.0);
+  const [showChart, setShowChart] = useState(false);
+  const [totalSalesForYear, setTotalSalesForYear] = useState(0.0);
 
- useEffect(() => {
-   console.log(products);
- }, []);
+  // google chart api
+  // line chart
+  const [lineData, setLineData] = useState([]);
 
- // product
- const renderOptionsForProduct = () => {
-   return products.map((dt, i) => {
-     return (
-       <MenuItem value={Number(dt.id)} key={i} name={dt.title}>
-         <div>
-           <img src={dt.image} className={classes.img} />
-           &nbsp;&nbsp;
-           {dt.title} - [{dt.category}]
-         </div>
-       </MenuItem>
-     );
-   });
- };
- const onProductChange = (e) => {
-   let selectedProduct_ = {};
-   products.forEach((pr) => {
-     if (e.target.value === pr.id) selectedProduct_ = pr;
-   });
-   setSelectedProduct(selectedProduct_);
+  const [data_, setData_] = useState([]);
+  const [labels_, setLabels_] = useState([]);
 
-   let monthlyProductSales = {
-     productId: selectedProduct_.id,
-     year: Number(selectedYear),
-   };
-   getMonthlyProductSalesData(monthlyProductSales);
- };
+  useEffect(() => {
+    console.log(products);
+  }, []);
 
- // year
- const renderOptionsForYear = () => {
-   return years.map((dt, i) => {
-     return (
-       <MenuItem value={Number(dt)} key={i} name={dt}>
-         <div>{dt}</div>
-       </MenuItem>
-     );
-   });
- };
- const onYearChange = (e) => {
-   setSelectedYear(e.target.value);
-   setShowChart(false);
- };
+  // product
+  const renderOptionsForProduct = () => {
+    return products.map((dt, i) => {
+      return (
+        <MenuItem value={Number(dt.id)} key={i} name={dt.title}>
+          <div>
+            <img src={dt.image} className={classes.img} />
+            &nbsp;&nbsp;
+            {dt.title} - [{dt.category}]
+          </div>
+        </MenuItem>
+      );
+    });
+  };
+  const onProductChange = (e) => {
+    let selectedProduct_ = {};
+    products.forEach((pr) => {
+      if (e.target.value === pr.id) selectedProduct_ = pr;
+    });
+    setSelectedProduct(selectedProduct_);
 
- const getSubHeader = (subHeaderString) => {
-   return <div className={classes.subHeader}>{subHeaderString}</div>;
- };
- const getTitle = (image, titleString, priceString) => {
-   return (
-     <div className={classes.title}>
-       <div className={classes.price}>
-         <img src={image} className={classes.imgDisplay} />
-         &nbsp;&nbsp;
-         <b>$ {priceString}</b>
-       </div>
-       {titleString}
-     </div>
-   );
- };
+    let monthlyProductSales = {
+      productId: selectedProduct_.id,
+      year: Number(selectedYear),
+    };
+    getMonthlyProductSalesData(monthlyProductSales);
+  };
 
- const { id, title, category, price, image } = selectedProduct;
+  // year
+  const renderOptionsForYear = () => {
+    return years.map((dt, i) => {
+      return (
+        <MenuItem value={Number(dt)} key={i} name={dt}>
+          <div>{dt}</div>
+        </MenuItem>
+      );
+    });
+  };
+  const onYearChange = (e) => {
+    setSelectedYear(e.target.value);
+    setShowChart(false);
+  };
 
- const [data_, setData_] = useState([]);
- const [labels_, setLabels_] = useState([]);
+  const getSubHeader = (subHeaderString) => {
+    return <div className={classes.subHeader}>{subHeaderString}</div>;
+  };
+  const getTitle = (image, titleString, priceString) => {
+    return (
+      <div className={classes.title}>
+        <div className={classes.price}>
+          <img src={image} className={classes.imgDisplay} />
+          &nbsp;&nbsp;
+          <b>$ {priceString}</b>
+        </div>
+        {titleString}
+      </div>
+    );
+  };
 
- const formatter = new Intl.NumberFormat("en-US", {
-   style: "currency",
-   currency: "USD",
-   minimumFractionDigits: 2,
- });
+  const formatter = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 2,
+  });
 
- const getMonthlyProductSalesData = (monthlyProductSales) => {
-   AdminService.getMonthlyProductSales(monthlyProductSales)
-     .then((response) => {
-       setLabels_(response.data.months);
-       setData_(response.data.sales);
+  const getMonthlyProductSalesData = (monthlyProductSales) => {
+    AdminService.getMonthlyProductSales(monthlyProductSales)
+      .then((response) => {
+        setLabels_(response.data.months);
+        setData_(response.data.sales);
 
-       let totalSales = 0.0;
-       response.data.sales.forEach(function (sales) {
-         totalSales += sales;
-       });
-       setTotalSalesForYear(formatter.format(totalSales));
+        let totalSales = 0.0;
+        response.data.sales.forEach(function (sales) {
+          totalSales += sales;
+        });
+        setTotalSalesForYear(formatter.format(totalSales));
 
-       setShowChart(true);
-     })
-     .catch((error) => {
-       console.log(error);
-     });
- };
+        // google chart api
+        // set data for line chart
+        converDataToLineData(response.data.months, response.data.sales);
 
- ChartJS.register(
-   CategoryScale,
-   LinearScale,
-   BarElement,
-   Title,
-   Tooltip,
-   Legend
- );
- const options = {
-   responsive: true,
-   plugins: {
-     legend: {
-       position: "top",
-     },
-     title: {
-       display: true,
-       text: "Monthly Sales Data  : Year [ " + selectedYear + " ] ",
-     },
-   },
- };
+        setShowChart(true);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
- const data = {
-   labels: labels_,
-   datasets: [
-     {
-       label: "Monthly Sales $",
-       data: data_,
-       backgroundColor: "rgba(255, 99, 132, 0.5)",
-     },
-   ],
- };
+  // chart.js, react-chartjs-2
+  ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend
+  );
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "top",
+      },
+      title: {
+        display: true,
+        text: "Monthly Sales Data  : Year [ " + selectedYear + " ] ",
+      },
+    },
+  };
+  const data = {
+    labels: labels_,
+    datasets: [
+      {
+        label: "Monthly Sales $",
+        data: data_,
+        backgroundColor: "rgba(255, 99, 132, 0.5)",
+      },
+    ],
+  };
 
+  // google chart api
+  // line chart
+  const converDataToLineData = (months, sales) => {
+    let arrDatas = [];
+    var arrData = [];
+    arrData.push("x");
+    arrData.push("Sales");
+    arrDatas.push(arrData);
 
+    for (let step = 0; step < months.length; step++) {
+      var arr = [months[step], Number(sales[step])];
+      arrDatas.push(arr);
+    }
+    setLineData(arrDatas);
+  };
+  const LineChartOptions = {
+    hAxis: {
+      title: "Month",
+    },
+    vAxis: {
+      title: "Sales",
+    },
+    series: {
+      1: { curveType: "function" },
+    },
+  };
 
   return (
     <div className={classes.main}>
@@ -217,6 +253,19 @@ const MonthlyProductReport = () => {
                             {totalSalesForYear}
                           </span>
                         )}
+                      </div>
+
+                      <p></p>
+                      <div>
+                        <Chart
+                          // width={"700px"}
+                          // height={"410px"}
+                          chartType="LineChart"
+                          loader={<div>Loading Chart</div>}
+                          data={lineData}
+                          options={LineChartOptions}
+                          rootProps={{ "data-testid": "2" }}
+                        />
                       </div>
 
                       <p></p>
