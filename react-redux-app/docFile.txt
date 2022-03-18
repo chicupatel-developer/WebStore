@@ -1,0 +1,73 @@
+Login
+Register
+
+Login as Shopper
+	- See list of Products
+	- Search Products
+	- View details of Product
+	- Add Product to Shopping-Cart
+	- Get Discounted Price on Product
+		{ 
+			[
+				If Discount is currently RUNNING (Current Date is between Discount-Start-Date && Discount-End-Date) && 
+		 	 	If in last 30 days, Shopper has bought more or equal to Discount-Starts-After-Qty
+			]
+			For a specific Product 
+		}
+	- View / Edit / Empty Shopping-Cart
+	- CheckOut from Shopping-Cart
+		- Enter Customer Details	
+		- Enter Shipping Details
+		- Enter Payment Details [ Stripe - CC ]
+		- Receive Confirmation 
+			- SUCCESS
+				[ 
+					- Stripe Payment Gateway Response
+					- Web API Response
+				]
+			OR
+			- ERROR MESSAGE
+
+	- View Shopping-History
+		- Today-History
+			- Display Today's Shopping History Data	- Product wise	
+			- Display Total $ Spent on Today's Shopping
+		- Current-Week-History
+			- Display Current-Week's Shopping History Data - Product wise			
+			- Display Total $ Spent on Current-Week's Shopping
+		- Current-Month-History
+			- Display Current-Month's Shopping History Data - Product wise			
+			- Display Total $ Spent on Current-Month's Shopping
+
+
+
+Login as Admin
+	- See list of Products
+	- Search Products
+	- Set Discount on Products
+		- For any Date, Admin can Set-Discount-Policy --- One,,, For any Product
+			means... Only One Discount-Policy can connect with Product at a Time
+		[ Discount in %, Discount-Starts-After-Qty, Discount-Start-Date, Discount-End-Date ]
+	- View Discount
+		- See Discount-Status[RUNNING, EXPIRED, COMING-SOON] and other Discount-Policy Info
+		- Trend Of Sales versus Discount-Policy 
+			[ See Total Sales[$] of any Product during Discount-Policy-Time-Duration ]
+	- Admin Reports
+		- Monthly-Report
+			[
+				- Display Line-Chart and Bar-Chart for Total Sales($) versus Month for a selected Product and Year
+				- Display Total Sales($) for the Year
+			]
+
+		- Quarterly-Report
+			[
+				- Display Line-Chart and Bar-Chart for Total Sales($) versus Quarter for a selected Product and Year
+				- Display Total Sales($) for the Year
+			]
+
+		- Discount-Trend-Report
+			[
+				- Display Line-Chart and Bar-Chart for Total Sales($) versus Last 5 Discount-Policy for a selected Product				
+			]
+
+

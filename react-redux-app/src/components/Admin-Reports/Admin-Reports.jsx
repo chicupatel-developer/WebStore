@@ -50,7 +50,7 @@ const AdminReport = () => {
           centered
         >
           <Tab label="Monthly-Report" />
-          <Tab label="Quartly-Report" />
+          <Tab label="Quarterly-Report" />
           <Tab label="Discount-Trend" />
         </Tabs>
 

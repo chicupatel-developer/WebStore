@@ -89,8 +89,6 @@ namespace WebStore.Service.Repositories
             return products;
         }
 
-
-
         /*
         [
             {
@@ -120,7 +118,7 @@ namespace WebStore.Service.Repositories
         discounted-price for productid=1 & 2
 
         // business logic:
-        if Admin sets (DiscountQty)Discount-Starts-After-Qty = 10(DiscountPercentage) for any specific Product [AND]
+        if Admin sets Discount-Starts-After-Qty = 10 for any specific Product [AND]
         if any user has bought that specific Product More Or Equal to 10 in Last 30 Days [AND]
         if Discount is still Active(RUNNING) [ if current-date is between start-date-of-discount and end-date-of-discount ] for that specific Product then,,,
             this user will see and get discounted-price for that specific Product

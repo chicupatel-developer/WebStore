@@ -161,7 +161,6 @@ namespace WebStore.Service.Repositories
             return data;
         }
 
-
         public List<DiscountZoneProductSales> GetLast5DiscountZoneProductSales(DiscountZoneProductSales data)
         {
             List<DiscountZoneProductSales> datas = new List<DiscountZoneProductSales>();
@@ -202,12 +201,10 @@ namespace WebStore.Service.Repositories
             return datas;
         }
 
-
         private static string GetMonthName(int monthNumber)
         {
             return CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(monthNumber);
         }
-
 
     }
 }
