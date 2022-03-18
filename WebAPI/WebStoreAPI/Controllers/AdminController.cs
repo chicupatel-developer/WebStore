@@ -131,5 +131,21 @@ namespace WebStoreAPI.Controllers
             }
         }
 
+        // https://localhost:44309/api/Admin/getLast5DiscountZoneProductSales
+        [HttpPost]
+        [Route("getLast5DiscountZoneProductSales")]
+        public IActionResult GetLast5DiscountZoneProductSales(DiscountZoneProductSales data)
+        {
+            try
+            {
+                var last5DiscountZoneProductSales = _adminRepo.GetLast5DiscountZoneProductSales(data);
+                return Ok(last5DiscountZoneProductSales);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest();
+            }
+        }
+
     }
 }

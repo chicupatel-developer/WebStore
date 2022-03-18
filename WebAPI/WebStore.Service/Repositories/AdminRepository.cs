@@ -160,10 +160,53 @@ namespace WebStore.Service.Repositories
             return data;
         }
 
+
+        public List<DiscountZoneProductSales> GetLast5DiscountZoneProductSales(DiscountZoneProductSales data)
+        {
+            List<DiscountZoneProductSales> datas = new List<DiscountZoneProductSales>();
+
+            var last5DisDatas = (from d in appDbContext.ProductDiscount
+                        where d.FirstDateForDiscountedPrice <= DateTime.Now
+                        orderby d.FirstDateForDiscountedPrice descending
+                        select d).Take(5);
+
+            if(last5DisDatas!=null && last5DisDatas.Count() > 0)
+            {
+                foreach(var disData in last5DisDatas)
+                {
+                    var sales_ = appDbContext.ProductSold
+                          .Where(x => x.ProductId == data.ProductId && x.SoldDate >= disData.FirstDateForDiscountedPrice && x.SoldDate <= disData.LastDateForDiscountedPrice);
+                    var totalSales = 0.0m;
+                    if (sales_ != null && sales_.Count() > 0)
+                    {
+                        
+                        foreach (var sale_ in sales_)
+                        {
+                            totalSales += (sale_.Price * sale_.Qty);
+                        }                        
+                    }
+
+                    datas.Add(new DiscountZoneProductSales()
+                    {
+                         DiscountedPrice = disData.DiscountedPrice,
+                          DiscountEndDate = disData.LastDateForDiscountedPrice,
+                           DiscountPercentage =disData.DiscountPercentage,
+                            DiscountStartDate =disData.FirstDateForDiscountedPrice,
+                             Price = disData.Price,
+                              ProductId = disData.ProductId,
+                               Sales = totalSales
+                    });
+                }
+            }
+            return datas;
+        }
+
+
         private static string GetMonthName(int monthNumber)
         {
             return CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(monthNumber);
         }
+
 
     }
 }
