@@ -23,6 +23,7 @@ import {
 } from "@material-ui/core";
 import MonthlyProductReport from "./Monthly-Product-Report/Monthly-Product-Report";
 import QuartlyProductReport from "./Quartly-Product-Report/Quartly-Product-Report";
+import DiscountTrendReport from "./Discount-Trend-Report/Discount-Trend-Report";
 
 const AdminReport = () => {
   const classes = useStyles();
@@ -50,6 +51,7 @@ const AdminReport = () => {
         >
           <Tab label="Monthly-Report" />
           <Tab label="Quartly-Report" />
+          <Tab label="Discount-Trend" />
         </Tabs>
 
         <div className={classes.tabContentDiv}>
@@ -61,6 +63,11 @@ const AdminReport = () => {
           {value === 1 && (
             <div>
               <QuartlyProductReport />
+            </div>
+          )}
+          {value === 2 && (
+            <div>
+              <DiscountTrendReport />
             </div>
           )}
         </div>

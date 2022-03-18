@@ -20,5 +20,9 @@ class AdminService {
   getDiscountZoneProductSales = async (data) => {
     return await http.post(`/getDiscountZoneProductSales`, data);
   };
+  
+  getLast5DiscountZoneProductSales = async (data) => {
+    return await http.post(`/getLast5DiscountZoneProductSales`, data);
+  };
 }
 export default new AdminService();
