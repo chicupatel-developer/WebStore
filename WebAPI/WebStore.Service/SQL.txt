@@ -20,6 +20,33 @@ Begin
 	and UserName = @UserName
 end
 
+
+// PROC
+USE [WebStore_DB]
+GO
+/****** Object:  StoredProcedure [dbo].[Last30DaysSalesFromUserName]    Script Date: 2022-03-21 4:42:28 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+ALTER procedure [dbo].[Last30DaysSalesFromUserName]
+@UserName nvarchar(50)
+As 
+Begin
+
+DECLARE @currentDate DATETIME = GETDATE()
+DECLARE @pastDate DATETIME = DATEADD(day,-30,GETDATE())
+
+select sum(Qty) as Total_Qty_Bought, ProductId, UserName from ProductSold
+WHERE SoldDate >= @pastDate 
+and   SoldDate <= @currentDate
+and UserName = @UserName
+group by ProductId, UserName
+
+end
+
+
 --------------------------------------------
 select sum(Qty) as Total_Qty_Bought, ProductId, UserName from ProductSold
 where UserName=@UserName 
@@ -133,7 +160,7 @@ BEGIN
 					   insert into ProductSold
 					   (ProductId, Price, Qty, SoldDate, UserName)
 					   values
-					   (@ProductId, @Price, @cnt*10, (select DATEADD(DAY, 1, concat('2022/05/',@cnt))), 'haha')
+					   (@ProductId, @Price, @cnt*10, (select DATEADD(DAY, 1, concat('2022/05/',@cnt))), 'username')
 										   
 					END;
 					COMMIT TRANSACTION
@@ -202,7 +229,7 @@ Quarter	Quarterly Sales
 sales between 2 dates (discount start-date and end-date)
 
 select * from ProductSold 
-where UserName = 'haha' and ProductId=1
+where UserName = 'username' and ProductId=1
 and SoldDate between '2022/03/15' and '2022/03/25'
 
 --------------------------------------------
