@@ -1,6 +1,7 @@
 # Web-Store
 
-# DotNet Core API + React/Redux + Fake-Store-API(https://fakestoreapi.com/)
+# DotNet Core API + React/Redux 
+### Fake-Store-API(https://fakestoreapi.com/)
 
 Technology
 ----------
