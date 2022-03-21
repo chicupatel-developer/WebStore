@@ -17,8 +17,13 @@ Technology
 
 ## Database
 
+![Db Dia1](https://user-images.githubusercontent.com/26190114/159367249-4be22f3a-d8df-430a-a58f-2f166bd808c6.PNG)
+![Db Dia2](https://user-images.githubusercontent.com/26190114/159367257-05b550ea-6854-4f9d-b842-a08435c3e25e.PNG)
+
 
 ## System Diagram->
+
+![System Dia drawio](https://user-images.githubusercontent.com/26190114/159366269-a72e9807-70e5-4876-96a9-036ad1ef8a16.png)
 
 
 # Screens->
