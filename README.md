@@ -17,7 +17,8 @@ Technology
 
 ## Database
 
-![Db Dia1](https://user-images.githubusercontent.com/26190114/159367249-4be22f3a-d8df-430a-a58f-2f166bd808c6.PNG)
+![Db Dia1](https://user-images.githubusercontent.com/26190114/159367549-6832b638-e4b4-4074-bb99-831e323061a2.PNG)
+
 ![Db Dia2](https://user-images.githubusercontent.com/26190114/159367257-05b550ea-6854-4f9d-b842-a08435c3e25e.PNG)
 
 
