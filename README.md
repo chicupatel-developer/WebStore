@@ -12,4 +12,4 @@ Technology
 
 - Sql Server
 
-- React/Redux, Html, CSS, Javascript, Material-UI
+- React/Redux, Html, CSS, Javascript, Material-UI, chart.js, react-chartjs-2, google chart api, Stripe Payment Gateway
