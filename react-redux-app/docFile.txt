@@ -14,13 +14,13 @@ Login as Shopper
 			]
 			For a specific Product 
 		}
-	- View / Edit / Empty Shopping-Cart
+	- View / Edit / Empty - Shopping-Cart
 	- CheckOut from Shopping-Cart
 		- Enter Customer Details	
 		- Enter Shipping Details
 		- Enter Payment Details [ Stripe - CC ]
 		- Receive Confirmation 
-			- SUCCESS
+			- SUCCESS MESSAGE
 				[ 
 					- Stripe Payment Gateway Response
 					- Web API Response
