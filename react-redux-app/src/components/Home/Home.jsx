@@ -42,105 +42,6 @@ const Home = () => {
             sm={12}
             md={12}
             lg={12}
-            className={classes.leftColumn}
-          >
-            <Card>
-              <CardHeader title="Exceptions Handling" />
-              <CardContent className={classes.cardContent}>
-                <ul>
-                  <li>
-                    Model validations are handled on Client side - React -
-                    Component
-                  </li>
-                  <li>
-                    all Server side exceptions are handled on Api - Controller /
-                    C# Service
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-          </Grid>
-          <Grid
-            item
-            xs={12}
-            sm={12}
-            md={12}
-            lg={12}
-            className={classes.rightColumn}
-          >
-            <Card>
-              <CardHeader title="Register" />
-              <CardContent className={classes.cardContent}>
-                <ul>
-                  <li>
-                    User can register with valid Username, Password, Email and
-                    Role [Admin/Shopper]
-                  </li>
-                  <li>
-                    after successful registration, user is redirected to login
-                    page
-                  </li>
-                  <li>
-                    after un-successful register, error message is displayed
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-          </Grid>
-
-          <Grid
-            item
-            xs={12}
-            sm={12}
-            md={12}
-            lg={12}
-            className={classes.rightColumn}
-          >
-            <Card>
-              <CardHeader title=" Role based Authentication" />
-              <CardContent className={classes.cardContent}>
-                <ul>
-                  <li>JWT Authentication</li>
-                  <li>
-                    after successful login, respective Role is returned in Token
-                    / Response
-                  </li>
-                  <li>React/Redux stores Role info with Token</li>
-                  <li>Menu displays as per Role info</li>
-                </ul>
-              </CardContent>
-            </Card>
-          </Grid>
-          <Grid
-            item
-            xs={12}
-            sm={12}
-            md={12}
-            lg={12}
-            className={classes.leftColumn}
-          >
-            <Card>
-              <CardHeader title="Login" />
-              <CardContent className={classes.cardContent}>
-                <ul>
-                  <li>User can login with valid Username and Password</li>
-                  <li>
-                    after successful login, Token, Role and other User's
-                    information is stored on Client side(Redux Store) and menu
-                    options are displayed as per User's Role
-                  </li>
-                  <li>after un-successful login, error message is displayed</li>
-                </ul>
-              </CardContent>
-            </Card>
-          </Grid>
-
-          <Grid
-            item
-            xs={12}
-            sm={12}
-            md={12}
-            lg={12}
             className={classes.rightColumn}
           >
             <Card>
@@ -397,6 +298,106 @@ const Home = () => {
                         <b>Total $ Spent on Current-Month's Shopping</b>
                       </span>
                     </span>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+          </Grid>
+
+          <Grid
+            item
+            xs={12}
+            sm={12}
+            md={12}
+            lg={12}
+            className={classes.rightColumn}
+          >
+            <Card>
+              <CardHeader title="Register" />
+              <CardContent className={classes.cardContent}>
+                <ul>
+                  <li>
+                    User can register with valid Username, Password, Email and
+                    Role [Admin/Shopper]
+                  </li>
+                  <li>
+                    after successful registration, user is redirected to login
+                    page
+                  </li>
+                  <li>
+                    after un-successful register, error message is displayed
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+          </Grid>
+
+          <Grid
+            item
+            xs={12}
+            sm={12}
+            md={12}
+            lg={12}
+            className={classes.rightColumn}
+          >
+            <Card>
+              <CardHeader title=" Role based Authentication" />
+              <CardContent className={classes.cardContent}>
+                <ul>
+                  <li>JWT Authentication</li>
+                  <li>
+                    after successful login, respective Role is returned in Token
+                    / Response
+                  </li>
+                  <li>React/Redux stores Role info with Token</li>
+                  <li>Menu displays as per Role info</li>
+                </ul>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            sm={12}
+            md={12}
+            lg={12}
+            className={classes.leftColumn}
+          >
+            <Card>
+              <CardHeader title="Login" />
+              <CardContent className={classes.cardContent}>
+                <ul>
+                  <li>User can login with valid Username and Password</li>
+                  <li>
+                    after successful login, Token, Role and other User's
+                    information is stored on Client side(Redux Store) and menu
+                    options are displayed as per User's Role
+                  </li>
+                  <li>after un-successful login, error message is displayed</li>
+                </ul>
+              </CardContent>
+            </Card>
+          </Grid>
+
+          <Grid
+            item
+            xs={12}
+            sm={12}
+            md={12}
+            lg={12}
+            className={classes.leftColumn}
+          >
+            <Card>
+              <CardHeader title="Exceptions Handling" />
+              <CardContent className={classes.cardContent}>
+                <ul>
+                  <li>
+                    Model validations are handled on Client side - React -
+                    Component
+                  </li>
+                  <li>
+                    all Server side exceptions are handled on Api - Controller /
+                    C# Service
                   </li>
                 </ul>
               </CardContent>
