@@ -23,6 +23,7 @@ namespace WebStoreAPI.Controllers
             _shopperRepo = shopperRepo;
         }
 
+        [Authorize(Roles = "Shopper")]
         [HttpPost]
         [Route("addProductSold")]
         public IActionResult AddProductSold(List<ProductSold> productSold)
@@ -61,6 +62,7 @@ namespace WebStoreAPI.Controllers
         }
 
 
+        [Authorize(Roles = "Shopper")]
         // https://localhost:44309/api/Shopper/getTodayHistory?userName=UserName
         [HttpGet]
         [Route("getTodayHistory")]
@@ -77,6 +79,7 @@ namespace WebStoreAPI.Controllers
             }
         }
 
+        [Authorize(Roles = "Shopper")]
         // https://localhost:44309/api/Shopper/getCurrentWeekHistory?userName=UserName
         [HttpGet]
         [Route("getCurrentWeekHistory")]
@@ -93,6 +96,7 @@ namespace WebStoreAPI.Controllers
             }
         }
 
+        [Authorize(Roles = "Shopper")]
         // https://localhost:44309/api/Shopper/getCurrentMonthHistory?userName=UserName
         [HttpGet]
         [Route("getCurrentMonthHistory")]
@@ -110,7 +114,7 @@ namespace WebStoreAPI.Controllers
         }
 
 
-
+        [Authorize(Roles = "Admin,Shopper")]
         // https://localhost:44309/api/Shopper/getProductDiscountData?userName=UserName
         [HttpGet]
         [Route("getProductDiscountData")]

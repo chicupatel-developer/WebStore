@@ -12,7 +12,7 @@ using WebStore.Service.Utils;
 
 namespace WebStoreAPI.Controllers
 {
-    // [Authorize("Admin")]
+    [Authorize("Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class AdminController : ControllerBase
