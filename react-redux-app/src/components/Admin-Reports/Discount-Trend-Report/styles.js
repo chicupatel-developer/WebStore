@@ -44,4 +44,8 @@ export default makeStyles((theme) => ({
     // height: "130vh",
     // width: "170vh",
   },
+  emptyApiResponse: {
+    color: "red",
+    fontSize: "x-large"
+  },
 }));

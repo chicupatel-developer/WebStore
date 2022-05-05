@@ -61,6 +61,9 @@ const DiscountTrendReport = () => {
   const [data_, setData_] = useState([]);
   const [labels_, setLabels_] = useState([]);
 
+  // check if api response has data length > 0 or not
+  const [emptyApiResponse, setEmptyApiResponse] = useState(true);
+
   const formatter = new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
@@ -120,6 +123,12 @@ const DiscountTrendReport = () => {
       .then((response) => {
         console.log(response.data);
 
+        if (response.data.length > 0)
+          setEmptyApiResponse(false);
+        else
+          setEmptyApiResponse(true);
+        
+
         var labels = [];
         var discounts = [];
           var data = [];
@@ -146,6 +155,7 @@ const DiscountTrendReport = () => {
       })
       .catch((error) => {
         console.log(error);
+        setEmptyApiResponse(true);
       });
   };
 
@@ -240,25 +250,39 @@ const DiscountTrendReport = () => {
                     title={getTitle(image, title, price)}
                     subheader={getSubHeader(category)}
                   />
-                  <div className={classes.chartSize}>
-                    <CardContent>
-                      <p></p>
-                      <div>
-                        <Chart
-                          // width={"700px"}
-                          // height={"410px"}
-                          chartType="LineChart"
-                          loader={<div>Loading Chart</div>}
-                          data={lineData}
-                          options={LineChartOptions}
-                          rootProps={{ "data-testid": "2" }}
-                        />
-                      </div>
 
-                      <p></p>
-                      <Bar options={options} data={data} />
-                    </CardContent>
+
+
+                  {!emptyApiResponse ? (
+                    <div className={classes.chartSize}>
+                      <CardContent>
+                        <p></p>
+                        <div>
+                          <Chart
+                            // width={"700px"}
+                            // height={"410px"}
+                            chartType="LineChart"
+                            loader={<div>Loading Chart</div>}
+                            data={lineData}
+                            options={LineChartOptions}
+                            rootProps={{ "data-testid": "2" }}
+                          />
+                        </div>
+
+                        <p></p>
+                        <Bar options={options} data={data} />
+                      </CardContent>
                   </div>
+                  ): (
+                      <div className={classes.emptyApiResponse}>
+                        <CardContent>
+                          <div>
+                            Data Not Available !
+                          </div>
+                        </CardContent>                        
+                    </div>
+                  )}
+                
                 </Card>
               </Box>
             </Grid>
