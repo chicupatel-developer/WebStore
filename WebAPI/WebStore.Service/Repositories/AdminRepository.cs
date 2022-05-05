@@ -166,7 +166,7 @@ namespace WebStore.Service.Repositories
             List<DiscountZoneProductSales> datas = new List<DiscountZoneProductSales>();
 
             var last5DisDatas = (from d in appDbContext.ProductDiscount
-                        where d.FirstDateForDiscountedPrice <= DateTime.Now
+                        where d.FirstDateForDiscountedPrice <= DateTime.Now && d.ProductId==data.ProductId
                         orderby d.FirstDateForDiscountedPrice descending
                         select d).Take(5);
 
