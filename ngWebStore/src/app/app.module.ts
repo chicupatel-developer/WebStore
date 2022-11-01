@@ -10,6 +10,11 @@ import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+////////auth guard
+import { AuthGuard } from './auth/auth.guard';
+import { AuthInterceptor } from './auth/auth.interceptor';
+
+
 // pagination
 // search
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -53,7 +58,11 @@ import { ShoppingHistoryComponent } from './shopping-history/shopping-history.co
     NgxPaginationModule,
     Ng2SearchPipeModule,
   ],
-  providers: [HttpClientModule, LocalDataService, UserService],
+  providers: [HttpClientModule, LocalDataService, UserService, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+  },],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

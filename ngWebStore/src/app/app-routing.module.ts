@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { AuthGuard } from './auth/auth.guard';
+
 import { HomeComponent } from './home/home.component';
 import { SigninComponent } from './signin/signin.component';
 import { RegisterComponent } from './register/register.component';
@@ -15,10 +17,10 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'signin', component: SigninComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'products', component: ProductsComponent },
-  { path: 'admin-reports', component: AdminReportsComponent },
-  { path: 'cart', component: CartComponent },
-  { path: 'shopping-history', component: ShoppingHistoryComponent },
+  { path: 'products', component: ProductsComponent, canActivate: [AuthGuard] },
+  { path: 'admin-reports', component: AdminReportsComponent , canActivate: [AuthGuard] },
+  { path: 'cart', component: CartComponent , canActivate: [AuthGuard] },
+  { path: 'shopping-history', component: ShoppingHistoryComponent , canActivate: [AuthGuard] },
   { path: '**', redirectTo: '/home', pathMatch: 'full' }
 ];
 
