@@ -5,6 +5,10 @@ import { HomeComponent } from './home/home.component';
 import { SigninComponent } from './signin/signin.component';
 import { RegisterComponent } from './register/register.component';
 import { ProductsComponent } from './products/products.component';
+import { AdminReportsComponent } from './admin-reports/admin-reports.component';
+import { CartComponent } from './cart/cart.component';
+import { ShoppingHistoryComponent } from './shopping-history/shopping-history.component';
+
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -12,6 +16,9 @@ const routes: Routes = [
   { path: 'signin', component: SigninComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'products', component: ProductsComponent },
+  { path: 'admin-reports', component: AdminReportsComponent },
+  { path: 'cart', component: CartComponent },
+  { path: 'shopping-history', component: ShoppingHistoryComponent },
   { path: '**', redirectTo: '/home', pathMatch: 'full' }
 ];
 

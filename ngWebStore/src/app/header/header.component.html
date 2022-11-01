@@ -26,7 +26,7 @@
                     </a>
                 </li>
                 <li 
-                    *ngIf="isUserAuthenticated" class="nav-item">
+                    *ngIf="isUserAuthenticated && _userService.isAdmin" class="nav-item">
                     <a class='nav-link' 
                         aria-current="page" 
                         [routerLink]="['/admin-reports']">
@@ -34,7 +34,7 @@
                     </a>
                 </li>
                 <li 
-                    *ngIf="isUserAuthenticated" class="nav-item">
+                    *ngIf="isUserAuthenticated && _userService.isShopper" class="nav-item">
                     <a class='nav-link' 
                         aria-current="page" 
                         [routerLink]="['/cart']">
@@ -42,7 +42,7 @@
                     </a>
                 </li>
                 <li 
-                    *ngIf="isUserAuthenticated" class="nav-item">
+                    *ngIf="isUserAuthenticated && _userService.isShopper" class="nav-item">
                     <a class='nav-link' 
                         aria-current="page" 
                         [routerLink]="['/shopping-history']">
@@ -75,6 +75,8 @@
                         class="nav-item">
                         <span class="userNameSpan">
                             {{userName}}
+                            <br />
+                            [Role: {{this._userService.getRole()}}]
                         </span>
                         &nbsp;
                         <button class="btn btn-primary" 

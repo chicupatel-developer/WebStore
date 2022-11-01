@@ -10,11 +10,15 @@ import { Subject } from 'rxjs';
 })
 export class UserService {
 
-   constructor(
+  public API = 'https://localhost:44309/api';
+  public AUTHENTICATE_API = `${this.API}/Authentication`;
+
+
+  constructor(
     private http: HttpClient,
     public router: Router,
   ) {
-  } 
+  }
   
   private _authChangeSub = new Subject<boolean>();
   private _unChangeSub = new Subject<string>();
@@ -23,6 +27,28 @@ export class UserService {
   public sendAuthStateChangeNotification = (isAuthenticated: boolean, userName: string) => {
     this._authChangeSub.next(isAuthenticated);
     this._unChangeSub.next(userName);
+  }
+
+  signin(signinModel): Observable<any> {
+    return this.http.post(this.AUTHENTICATE_API + '/login', signinModel)
+  } 
+
+  getToken() {
+    return localStorage.getItem('token');
+  }
+
+  getRole() {
+    return localStorage.getItem('role');
+  }
+
+  get isAdmin(): boolean {
+    let role = localStorage.getItem('role');
+    return (role == 'Admin') ? true : false;
+  }
+
+  get isShopper(): boolean {
+    let role = localStorage.getItem('role');
+    return (role == 'Shopper') ? true : false;
   }
 
   get isLoggedIn(): boolean {   
@@ -36,7 +62,7 @@ export class UserService {
     let removeRole = localStorage.removeItem('role');
     let removeIsAuthenticated = localStorage.removeItem('isAuthenticated');
 
-    if (removeUserName == null && removeToken==null && removeRole==null) {
+    if (removeUserName == null && removeToken==null && removeRole==null && removeIsAuthenticated==null) {
       this.router.navigate(['/home']);
     }
   }
