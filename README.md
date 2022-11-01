@@ -1,19 +1,20 @@
 # Web-Store
 
-# DotNet Core API + React/Redux 
 ### Fake-Store-API(https://fakestoreapi.com/)
 
 Technology
 ----------
-- .Net Core Web API
-
-- EF Core - Code First - EF Transaction
+- Web API Core - 3.1, EF Core [Code First, EF Transaction]
 
 - Repository pattern
 
+- JWT Token Based Authentication / Authorization 
+
 - Sql Server
 
-- React/Redux, Html, CSS, Javascript, Material-UI, chart.js, react-chartjs-2, google chart api, Stripe Payment Gateway
+- Client(1) : React/Redux, Html, Css, Material-UI, chart.js, react-chartjs-2, google chart api, Stripe Payment Gateway
+
+- ### WIP Client(2) : Angular, Html, Css, Bootstrap
 
 
 ## System Diagram->
