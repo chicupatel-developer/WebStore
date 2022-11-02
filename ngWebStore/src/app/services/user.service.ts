@@ -41,6 +41,15 @@ export class UserService {
     return localStorage.getItem('role');
   }
 
+  getHeaderBarColor() {
+    if (localStorage.getItem('role') == 'Admin')
+      return 'lightgreen';
+    else if (localStorage.getItem('role') == 'Shopper')
+      return 'lightsalmon';
+    else
+      return 'lightskyblue';
+  }
+
   get isAdmin(): boolean {
     let role = localStorage.getItem('role');
     return (role == 'Admin') ? true : false;

@@ -27,7 +27,7 @@ export class HeaderComponent implements OnInit {
     })
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void {   
     
     console.log('getting is-authenticated and user-name values,,,');
   

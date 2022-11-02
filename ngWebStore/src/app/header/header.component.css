@@ -1,16 +1,16 @@
 .rightItem {
-    color: whitesmoke;
+    color: black;
 }
 
 .userNameSpan {
-    color : white;
+    color : black;
     font-weight: bold;
     font-style: italic;
     font-size: medium;
 }
 
 .notSigninSpan {
-    color: white;
+    color: black;
     font-weight: bold;
     font-style: italic;
     font-size: large;
@@ -20,4 +20,11 @@
     color : black;
     font-style: italic;
     font-weight: bold;
+}
+
+.shopperBar{
+    background-color: lightsalmon;
+}
+.adminBar {
+    background-color: lightgreen;
 }
