@@ -42,6 +42,8 @@ export class LocalDataService {
   authGuard403_Intercept_To_PreventDisplayOfHtmlPage_Of_Component_Admin(reqPath) {
     if (reqPath == '/admin-reports')
       return false;
+    else  if (reqPath == '/admin-products')
+      return false;
     else
       return true;
   }
@@ -49,6 +51,8 @@ export class LocalDataService {
     if (reqPath == '/cart')
       return false;
     else if (reqPath == '/shopping-history')
+      return false;
+    else if (reqPath == '/shopper-products')
       return false;
     else
       return true;

@@ -30,10 +30,11 @@ import { SigninComponent } from './signin/signin.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
-import { ProductsComponent } from './products/products.component';
 import { AdminReportsComponent } from './admin-reports/admin-reports.component';
 import { CartComponent } from './cart/cart.component';
 import { ShoppingHistoryComponent } from './shopping-history/shopping-history.component';
+import { AdminProductsComponent } from './admin-products/admin-products.component';
+import { ShopperProductsComponent } from './shopper-products/shopper-products.component';
 
 @NgModule({
   declarations: [
@@ -42,10 +43,11 @@ import { ShoppingHistoryComponent } from './shopping-history/shopping-history.co
     RegisterComponent,
     HomeComponent,
     HeaderComponent,
-    ProductsComponent,
     AdminReportsComponent,
     CartComponent,
-    ShoppingHistoryComponent
+    ShoppingHistoryComponent,
+    AdminProductsComponent,
+    ShopperProductsComponent
   ],
   imports: [
   BrowserModule,
