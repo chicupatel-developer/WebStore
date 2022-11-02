@@ -39,37 +39,19 @@ export class LocalDataService {
   // component's html page gets display
   // so even to prevent to display component's html page and 
   // redirects to home page,,, do,,,
-  authGuard403_Intercept_To_PreventDisplayOfHtmlPage_Of_Component_Admin(reqPath, token) {       
-
-    if (this.authGuard403_Intercept_SigninAndSignoutLinkAccess(reqPath, token)) {
-      if (reqPath == '/admin-reports')
-        return false;
-      else
-        return true;
-    }
-    else {
-      return false;
-    }
-  }
-  authGuard403_Intercept_To_PreventDisplayOfHtmlPage_Of_Component_Shopper(reqPath, token) {     
-    if (this.authGuard403_Intercept_SigninAndSignoutLinkAccess(reqPath, token)) {
-      if (reqPath == '/cart')
-        return false;
-      else if (reqPath == '/shopping-history')
-        return false;
-      else
-        return true;
-    }
-    else {
-      return false;
-    }
-  }
-  authGuard403_Intercept_SigninAndSignoutLinkAccess(reqPath, token) {
-    console.log(token);
-    console.log(reqPath);
-    if ((token!==null || token!==undefined) && (reqPath == '/signin' || reqPath == '/register'))
+  authGuard403_Intercept_To_PreventDisplayOfHtmlPage_Of_Component_Admin(reqPath) {
+    if (reqPath == '/admin-reports')
       return false;
     else
-      return true;      
+      return true;
   }
+  authGuard403_Intercept_To_PreventDisplayOfHtmlPage_Of_Component_Shopper(reqPath) {
+    if (reqPath == '/cart')
+      return false;
+    else if (reqPath == '/shopping-history')
+      return false;
+    else
+      return true;
+  }
+  
 }

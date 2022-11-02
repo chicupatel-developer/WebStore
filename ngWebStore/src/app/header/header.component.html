@@ -74,9 +74,8 @@
                     <li *ngIf="this._userService.isLoggedIn" 
                         class="nav-item">
                         <span class="userNameSpan">
-                            {{userName}}
-                            <br />
                             [Role: {{this._userService.getRole()}}]
+                            &nbsp;{{userName}}
                         </span>
                         &nbsp;
                         <button class="btn btn-primary" 

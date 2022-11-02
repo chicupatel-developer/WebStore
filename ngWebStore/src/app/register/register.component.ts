@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AbstractControl, FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+
+import { UserService } from '../services/user.service';
+import { LocalDataService } from '../services/local-data.service';
 
 @Component({
   selector: 'app-register',
@@ -7,9 +12,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public localDataService: LocalDataService,
+    public userService: UserService,
+    private formBuilder: FormBuilder,
+    public router: Router,
+  ) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    if (this.userService.isLoggedIn) {
+      this.router.navigate(['/home']);
+    }
   }
 
 }

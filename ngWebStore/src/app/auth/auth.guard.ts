@@ -31,7 +31,7 @@ export class AuthGuard implements CanActivate {
             console.log(reqUrl);
 
             if (localStorage.getItem('role') != null && localStorage.getItem('role') == 'Shopper') {
-                if (this.localDataService.authGuard403_Intercept_To_PreventDisplayOfHtmlPage_Of_Component_Admin(reqUrl, localStorage.getItem('token')))
+                if (this.localDataService.authGuard403_Intercept_To_PreventDisplayOfHtmlPage_Of_Component_Admin(reqUrl))
                     return true;               
                 else {
                     console.log('Un-Authorized !');
@@ -40,7 +40,7 @@ export class AuthGuard implements CanActivate {
                 }
             }
             else if (localStorage.getItem('role') != null && localStorage.getItem('role') == 'Admin') {
-                if (this.localDataService.authGuard403_Intercept_To_PreventDisplayOfHtmlPage_Of_Component_Shopper(reqUrl, localStorage.getItem('token')))
+                if (this.localDataService.authGuard403_Intercept_To_PreventDisplayOfHtmlPage_Of_Component_Shopper(reqUrl))
                     return true;               
                 else {
                     console.log('Un-Authorized !');
