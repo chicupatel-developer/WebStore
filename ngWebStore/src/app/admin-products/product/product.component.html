@@ -1,26 +1,33 @@
-<div *ngIf="productToDisplay" class="container">
+<div *ngIf="productToDisplay" >
     <div>
-        <span>
+        <div>
             {{productToDisplay.id}}
-        </span>
-        <br />
-        <span>
+        </div>
+        <div>
             {{productToDisplay.category}}
-        </span>
-        <br />
-        <span>
+        </div>
+        <div>
             {{productToDisplay.title}}
-        </span>
-        <br />
-        <span>
+        </div>
+        <div>
             $ {{productToDisplay.price}}
-        </span>
+        </div>
     </div>
     <div>
-        <button type="button" 
-            (click)="addToCart(productToDisplay)" 
-            class="btn btn-success">
-            Add To Cart
-        </button>
-    </div>
+        <div class="row">
+            <div class="col-md-6 mx-auto">
+                <button type="button" (click)="addToCart(productToDisplay)" class="btn btn-success">
+                    Add To Cart
+                </button>
+            </div>
+            <div class="col-md-2 mx-auto">     
+                &nbsp;       
+            </div>
+            <div class="col-md-4 mx-auto rightBtn">
+                <button type="button" (click)="getProductDetails(productToDisplay)" class="btn btn-info">
+                    Details
+                </button>
+            </div>
+        </div> 
+    </div>   
 </div>

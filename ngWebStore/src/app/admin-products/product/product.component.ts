@@ -24,5 +24,9 @@ export class ProductComponent implements OnInit {
     console.log('child-component,,,product is adding to cart,,,',selectedProduct);
     this.onAddToCart.emit(selectedProduct);
   }
+
+  getProductDetails(selectedProduct) {
+    console.log('getting product details,,,', selectedProduct);
+  }
   
 }
