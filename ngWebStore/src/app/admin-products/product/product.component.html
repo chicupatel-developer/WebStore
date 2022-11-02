@@ -1,5 +1,10 @@
 <div *ngIf="productToDisplay" >
     <div>
+        <div class="row">
+            <div class="col-md-12 mx-auto">
+                <img src="{{productToDisplay.image}}" width="200px" height="220px" />
+            </div>          
+        </div>
         <div>
             {{productToDisplay.id}}
         </div>
