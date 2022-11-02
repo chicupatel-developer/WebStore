@@ -35,6 +35,7 @@ import { CartComponent } from './cart/cart.component';
 import { ShoppingHistoryComponent } from './shopping-history/shopping-history.component';
 import { AdminProductsComponent } from './admin-products/admin-products.component';
 import { ShopperProductsComponent } from './shopper-products/shopper-products.component';
+import { ProductComponent } from './admin-products/product/product.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { ShopperProductsComponent } from './shopper-products/shopper-products.co
     CartComponent,
     ShoppingHistoryComponent,
     AdminProductsComponent,
-    ShopperProductsComponent
+    ShopperProductsComponent,
+    ProductComponent
   ],
   imports: [
   BrowserModule,

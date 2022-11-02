@@ -13,6 +13,8 @@ import {LocalDataService} from '../services/local-data.service';
 export class AdminProductsComponent implements OnInit {
 
   products = [];
+  productToDisplay;
+  
   
   constructor(
     public localDataService: LocalDataService,
@@ -30,9 +32,15 @@ export class AdminProductsComponent implements OnInit {
           this.products = data;
 
           console.log(data);
+          this.productToDisplay = data[0];
         },
         error => {
           console.log(error);
         });
+  }
+
+  // call back from child component
+  onAddToCart(selectedProduct) {
+    console.log('product is added to cart,,,',selectedProduct);
   }
 }

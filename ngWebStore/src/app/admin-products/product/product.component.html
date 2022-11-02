@@ -1,0 +1,26 @@
+<div *ngIf="productToDisplay" class="container">
+    <div>
+        <span>
+            {{productToDisplay.id}}
+        </span>
+        <br />
+        <span>
+            {{productToDisplay.category}}
+        </span>
+        <br />
+        <span>
+            {{productToDisplay.title}}
+        </span>
+        <br />
+        <span>
+            $ {{productToDisplay.price}}
+        </span>
+    </div>
+    <div>
+        <button type="button" 
+            (click)="addToCart(productToDisplay)" 
+            class="btn btn-success">
+            Add To Cart
+        </button>
+    </div>
+</div>
