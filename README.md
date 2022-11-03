@@ -32,7 +32,7 @@ Technology
 # Screens->
 
 ### Home->
-![Home1](https://user-images.githubusercontent.com/26190114/159531889-54110aa6-76da-4309-851b-8f8c22a3c914.PNG)
+![Home1](https://user-images.githubusercontent.com/26190114/199822776-515d101a-bf30-449b-bd07-a7681a087548.PNG)
 ![Home2](https://user-images.githubusercontent.com/26190114/159531992-4302f093-cb47-4a59-a0a2-f2bfc42523ed.PNG)
 
 ### Register->
