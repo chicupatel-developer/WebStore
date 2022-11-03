@@ -13,8 +13,7 @@ import {LocalDataService} from '../services/local-data.service';
 export class AdminProductsComponent implements OnInit {
 
   products = [];
-  productToDisplay;
-  
+  productToDisplay;  
   
   constructor(
     public localDataService: LocalDataService,
@@ -30,9 +29,6 @@ export class AdminProductsComponent implements OnInit {
       .subscribe(
         data => {
           this.products = data;
-
-          console.log(data);
-          this.productToDisplay = data[0];
         },
         error => {
           console.log(error);

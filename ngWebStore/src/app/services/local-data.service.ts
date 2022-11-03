@@ -59,8 +59,8 @@ export class LocalDataService {
   }
 
   getProductTitleForDisplay(title) {
-    if (title.length > 25) {
-      return title.substring(0, 25) + "...";
+    if (title.length > 20) {
+      return title.substring(0, 20) + "...";
     }
     else {
       return title;
