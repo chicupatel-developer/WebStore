@@ -29,8 +29,8 @@ const Home = () => {
         <div className={classes.homePageHeader}>
           <h3>Web-Store</h3>
           <h5>
-            Technology : .Net Core Web API / EF Core / JWT Authentication / SQL
-            Server / React / Redux /
+            Web API Core / EF Core / SQL Server / Angular / React-Redux / JWT
+            Authentication
           </h5>
         </div>
         <p></p>
@@ -98,8 +98,8 @@ const Home = () => {
                       [ View &nbsp;
                       <b>
                         Total Sales[$] of any Product during
-                        Discount-Policy-Time-Duration ]
-                      </b>
+                        Discount-Policy-Time-Duration
+                      </b> ]
                     </span>
                   </li>
                   <li>
