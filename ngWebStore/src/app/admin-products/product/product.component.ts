@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter, OnChanges } from '@angular/core';
 import { Router } from '@angular/router';
-
+import {LocalDataService} from '../../services/local-data.service';
 
 @Component({
   selector: 'app-product',
@@ -14,6 +14,7 @@ export class ProductComponent implements OnInit {
 
   constructor(
     public router: Router,
+    public localDataService: LocalDataService,
   ) { }
 
 
