@@ -80,4 +80,15 @@ export class LocalDataService {
     this._svChangeSub.next(searchValue);
   }  
   
+
+
+  // this will store products[]
+  // will be used to filter when search-value gets changed
+  private Products;
+  setProducts(val) {
+    this.Products = [...val];
+  }
+  getProducts() {
+    return this.Products;
+  }
 }

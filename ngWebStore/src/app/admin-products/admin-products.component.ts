@@ -26,9 +26,23 @@ export class AdminProductsComponent implements OnInit {
     this.localDataService.svChanged
       .subscribe(res => {
         this.searchValue = res;
+
+        if (this.searchValue !== '' && this.searchValue !== null && this.searchValue !== undefined) {         
+          this.filterProducts(this.searchValue);
+        }
+        else {
+          this.loadProducts();
+        }
       });
   }
 
+  filterProducts(searchValue) {    
+    var filterProducts_ = this.localDataService.getProducts().filter((p) =>
+      p.title.toLowerCase().includes(searchValue.toLowerCase())
+    );
+
+    this.products = [...filterProducts_];
+  }
 
   ngOnInit() {  
     this.loadProducts();
@@ -36,8 +50,9 @@ export class AdminProductsComponent implements OnInit {
   loadProducts() {
     this.dataService.getAllProducts()
       .subscribe(
-        data => {
-          this.products = data;
+        data => {        
+          this.localDataService.setProducts(data);
+          this.products = this.localDataService.getProducts();
         },
         error => {
           console.log(error);
