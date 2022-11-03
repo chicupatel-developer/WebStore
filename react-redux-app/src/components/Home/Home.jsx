@@ -99,7 +99,8 @@ const Home = () => {
                       <b>
                         Total Sales[$] of any Product during
                         Discount-Policy-Time-Duration
-                      </b> ]
+                      </b>{" "}
+                      ]
                     </span>
                   </li>
                   <li>
