@@ -43,4 +43,19 @@ export class HeaderComponent implements OnInit {
     this._userService.doLogout();
   }
   
+
+  onSearchChange(e): void {
+    if (e.value.length > 2) {
+      // console.log(e.value);      
+
+      // this will notify local-data-service
+      // so in next step,,, it will notify admin-products component
+      this._localService.sendSearchValueChangeNotification(e.value);
+      
+    }
+    else {
+      this._localService.sendSearchValueChangeNotification('');
+      // return;
+    }
+  }
 }

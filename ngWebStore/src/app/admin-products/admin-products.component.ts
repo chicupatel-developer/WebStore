@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {LocalDataService} from '../services/local-data.service';
 
+
 @Component({
   selector: 'app-admin-products',
   templateUrl: './admin-products.component.html',
@@ -15,13 +16,21 @@ export class AdminProductsComponent implements OnInit {
   products = [];
   productToDisplay;  
   
+  public searchValue: string;
+  
   constructor(
     public localDataService: LocalDataService,
     public dataService: DataService,
-    private router: Router) { }
+    private router: Router) {
+    
+    this.localDataService.svChanged
+      .subscribe(res => {
+        this.searchValue = res;
+      });
+  }
 
 
-  ngOnInit() {
+  ngOnInit() {  
     this.loadProducts();
   }
   loadProducts() {

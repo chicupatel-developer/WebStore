@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { retry } from 'rxjs';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -66,5 +67,17 @@ export class LocalDataService {
       return title;
     }
   }
+
+
+
+
+  // search-value
+  // header change this search-value
+  // notify admin-products component via local-data-service
+  private _svChangeSub = new Subject<string>();
+  public svChanged = this._svChangeSub.asObservable();
+  public sendSearchValueChangeNotification = (searchValue: string) => {    
+    this._svChangeSub.next(searchValue);
+  }  
   
 }
