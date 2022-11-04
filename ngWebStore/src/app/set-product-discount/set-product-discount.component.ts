@@ -25,6 +25,7 @@ export class SetProductDiscountComponent implements OnInit {
   });
   submitted = false;
 
+  discountedPrice;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -76,6 +77,10 @@ export class SetProductDiscountComponent implements OnInit {
     return this.form.controls;
   }
 
+  setDiscountedPrice(e) {
+    this.discountedPrice = (Math.ceil((this.product.price - (Number(this.form.value["discountPercentage"]) * this.product.price) / 100) * 20 - 0.5) / 20).toFixed(2);
+  } 
+
   onSubmit(): void {
     this.responseColor = '';
     this.apiResponse = '';
@@ -84,12 +89,32 @@ export class SetProductDiscountComponent implements OnInit {
     if (this.form.invalid) {
       return;
     }
-    console.log(this.form.value);
+    // console.log(this.form.value);
+
+    var discountStartDate = this.form.value["firstDateForDiscountedPrice"];
+    var dsdate = new Date(discountStartDate);
+    dsdate.setHours(0, 0, 0);   // Set hours, minutes and seconds
+   
+    var discountEndDate = this.form.value["lastDateForDiscountedPrice"];
+    var dedate = new Date(discountEndDate);
+    dedate.setHours(0, 0, 0);   // Set hours, minutes and seconds
+     
+    var productDiscount = {
+      productId: this.product.id,
+      price: this.product.price,
+      discountedPrice: this.discountedPrice,
+      discountPercentage: Number(this.form.value["discountPercentage"]),
+      discountQty: Number(this.form.value["discountQty"]),
+      firstDateForDiscountedPrice: dsdate.toUTCString() + "-0500 (Central Standard Time)",
+      lastDateForDiscountedPrice: dedate.toUTCString() + "-0500 (Central Standard Time)",
+    };
+    console.log(productDiscount);
   }
 
   onReset(): void {
     this.submitted = false;
     this.form.reset();
+    this.discountedPrice = undefined;
   }
 
 

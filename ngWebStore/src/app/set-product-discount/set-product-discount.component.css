@@ -2,3 +2,19 @@
     margin-bottom: 15px;
     font-style: oblique;
 }
+
+.price{
+    color: lightblue;
+    font-size: x-large;
+    font-weight: bold;
+}
+.category{
+    color:lightsalmon;
+    font-style: italic;
+    font-size: medium;
+    padding-left: 20px;
+}
+.discountedPrice {
+    color : green;
+    font-size: x-large;
+}
