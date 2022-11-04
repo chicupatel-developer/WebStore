@@ -330,9 +330,6 @@ const Register = () => {
           </Grid>
           <br />
           <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <Button component={Link} variant="outlined" to="/home">
-              Cancel
-            </Button>
             <Button
               onClick={(e) => handleSubmit(e)}
               type="button"
@@ -340,6 +337,9 @@ const Register = () => {
               color="primary"
             >
               Register
+            </Button>
+            <Button component={Link} variant="outlined" to="/home">
+              Cancel
             </Button>
           </div>
         </form>

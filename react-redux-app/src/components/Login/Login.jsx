@@ -38,9 +38,7 @@ const Login = () => {
 
   const currentUser = useSelector((state) => state.auth.currentUser);
 
-  useEffect(() => {
-    
-  }, [currentUser]);
+  useEffect(() => {}, [currentUser]);
 
   const handleFormControlChangeEvent = (event) => {
     if (event.target.name === "userName") {
@@ -142,7 +140,7 @@ const Login = () => {
         dispatch(setCurrentUser(apiResponse));
 
         // store current user @ browser local storage
-        localStorage.setItem("currentUser", JSON.stringify(apiResponse));        
+        localStorage.setItem("currentUser", JSON.stringify(apiResponse));
         setModelErrors([]);
       })
       .catch((error) => {
@@ -200,7 +198,7 @@ const Login = () => {
         </div>
 
         <form noValidate>
-          <Grid container direction="row" spacing={3}>           
+          <Grid container direction="row" spacing={3}>
             <Grid item xs={12} sm={12}>
               <TextField
                 name="userName"
@@ -229,13 +227,10 @@ const Login = () => {
                   <span className="invalid-feedback">{isError.password}</span>
                 )}
               </span>
-            </Grid>        
+            </Grid>
           </Grid>
           <br />
           <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <Button component={Link} variant="outlined" to="/home">
-              Cancel
-            </Button>
             <Button
               onClick={(e) => handleSubmit(e)}
               type="button"
@@ -243,6 +238,9 @@ const Login = () => {
               color="primary"
             >
               Login
+            </Button>
+            <Button component={Link} variant="outlined" to="/home">
+              Cancel
             </Button>
           </div>
         </form>

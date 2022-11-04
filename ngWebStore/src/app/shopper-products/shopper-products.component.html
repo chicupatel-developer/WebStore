@@ -1,1 +1,18 @@
-<p>shopper-products works!</p>
+<div class="row">
+    <div class="col-md-1 mx-auto"></div>
+    <div class="col-md-10 mx-auto">
+        <div class="row row-cols-auto">
+            <div *ngFor="let p of products; let indexOfelement=index;">
+                <div class="col rowGap">
+                    <div class="card cardBroder">
+                        <div style="height: 100%" class="card-body">
+                            <app-product (onAddToCart)="onAddToCart($event)" [productToDisplay]="p">
+                            </app-product>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-1 mx-auto"></div>
+</div>
