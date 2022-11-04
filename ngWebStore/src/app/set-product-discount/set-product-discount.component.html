@@ -66,7 +66,7 @@
                                             <div *ngIf="submitted && f['firstDateForDiscountedPrice'].errors" class="invalid-feedback">
                                                 <div *ngIf="f['firstDateForDiscountedPrice'].errors['required']">
                                                     Discount-Start-Date is required
-                                                </div>
+                                                </div>                                              
                                             </div>
                                             <p></p>                                         
                                         </div>
@@ -75,6 +75,7 @@
                                             <label>Discount In %</label>
                                             <input 
                                                 (change)="setDiscountedPrice($event)" 
+                                                (keypress)="numberOnly($event,1)"
                                                 type="text" 
                                                 formControlName="discountPercentage" 
                                                 class="form-control"
@@ -97,6 +98,9 @@
                                                 <div *ngIf="f['lastDateForDiscountedPrice'].errors['required']">
                                                     Discount-End-Date is required
                                                 </div>
+                                                <div *ngIf="f['lastDateForDiscountedPrice'].errors['matching']">
+                                                    Invalid discount-dates
+                                                </div>
                                             </div>
                                             <p></p>
                                         </div>
@@ -104,6 +108,7 @@
                                         <div class="form-group">
                                             <label>Discount Qty</label>
                                             <input type="text" 
+                                                (keypress)="numberOnly($event,1)"
                                                 formControlName="discountQty" 
                                                 class="form-control"
                                                 [ngClass]="{ 'is-invalid': submitted && f['discountQty'].errors }" />

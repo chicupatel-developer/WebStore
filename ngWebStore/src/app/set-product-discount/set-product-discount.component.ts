@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { AbstractControl, FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import {LocalDataService} from '../services/local-data.service';
+import Validation from '../services/validation';
+
 
 @Component({
   selector: 'app-set-product-discount',
@@ -69,6 +71,9 @@ export class SetProductDiscountComponent implements OnInit {
           ]
         ],      
       },
+      {
+        validators: [Validation.match('firstDateForDiscountedPrice', 'lastDateForDiscountedPrice')]
+      }
     );
   }
 
@@ -81,6 +86,31 @@ export class SetProductDiscountComponent implements OnInit {
     this.discountedPrice = (Math.ceil((this.product.price - (Number(this.form.value["discountPercentage"]) * this.product.price) / 100) * 20 - 0.5) / 20).toFixed(2);
   } 
 
+  numberOnly(event, param): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+  
+    // 0 = numbers and decimals
+    if (param == 0) {
+      // numbers and decimals
+      if (event.key == '.') {
+        return true;
+      }
+      else {
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+          return false;
+        }
+        return true;
+      }
+    }
+    else {
+      // numbers only
+      if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+        return false;
+      }
+      return true;
+    }
+  }
+  
   onSubmit(): void {
     this.responseColor = '';
     this.apiResponse = '';
