@@ -17,19 +17,18 @@
     </div>
     <div>
         <div class="row">
-            <div class="col-md-6 mx-auto">
-                <button type="button" (click)="addToCart(productToDisplay)" class="btn btn-success">
-                    <i class="fa fa-shopping-cart"></i>
-                </button>
-            </div>
-            <div class="col-md-2 mx-auto">     
-                &nbsp;       
-            </div>
-            <div class="col-md-4 mx-auto rightBtn">
+            <div class="col-md-6 mx-auto ">
                 <button type="button" 
-                    (click)="getProductDetails(productToDisplay)" 
-                    class="btn btn-primary">
-                    <i class="fa fa-info-circle"></i>
+                    (click)="setDiscount(productToDisplay)" 
+                    class="btn btn-success buttonStyle">
+                    Discount&nbsp;<i class="fa fa-gift"></i>
+                </button>
+            </div>          
+            <div class="col-md-6 mx-auto rightBtn ">
+                <button type="button" 
+                    (click)="viewDiscount(productToDisplay)" 
+                    class="btn btn-primary buttonStyle">
+                    Discount&nbsp;<i class="fa fa-tag"></i>
                 </button>
             </div>
         </div> 

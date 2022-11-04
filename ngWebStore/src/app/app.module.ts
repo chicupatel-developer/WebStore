@@ -36,6 +36,7 @@ import { ShoppingHistoryComponent } from './shopping-history/shopping-history.co
 import { AdminProductsComponent } from './admin-products/admin-products.component';
 import { ShopperProductsComponent } from './shopper-products/shopper-products.component';
 import { ProductComponent } from './admin-products/product/product.component';
+import { SetProductDiscountComponent } from './set-product-discount/set-product-discount.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { ProductComponent } from './admin-products/product/product.component';
     ShoppingHistoryComponent,
     AdminProductsComponent,
     ShopperProductsComponent,
-    ProductComponent
+    ProductComponent,
+    SetProductDiscountComponent
   ],
   imports: [
   BrowserModule,

@@ -10,8 +10,7 @@ import {LocalDataService} from '../../services/local-data.service';
 export class ProductComponent implements OnInit {
 
   @Input() productToDisplay;  
-  @Output() onAddToCart = new EventEmitter();
-
+ 
   constructor(
     public router: Router,
     public localDataService: LocalDataService,
@@ -21,13 +20,12 @@ export class ProductComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  addToCart(selectedProduct) {
-    console.log('child-component,,,product is adding to cart,,,',selectedProduct);
-    this.onAddToCart.emit(selectedProduct);
+  viewDiscount(selectedProduct) {
+    console.log('view product-discount,,,', selectedProduct);
   }
 
-  getProductDetails(selectedProduct) {
-    console.log('getting product details,,,', selectedProduct);
+  setDiscount(selectedProduct) {
+    console.log('setting product-discount,,,', selectedProduct);
   }
   
 }

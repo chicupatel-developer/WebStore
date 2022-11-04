@@ -58,9 +58,4 @@ export class AdminProductsComponent implements OnInit {
           console.log(error);
         });
   }
-
-  // call back from child component
-  onAddToCart(selectedProduct) {
-    console.log('product is added to cart,,,',selectedProduct);
-  }
 }
