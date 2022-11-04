@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, OnChanges } from '@angular/core';
+import { Router } from '@angular/router';
+import {LocalDataService} from '../../services/local-data.service';
 
 @Component({
   selector: 'app-product',
@@ -7,9 +9,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductComponent implements OnInit {
 
-  constructor() { }
+  @Input() productToDisplay;  
+  @Output() onAddToCart = new EventEmitter();
+
+  constructor(
+    public router: Router,
+    public localDataService: LocalDataService,
+  ) { }
+
 
   ngOnInit(): void {
   }
 
+  addToCart(selectedProduct) {
+    console.log('child-component,,,product is adding to cart,,,',selectedProduct);
+    this.onAddToCart.emit(selectedProduct);
+  }
+
+  getProductDetails(selectedProduct) {
+    console.log('getting product details,,,', selectedProduct);
+  }
+  
 }

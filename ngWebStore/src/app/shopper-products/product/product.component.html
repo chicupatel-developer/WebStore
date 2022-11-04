@@ -1,1 +1,35 @@
-<p>product works!</p>
+<div *ngIf="productToDisplay">
+    <div>
+        <div class="row">
+            <div class="col-md-12 mx-auto">
+                <img src="{{productToDisplay.image}}" width="200px" height="220px" />
+            </div>
+        </div>
+        <div class="category">
+            [ {{productToDisplay.category}} ]
+        </div>
+        <div>
+            {{this.localDataService.getProductTitleForDisplay(productToDisplay.title)}}
+        </div>
+        <div class="price">
+            $ {{productToDisplay.price}}
+        </div>
+    </div>
+    <div>
+        <div class="row">
+            <div class="col-md-6 mx-auto">
+                <button type="button" (click)="addToCart(productToDisplay)" class="btn btn-success">
+                    <i class="fa fa-shopping-cart"></i>
+                </button>
+            </div>
+            <div class="col-md-2 mx-auto">
+                &nbsp;
+            </div>
+            <div class="col-md-4 mx-auto rightBtn">
+                <button type="button" (click)="getProductDetails(productToDisplay)" class="btn btn-primary">
+                    <i class="fa fa-info-circle"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
