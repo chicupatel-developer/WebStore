@@ -11,7 +11,7 @@ import { ShopperProductsComponent } from './shopper-products/shopper-products.co
 import { AdminReportsComponent } from './admin-reports/admin-reports.component';
 import { CartComponent } from './cart/cart.component';
 import { ShoppingHistoryComponent } from './shopping-history/shopping-history.component';
-
+import { SetProductDiscountComponent } from './set-product-discount/set-product-discount.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -22,7 +22,8 @@ const routes: Routes = [
   { path: 'shopper-products', component: ShopperProductsComponent , canActivate: [AuthGuard] },
   { path: 'admin-reports', component: AdminReportsComponent , canActivate: [AuthGuard] },
   { path: 'cart', component: CartComponent , canActivate: [AuthGuard] },
-  { path: 'shopping-history', component: ShoppingHistoryComponent , canActivate: [AuthGuard] },
+  { path: 'shopping-history', component: ShoppingHistoryComponent, canActivate: [AuthGuard] },
+  { path: 'set-product-discount', component: SetProductDiscountComponent , canActivate: [AuthGuard] },
   { path: '**', redirectTo: '/home', pathMatch: 'full' }
 ];
 

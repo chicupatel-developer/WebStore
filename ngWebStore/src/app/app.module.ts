@@ -14,10 +14,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthGuard } from './auth/auth.guard';
 import { AuthInterceptor } from './auth/auth.interceptor';
 
-
+// bs datepicker
 // pagination
 // search
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
@@ -63,6 +64,7 @@ import { SetProductDiscountComponent } from './set-product-discount/set-product-
     HttpClientModule,
     NgxPaginationModule,
     Ng2SearchPipeModule,
+    BsDatepickerModule.forRoot(),
   ],
   providers: [HttpClientModule, LocalDataService, UserService, {
     provide: HTTP_INTERCEPTORS,

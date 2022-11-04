@@ -73,7 +73,7 @@ export class LocalDataService {
 
   // search-value
   // header change this search-value
-  // notify admin-products component via local-data-service
+  // notify shopper-admin-products component via local-data-service
   private _svChangeSub = new Subject<string>();
   public svChanged = this._svChangeSub.asObservable();
   public sendSearchValueChangeNotification = (searchValue: string) => {    
@@ -90,5 +90,14 @@ export class LocalDataService {
   }
   getProducts() {
     return this.Products;
+  }
+
+  // this will store product{} for setting discount on it by admin
+  private Product;
+  setProduct(val) {
+    this.Product = val;
+  }
+  getProduct() {
+    return this.Product;
   }
 }

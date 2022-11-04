@@ -1,1 +1,91 @@
-<p>set-product-discount works!</p>
+<h3>[ Set - Product Discount ]</h3>
+<div class="discountNote">
+    <span>
+        if Admin sets Discount-Starts-After-Qty = 10 for any specific
+        Product <b>[AND]</b>
+        <br />
+        if any user has bought that specific Product More Or Equal to 10 in
+        Last 30 Days <b>[AND]</b>
+        <br />
+        if <b>Discount is still Active(RUNNING)</b> [ if current-date is
+        between start-date-of-discount and end-date-of-discount ] for that
+        specific Product <b>then,,,</b>
+        <br />
+        <u>
+            this
+            <b>
+                user will see and get discounted-price for that specific Product
+            </b>
+        </u>
+    </span>
+</div>
+<div class="row">
+    <div class="col-md-1 mx-auto">
+    </div>
+    <div class="col-md-4 mx-auto">
+        <img src="{{product.image}}" width="300px" height="340px" />
+    </div>
+    <div class="col-md-2 mx-auto">
+    </div>
+    <div class="col-md-4 mx-auto">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 mx-auto">
+                    <div class="card">
+                        <div class="card-header">                           
+                            <div *ngIf="apiResponse">
+                                <span [style.color]="responseColor" 
+                                    class="apiResponse">
+                                    {{apiResponse}}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <form [formGroup]="form" 
+                                (ngSubmit)="onSubmit()">
+                                <div class="row">
+                                    <div class="col-md-12 mx-auto">
+                                        <div class="form-group">
+                                            <label>Discount-Start-Date</label>
+                                            <input 
+                                                [bsConfig]="{ isAnimated: true, dateInputFormat: 'YYYY-MM-DD' }" 
+                                                type="text"
+                                                placeholder="Discount-Start-Date" 
+                                                bsDatepicker 
+                                                formControlName="firstDateForDiscountedPrice"
+                                                class="form-control"
+                                                [ngClass]="{ 'is-invalid': submitted && f['firstDateForDiscountedPrice'].errors }" />
+                                            <div *ngIf="submitted && f['firstDateForDiscountedPrice'].errors" class="invalid-feedback">
+                                                <div *ngIf="f['firstDateForDiscountedPrice'].errors['required']">
+                                                    Discount-Start-Date is required
+                                                </div>
+                                            </div>
+                                            <p></p>                                         
+                                        </div>
+                                    </div>                               
+                                </div>
+                                <p></p>
+                                <hr />
+                                <p></p>
+                                <div class="form-group">
+                                    <button type="submit" 
+                                        class="btn btn-success">
+                                        Set Discount
+                                    </button>
+                                    &nbsp;&nbsp;
+                                    <button type="button" 
+                                        (click)="onReset()" 
+                                        class="btn btn-primary float-right">
+                                        Reset
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-1 mx-auto">
+    </div>
+</div>
