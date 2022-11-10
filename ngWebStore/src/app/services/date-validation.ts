@@ -1,6 +1,6 @@
 import { AbstractControl, ValidatorFn } from '@angular/forms';
 
-export default class Validation {
+export default class DateValidation {
   static match(controlName, checkControlName): ValidatorFn {
     return (controls: AbstractControl) => {
       const control = controls.get(controlName);
@@ -15,6 +15,7 @@ export default class Validation {
         return { matching: true };
       } else {
         return null;
+        // return { matching: false };
       }
     };
   }

@@ -85,6 +85,9 @@
                                                 <div *ngIf="f['discountPercentage'].errors['required']">
                                                     Discount-Percentage is required
                                                 </div>
+                                                <div *ngIf="f['discountPercentage'].errors['overhundred']">
+                                                    Discount-Percentage must be &lt; 100
+                                                </div>
                                             </div>
                                         </div>
                                     </div>                         

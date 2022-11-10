@@ -4,7 +4,8 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { AbstractControl, FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import {LocalDataService} from '../services/local-data.service';
-import Validation from '../services/validation';
+import DateValidation from '../services/date-validation';
+import DiscountPercentageValidation from '../services/discont-percentage-validation';
 
 
 @Component({
@@ -72,7 +73,10 @@ export class SetProductDiscountComponent implements OnInit {
         ],      
       },
       {
-        validators: [Validation.match('firstDateForDiscountedPrice', 'lastDateForDiscountedPrice')]
+        validators: [
+          DateValidation.match('firstDateForDiscountedPrice', 'lastDateForDiscountedPrice'),
+          DiscountPercentageValidation.match('discountPercentage')
+        ],
       }
     );
   }
