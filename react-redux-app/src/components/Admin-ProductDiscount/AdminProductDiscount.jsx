@@ -269,7 +269,6 @@ const AdminProductDiscount = () => {
     }
     console.log("Discount is Set for Product!");
 
-    let currentDate = new Date();
     var CSToffSet = -360; //CST is -6:00 of UTC; i.e. 60*6 = -360 in minutes
     var offset = CSToffSet * 60 * 1000;
     var CSTTimeStartDate = new Date(startDate.getTime() + offset);
@@ -301,10 +300,18 @@ const AdminProductDiscount = () => {
       .catch((error) => {
         console.log(error.response);
         if (error.response.status === 400) {
-          setApiResponse("400" + error.response.data.response.responseMessage);
+          if (error.response.data.response) {
+            setApiResponse(
+              "400" + error.response.data.response.responseMessage
+            );
+          } else {
+            setApiResponse("400" + error.response.statusText);
+          }
         } else if (error.response.status === 500) {
           setApiResponse("500" + error.response.data.responseMessage);
         }
+
+        console.log(apiResponse);
         setTimeout(() => {
           setApiResponse("");
         }, 3000);

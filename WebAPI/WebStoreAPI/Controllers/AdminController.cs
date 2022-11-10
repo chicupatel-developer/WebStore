@@ -37,7 +37,7 @@ namespace WebStoreAPI.Controllers
 
                 // check for ModeState
                 // ModelState.AddModelError("ProductId", "Product Id is Required!");
-
+                // ModelState.AddModelError("Price", "Product Price is Required!");
                 if (ModelState.IsValid)
                 {
                     if (_adminRepo.AddProductDiscount(productDiscount))

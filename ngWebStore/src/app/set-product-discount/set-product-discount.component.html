@@ -46,6 +46,13 @@
                                     {{apiResponse}}
                                 </span>
                             </div>
+                            <h6 *ngIf="errors?.length > 0">
+                                <ul [style.color]="responseColor">
+                                    <li *ngFor="let error of errors">
+                                        {{ error }}
+                                    </li>
+                                </ul>
+                            </h6>
                             <p></p>
                             <span *ngIf="discountedPrice" 
                                 class="discountedPrice">

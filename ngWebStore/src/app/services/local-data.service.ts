@@ -20,7 +20,12 @@ export class LocalDataService {
         for (var key in error.error.errors) {
           errors.push(error.error.errors[key]);
         }
-      } else {
+      } else if (error.error != null) {
+        for (var key in error.error) {
+          errors.push(error.error[key]);
+        }
+      }
+      else {
         errors.push('[' + componentName + '] Data Not Found ! / Bad Request !');
       }
     }

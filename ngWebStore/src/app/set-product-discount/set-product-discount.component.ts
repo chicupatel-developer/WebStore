@@ -153,16 +153,21 @@ export class SetProductDiscountComponent implements OnInit {
           console.log(data);
           this.responseColor = 'green';
           this.apiResponse = data.responseMessage;
+          setTimeout(() => {
+            this.onReset();
+          }, 3000);
         },
         error => {
           console.log(error);
           this.responseColor = 'red';
           if (error.status === 400) {
-            if (error.error.errors && error.error.errors != null) {
-              this.errors = this.localDataService.display400andEx(error, 'Set-Product-Discount');
-            }
-            else {
-              this.apiResponse = error.error.response.responseCode + ' : ' + error.error.response.responseMessage;
+            if (error.error && error.error != null) {
+              if (error.error.response && error.error.response.responseCode === 400) {
+                this.apiResponse = error.error.response.responseCode + ' : ' + error.error.response.responseMessage;
+              }
+              else {
+                this.errors = this.localDataService.display400andEx(error, 'Set-Product-Discount');  
+              }              
             }
           }
           else if (error.status === 500) {
@@ -176,6 +181,9 @@ export class SetProductDiscountComponent implements OnInit {
     this.submitted = false;
     this.form.reset();
     this.discountedPrice = undefined;
+    this.errors = [];
+    this.apiResponse = '';
+    this.responseColor = '';
   }
 
 
