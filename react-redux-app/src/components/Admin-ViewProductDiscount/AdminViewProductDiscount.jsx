@@ -50,20 +50,29 @@ const AdminViewProductDiscount = () => {
 
   const setDiscountStatus = (data) => {
     let currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0);
     console.log(currentDate);
 
     data.forEach((prDis) => {
       if (
-        currentDate >= new Date(prDis.firstDateForDiscountedPrice) &&
-        currentDate <= new Date(prDis.lastDateForDiscountedPrice)
+        currentDate >=
+          new Date(prDis.firstDateForDiscountedPrice).setHours(0, 0, 0, 0) &&
+        currentDate <=
+          new Date(prDis.lastDateForDiscountedPrice).setHours(0, 0, 0, 0)
       ) {
         // discount scheme is still ACTIVE/RUNNING
         prDis.discountStatus = "RUNNING";
       } else {
         // discount either EXPIRED or COMING-SOON
-        if (currentDate > new Date(prDis.lastDateForDiscountedPrice))
+        if (
+          currentDate >
+          new Date(prDis.lastDateForDiscountedPrice).setHours(0, 0, 0, 0)
+        )
           prDis.discountStatus = "EXPIRED";
-        if (currentDate < new Date(prDis.firstDateForDiscountedPrice))
+        if (
+          currentDate <
+          new Date(prDis.firstDateForDiscountedPrice).setHours(0, 0, 0, 0)
+        )
           prDis.discountStatus = "COMING-SOON";
       }
     });
