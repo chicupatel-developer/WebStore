@@ -22,6 +22,10 @@ export class ProductComponent implements OnInit {
 
   viewDiscount(selectedProduct) {
     console.log('view product-discount,,,', selectedProduct);
+    this.localDataService.setProduct(selectedProduct);
+    setTimeout(() => {
+      this.router.navigate(['/view-product-discount']);
+    }, 1000);
   }
 
   setDiscount(selectedProduct) {

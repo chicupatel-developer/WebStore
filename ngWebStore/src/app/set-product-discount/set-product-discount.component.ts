@@ -30,12 +30,12 @@ export class SetProductDiscountComponent implements OnInit {
   submitted = false;
 
   discountedPrice;
-
+  
   constructor(
     private formBuilder: FormBuilder,
     public localDataService: LocalDataService,
     public dataService: DataService,
-    private router: Router) {
+    private router: Router) {   
   }
 
   ngOnInit(): void {
@@ -82,6 +82,10 @@ export class SetProductDiscountComponent implements OnInit {
     );
   }
 
+  ngOnDestroy() {
+    console.log('reset-product@local-data-service,,,');
+    this.localDataService.setProduct(null);
+  }
 
   get f(): { [key: string]: AbstractControl } {
     return this.form.controls;
@@ -185,6 +189,4 @@ export class SetProductDiscountComponent implements OnInit {
     this.apiResponse = '';
     this.responseColor = '';
   }
-
-
 }

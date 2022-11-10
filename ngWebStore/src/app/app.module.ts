@@ -38,6 +38,7 @@ import { AdminProductsComponent } from './admin-products/admin-products.componen
 import { ShopperProductsComponent } from './shopper-products/shopper-products.component';
 import { ProductComponent } from './admin-products/product/product.component';
 import { SetProductDiscountComponent } from './set-product-discount/set-product-discount.component';
+import { ViewProductDiscountComponent } from './view-product-discount/view-product-discount.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { SetProductDiscountComponent } from './set-product-discount/set-product-
     AdminProductsComponent,
     ShopperProductsComponent,
     ProductComponent,
-    SetProductDiscountComponent
+    SetProductDiscountComponent,
+    ViewProductDiscountComponent
   ],
   imports: [
   BrowserModule,
