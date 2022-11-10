@@ -8,7 +8,8 @@ import { LocalDataService } from '../services/local-data.service';
 })
 export class DataService {
 
-  public API = 'https://localhost:44309';
+  public API = 'https://localhost:44309/api';
+  public ADMIN = `${this.API}/Admin`;
   public FAKE_API_PRODUCTS = `https://fakestoreapi.com/products`;
 
   constructor(
@@ -18,5 +19,12 @@ export class DataService {
 
   getAllProducts(): Observable<Array<any>> {
     return this.http.get<Array<any>>(this.FAKE_API_PRODUCTS);
+  }
+
+
+  // add product-discount
+  // admin controller
+  addProductDiscount(productDiscount): Observable<any> {
+    return this.http.post(this.ADMIN + '/addProductDiscount', productDiscount)
   }
 }

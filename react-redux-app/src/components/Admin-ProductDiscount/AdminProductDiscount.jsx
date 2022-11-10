@@ -293,7 +293,7 @@ const AdminProductDiscount = () => {
     AdminService.addProductDiscount(productDiscount)
       .then((response) => {
         console.log(response.data);
-        setApiResponse("200" + response.data);
+        setApiResponse("200" + response.data.responseMessage);
         setTimeout(() => {
           setApiResponse("");
         }, 3000);

@@ -40,7 +40,9 @@
                         </div>
                         <div class="card-body">
                             <div *ngIf="apiResponse">
-                                <span [style.color]="responseColor" class="apiResponse">
+                                <span 
+                                    [style.color]="responseColor" 
+                                    class="apiResponse">
                                     {{apiResponse}}
                                 </span>
                             </div>

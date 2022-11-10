@@ -41,9 +41,14 @@ namespace WebStoreAPI.Controllers
                 if (ModelState.IsValid)
                 {
                     if (_adminRepo.AddProductDiscount(productDiscount))
-                        return Ok("Product Discount Applied Successfully !");
+                    {
+                        return StatusCode(StatusCodes.Status200OK, new Response { ResponseCode = 200, ResponseMessage = "Product Discount Applied Successfully!" });
+                        // return Ok("Product Discount Applied Successfully !");
+                    }
                     else
+                    {
                         return StatusCode(StatusCodes.Status500InternalServerError, new Response { ResponseCode = 500, ResponseMessage = "Server Error !" });
+                    }
                 }
                 else
                 {

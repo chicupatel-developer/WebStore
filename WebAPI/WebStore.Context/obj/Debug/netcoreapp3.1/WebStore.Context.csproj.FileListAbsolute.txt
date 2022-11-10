@@ -9,3 +9,4 @@ C:\WebStore\WebAPI\WebStore.Context\obj\Debug\netcoreapp3.1\WebStore.Context.csp
 C:\WebStore\WebAPI\WebStore.Context\obj\Debug\netcoreapp3.1\WebStore.Context.dll
 C:\WebStore\WebAPI\WebStore.Context\obj\Debug\netcoreapp3.1\WebStore.Context.pdb
 C:\WebStore\WebAPI\WebStore.Context\obj\Debug\netcoreapp3.1\WebStore.Context.genruntimeconfig.cache
+C:\WebStore\WebAPI\WebStore.Context\obj\Debug\netcoreapp3.1\WebStore.Context.csproj.AssemblyReference.cache

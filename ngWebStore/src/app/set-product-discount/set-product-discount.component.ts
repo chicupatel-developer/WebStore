@@ -19,6 +19,7 @@ export class SetProductDiscountComponent implements OnInit {
 
   responseColor = '';
   apiResponse = '';
+  errors = [];
 
   form: FormGroup = new FormGroup({
     discountPercentage: new FormControl(''),
@@ -118,6 +119,7 @@ export class SetProductDiscountComponent implements OnInit {
   onSubmit(): void {
     this.responseColor = '';
     this.apiResponse = '';
+    this.errors = [];
     this.submitted = true;
 
     if (this.form.invalid) {
@@ -135,14 +137,39 @@ export class SetProductDiscountComponent implements OnInit {
      
     var productDiscount = {
       productId: this.product.id,
-      price: this.product.price,
-      discountedPrice: this.discountedPrice,
+      price: Number(this.product.price),
+      discountedPrice: Number(this.discountedPrice),
       discountPercentage: Number(this.form.value["discountPercentage"]),
       discountQty: Number(this.form.value["discountQty"]),
-      firstDateForDiscountedPrice: dsdate.toUTCString() + "-0500 (Central Standard Time)",
-      lastDateForDiscountedPrice: dedate.toUTCString() + "-0500 (Central Standard Time)",
+      firstDateForDiscountedPrice: new Date(dsdate.toUTCString() + "-0500 (Central Standard Time)"),
+      lastDateForDiscountedPrice: new Date(dedate.toUTCString() + "-0500 (Central Standard Time)"),
     };
     console.log(productDiscount);
+
+
+    this.dataService.addProductDiscount(productDiscount)
+      .subscribe(
+        data => {
+          console.log(data);
+          this.responseColor = 'green';
+          this.apiResponse = data.responseMessage;
+        },
+        error => {
+          console.log(error);
+          this.responseColor = 'red';
+          if (error.status === 400) {
+            if (error.error.errors && error.error.errors != null) {
+              this.errors = this.localDataService.display400andEx(error, 'Set-Product-Discount');
+            }
+            else {
+              this.apiResponse = error.error.response.responseCode + ' : ' + error.error.response.responseMessage;
+            }
+          }
+          else if (error.status === 500) {
+            this.apiResponse = error.error.responseMessage;
+          }
+        });
+
   }
 
   onReset(): void {

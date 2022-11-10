@@ -18,3 +18,8 @@
     color : green;
     font-size: x-large;
 }
+
+.apiResponse {
+    font-size: larger;
+    font-style: bold;
+}
