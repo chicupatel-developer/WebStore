@@ -33,7 +33,6 @@ export class ViewProductDiscountComponent implements OnInit {
     console.log(this.product);
 
     this.getProductDiscountData();
-
   }
 
   ngOnDestroy() {
@@ -44,11 +43,44 @@ export class ViewProductDiscountComponent implements OnInit {
   getProductDiscountData() {
     this.dataService.getProductDiscountData(this.product.id)
       .subscribe(
-        data => {
-          console.log(data);
+        data => {          
+          this.setDiscountStatus(data);
         },
         error => {
           console.log(error);
         });
+  }
+
+  setDiscountStatus(data) {
+    let currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0);
+    console.log(currentDate);
+
+    data.forEach((prDis) => {
+      if (
+        currentDate.getTime() >=
+        new Date(prDis.firstDateForDiscountedPrice).setHours(0, 0, 0, 0) &&
+        currentDate.getTime() <=
+        new Date(prDis.lastDateForDiscountedPrice).setHours(0, 0, 0, 0)
+      ) {
+        // discount scheme is still ACTIVE/RUNNING
+        prDis.discountStatus = "RUNNING";
+      } else {
+        // discount either EXPIRED or COMING-SOON
+        if (
+          currentDate.getTime() >
+          new Date(prDis.lastDateForDiscountedPrice).setHours(0, 0, 0, 0)
+        )
+          prDis.discountStatus = "EXPIRED";
+        if (
+          currentDate.getTime() <
+          new Date(prDis.firstDateForDiscountedPrice).setHours(0, 0, 0, 0)
+        )
+          prDis.discountStatus = "COMING-SOON";
+      }
+    });
+    console.log(data);
+
+    this.discountData = data;
   }
 }
