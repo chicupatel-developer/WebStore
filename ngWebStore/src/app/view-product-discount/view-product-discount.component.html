@@ -3,64 +3,93 @@
     <h4>[ View - Product Discount ]</h4>
 
     <p></p>
+    <div class="row">       
+        <div class="col-md-5 mx-auto productImage">
+            <img src="{{product.image}}" width="200px" height="220px" />
+        </div>
+        <div class="col-md-1 mx-auto">
+        </div>
+        <div class="col-md-6 mx-auto">
+            <div class="category">{{product.category}}</div>
+            <h5>{{product.title}}</h5>
+            <div class="price">
+                $ {{product.price}}
+            </div>
+        </div>
+    </div>
+
+    <p></p>
     <div class="container">
         <div class="row">
             <div class="col-md-12 mx-auto">
-                <div class="card">
-                    <div class="card-body">
-                        <div *ngIf="discountData?.length>0; else noData" class="container">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Discount</th>
-                                        <th>$ Discounted Price</th>
-                                        <th>Discount %</th>
-                                        <th>Discount Qty</th>
-                                        <th>Discount Start Date</th>
-                                        <th>Discount End Date</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let dd of discountData  | paginate
-                                                : {
-                                                    itemsPerPage: tableSize,
-                                                    currentPage: page,
-                                                    totalItems: count
-                                                };
-                                                let i = index
-                                            ">
-                                        <td>{{ dd.discountStatus }}</td>
-                                        <td>$ {{ dd.discountedPrice }}</td>
-                                        <td>
-                                            {{dd.discountPercentage}}
-                                        </td>
-                                        <td>
-                                            {{dd.discountQty}}
-                                        </td>
-                                        <td>
-                                            {{dd.firstDateForDiscountedPrice | date : "MMM d, y"}}
-                                        </td>
-                                        <td>
-                                            {{dd.lastDateForDiscountedPrice | date : "MMM d, y"}}
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div class="d-flex justify-content-center">
-                                <pagination-controls previousLabel="Prev" nextLabel="Next"
-                                    (pageChange)="onTableDataChange($event)">
-                                </pagination-controls>
-                            </div>
-                        </div>
-                        <ng-template #noData>
-                            <div class="container">
-                                <span class="noData">
-                                    Discount-Data Not Found !
-                                </span>
-                            </div>
-                        </ng-template>
+                <div *ngIf="discountData?.length>0; else noData" class="container">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Discount</th>
+                                <th>$ Discounted Price</th>
+                                <th>Discount %</th>
+                                <th>Discount Qty</th>
+                                <th>Discount Start Date</th>
+                                <th>Discount End Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let dd of discountData  | paginate
+                                                                : {
+                                                                    itemsPerPage: tableSize,
+                                                                    currentPage: page,
+                                                                    totalItems: count
+                                                                };
+                                                                let i = index
+                                                            ">
+                                <td>
+                                    <span *ngIf="dd.discountStatus=='RUNNING'">
+                                        <span class="runningDiscount">
+                                            {{ dd.discountStatus }}
+                                            <br />
+                                            <i class="fas fa-chart-line"></i>
+                                        </span>
+                                    </span>
+                                    <span *ngIf="dd.discountStatus=='EXPIRED'">
+                                        <span class="expiredDiscount">
+                                            {{ dd.discountStatus }}
+                                            <br />
+                                            <i class="fas fa-chart-line"></i>
+                                        </span>
+                                    </span>
+                                    <span *ngIf="dd.discountStatus=='COMING-SOON'">
+                                        <span class="comingsoonDiscount">{{ dd.discountStatus }}</span>
+                                    </span>    
+                                </td>
+                                <td>$ {{ dd.discountedPrice }}</td>
+                                <td>
+                                    {{dd.discountPercentage}}
+                                </td>
+                                <td>
+                                    {{dd.discountQty}}
+                                </td>
+                                <td>
+                                    {{dd.firstDateForDiscountedPrice | date : "MMM d, y"}}
+                                </td>
+                                <td>
+                                    {{dd.lastDateForDiscountedPrice | date : "MMM d, y"}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="d-flex justify-content-center">
+                        <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange($event)">
+                        </pagination-controls>
                     </div>
                 </div>
+                <ng-template #noData>
+                    <div class="container">
+                        <span class="noData">
+                            Discount-Data Not Found !
+                        </span>
+                    </div>
+                </ng-template>
             </div>
         </div>
     </div>

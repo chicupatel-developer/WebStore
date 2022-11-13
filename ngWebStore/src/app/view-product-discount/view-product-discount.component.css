@@ -2,3 +2,37 @@
     color: red;
     font-size: x-large;
 }
+.price {
+    color: blue;
+    font-size: large;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-weight: bold;
+}
+
+.productImage{
+    text-align: right;
+}
+.category{
+    background-color: lightgoldenrodyellow;
+    color:brown;
+    font-size: x-large;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+.runningDiscount{
+    color: green;
+    font-size: large;
+    font-weight: bold;
+}
+.expiredDiscount {
+    color: red;
+    font-size: small;
+    font-weight: bold;
+}
+.comingsoonDiscount {
+    color: blue;
+    font-size: medium;
+    font-weight: bold;
+}
