@@ -15,6 +15,7 @@ import DiscountPercentageValidation from '../services/discont-percentage-validat
 export class ViewProductDiscountComponent implements OnInit {
 
   product;
+  discountData;
   
   constructor(
     private formBuilder: FormBuilder,
@@ -30,10 +31,24 @@ export class ViewProductDiscountComponent implements OnInit {
       this.router.navigate(['/admin-products']);
     }
     console.log(this.product);
+
+    this.getProductDiscountData();
+
   }
 
   ngOnDestroy() {
     console.log('reset-product@local-data-service,,,');
     this.localDataService.setProduct(null);
+  }
+
+  getProductDiscountData() {
+    this.dataService.getProductDiscountData(this.product.id)
+      .subscribe(
+        data => {
+          console.log(data);
+        },
+        error => {
+          console.log(error);
+        });
   }
 }

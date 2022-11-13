@@ -27,4 +27,10 @@ export class DataService {
   addProductDiscount(productDiscount): Observable<any> {
     return this.http.post(this.ADMIN + '/addProductDiscount', productDiscount)
   }
+
+  // get product-discount data
+  // admin controller
+  getProductDiscountData(productId): Observable<any> {
+    return this.http.get(this.ADMIN + '/getProductDiscountData?productId='+productId)
+  }
 }
