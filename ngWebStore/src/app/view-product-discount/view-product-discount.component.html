@@ -51,7 +51,14 @@
                                             <button type="button" class="btn btn-light runningDiscount" 
                                                 (click)="getDiscountZoneProductSales(dd)">
                                                 <i class="fas fa-chart-line"></i>
-                                            </button>                                           
+                                            </button>    
+                                            <span *ngIf="discountZoneSales">
+                                                <span 
+                                                    class="discountSales"
+                                                    *ngIf="dd.productDiscountId==productDiscountId">
+                                                    Sales [$ {{discountZoneSales.sales}}]
+                                                </span>
+                                            </span>                                       
                                         </span>
                                     </span>
                                     <span *ngIf="dd.discountStatus=='EXPIRED'">
@@ -63,12 +70,19 @@
                                                 (click)="getDiscountZoneProductSales(dd)">
                                                 <i class="fas fa-chart-line"></i>
                                             </button>
+                                            <span *ngIf="discountZoneSales">
+                                                <span class="discountSales" *ngIf="dd.productDiscountId==productDiscountId">
+                                                    Sales [$ {{discountZoneSales.sales}}]
+                                                </span>
+                                            </span>
                                         </span>
                                     </span>
                                     <span *ngIf="dd.discountStatus=='COMING-SOON'">
-                                        <span class="comingsoonDiscount">{{ dd.discountStatus }}</span>
+                                        <span class="comingsoonDiscount">
+                                            {{ dd.discountStatus }}                                           
+                                        </span>
                                     </span>    
-                                </td>
+                                </td>                             
                                 <td>$ {{ dd.discountedPrice }}</td>
                                 <td>
                                     {{dd.discountPercentage}}

@@ -36,3 +36,11 @@
     font-size: medium;
     font-weight: bold;
 }
+
+.discountSales {
+    background-color: black;
+    color:white;
+    font-size: medium;
+    margin-left: 10px;
+    padding: 5px;
+}
