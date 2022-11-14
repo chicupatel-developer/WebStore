@@ -39,6 +39,9 @@ import { ShopperProductsComponent } from './shopper-products/shopper-products.co
 import { ProductComponent } from './admin-products/product/product.component';
 import { SetProductDiscountComponent } from './set-product-discount/set-product-discount.component';
 import { ViewProductDiscountComponent } from './view-product-discount/view-product-discount.component';
+import { MonthlyReportComponent } from './admin-reports/monthly-report/monthly-report.component';
+import { QuarterlyReportComponent } from './admin-reports/quarterly-report/quarterly-report.component';
+import { DiscountTrendReportComponent } from './admin-reports/discount-trend-report/discount-trend-report.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +57,10 @@ import { ViewProductDiscountComponent } from './view-product-discount/view-produ
     ShopperProductsComponent,
     ProductComponent,
     SetProductDiscountComponent,
-    ViewProductDiscountComponent
+    ViewProductDiscountComponent,
+    MonthlyReportComponent,
+    QuarterlyReportComponent,
+    DiscountTrendReportComponent
   ],
   imports: [
   BrowserModule,
