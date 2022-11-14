@@ -42,20 +42,27 @@
                                                                     totalItems: count
                                                                 };
                                                                 let i = index
-                                                            ">
+                                                            ">                             
                                 <td>
                                     <span *ngIf="dd.discountStatus=='RUNNING'">
                                         <span class="runningDiscount">
                                             {{ dd.discountStatus }}
                                             <br />
-                                            <i class="fas fa-chart-line"></i>
+                                            <button type="button" class="btn btn-light runningDiscount" 
+                                                (click)="getDiscountZoneProductSales(dd)">
+                                                <i class="fas fa-chart-line"></i>
+                                            </button>                                           
                                         </span>
                                     </span>
                                     <span *ngIf="dd.discountStatus=='EXPIRED'">
                                         <span class="expiredDiscount">
                                             {{ dd.discountStatus }}
                                             <br />
-                                            <i class="fas fa-chart-line"></i>
+                                            <button type="button" 
+                                                class="btn btn-light expiredDiscount" 
+                                                (click)="getDiscountZoneProductSales(dd)">
+                                                <i class="fas fa-chart-line"></i>
+                                            </button>
                                         </span>
                                     </span>
                                     <span *ngIf="dd.discountStatus=='COMING-SOON'">

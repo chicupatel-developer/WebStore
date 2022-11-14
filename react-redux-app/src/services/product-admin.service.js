@@ -31,7 +31,7 @@ class AdminService {
       headers: authHeader(),
     });
   };
-  
+
   getLast5DiscountZoneProductSales = async (data) => {
     return await http.post(`/getLast5DiscountZoneProductSales`, data, {
       headers: authHeader(),

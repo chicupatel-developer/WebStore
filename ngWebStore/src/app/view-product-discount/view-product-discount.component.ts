@@ -16,6 +16,7 @@ export class ViewProductDiscountComponent implements OnInit {
 
   product;
   discountData;
+  discountZoneSales;
 
   // paging
   page: number = 1;
@@ -100,5 +101,26 @@ export class ViewProductDiscountComponent implements OnInit {
     console.log(data);
 
     this.discountData = data;
+  }
+
+  getDiscountZoneProductSales(selectedProduct) {
+    var data = {
+      productId: selectedProduct.productId,
+      discountStartDate: selectedProduct.firstDateForDiscountedPrice,
+      discountEndDate: selectedProduct.lastDateForDiscountedPrice,
+      id: selectedProduct.productDiscountId,
+    };
+    console.log(data);
+
+
+    this.dataService.getDiscountZoneProductSales(data)
+      .subscribe(
+        data => {
+          console.log(data);
+          this.discountZoneSales = { ...data };
+        },
+        error => {
+          console.log(error);
+        });
   }
 }
