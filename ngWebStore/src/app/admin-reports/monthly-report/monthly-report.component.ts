@@ -13,6 +13,9 @@ import {LocalDataService} from '../../services/local-data.service';
 export class MonthlyReportComponent implements OnInit {
 
   products = [];
+
+  displayProductList = false;
+  selectedProduct;
   
   constructor(
     public localDataService: LocalDataService,
@@ -38,7 +41,13 @@ export class MonthlyReportComponent implements OnInit {
         });
   }
 
-  changeProduct(e) {
-    console.log(e);
+  showProductList() {
+    this.displayProductList = true;
   }
+  productSelected(selectedProduct) {
+    console.log(selectedProduct.title);
+    this.displayProductList = false;
+    this.selectedProduct = selectedProduct;
+  }
+ 
 }
