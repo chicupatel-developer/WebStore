@@ -22,6 +22,12 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
+
+
+// import { GoogleChartsModule } from 'angular-google-charts';
+
+
+
 // services
 import { UserService } from './services/user.service';
 import { LocalDataService } from './services/local-data.service';
@@ -73,6 +79,7 @@ import { DiscountTrendReportComponent } from './admin-reports/discount-trend-rep
     NgxPaginationModule,
     Ng2SearchPipeModule,
     BsDatepickerModule.forRoot(),
+    // GoogleChartsModule,
   ],
   providers: [HttpClientModule, LocalDataService, UserService, {
     provide: HTTP_INTERCEPTORS,
