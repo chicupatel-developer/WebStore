@@ -12,10 +12,12 @@ import {LocalDataService} from '../../services/local-data.service';
 })
 export class MonthlyReportComponent implements OnInit {
 
+  years = [];
   products = [];
 
   displayProductList = false;
   selectedProduct;
+  selectedYear="";
   
   constructor(
     public localDataService: LocalDataService,
@@ -24,6 +26,8 @@ export class MonthlyReportComponent implements OnInit {
   }
  
   ngOnInit() {  
+
+    this.years = this.localDataService.getYears();
 
     if (this.localDataService.getProducts() == null)
       this.loadProducts();    
@@ -42,12 +46,29 @@ export class MonthlyReportComponent implements OnInit {
   }
 
   showProductList() {
+    if (this.selectedYear == "")
+      return;
+    
     this.displayProductList = true;
   }
   productSelected(selectedProduct) {
     console.log(selectedProduct.title);
     this.displayProductList = false;
     this.selectedProduct = selectedProduct;
+
+    var data = {
+      selectedYear: this.selectedYear,
+      selectedProduct: this.selectedProduct
+    };
+
+    console.log(data);
   }
  
+
+  changeYear(event) {
+    console.log(event.target.value);
+    this.selectedYear = event.target.value;
+
+    this.selectedProduct = null;
+  }
 }

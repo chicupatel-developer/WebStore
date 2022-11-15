@@ -73,9 +73,6 @@ export class LocalDataService {
     }
   }
 
-
-
-
   // search-value
   // header change this search-value
   // notify shopper-admin-products component via local-data-service
@@ -85,7 +82,6 @@ export class LocalDataService {
     this._svChangeSub.next(searchValue);
   }  
   
-
 
   // this will store products[]
   // will be used to filter when search-value gets changed
@@ -104,5 +100,11 @@ export class LocalDataService {
   }
   getProduct() {
     return this.Product;
+  }
+
+
+  // returns list of years
+  getYears() {
+    return ["2022", "2021", "2020", "2019"];
   }
 }

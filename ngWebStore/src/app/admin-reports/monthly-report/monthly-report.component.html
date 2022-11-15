@@ -3,18 +3,27 @@
         [ Monthly - Product - Sales - Report ]
     </h4>
     <hr />
+  
+    <div class="row">
+        <div class="col-md-3 mx-auto">
+            <div>
+                <select class="form-control" (change)="changeYear($event)">
+                    <option value="">Choose Year</option>
+                    <option value={{y}} *ngFor="let y of years">
+                        {{y}}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-9 mx-auto"></div>
+    </div>
+    <p></p>
     <div class="row">
         <div class="col-md-6 mx-auto">
             <div>
-                Year Select list
-            </div>
-            <p></p>
-            <div>
-                <button type="button" 
-                    (click)="showProductList()" 
-                    class="btn btn-primary">
+                <button type="button" (click)="showProductList()" class="btn btn-primary">
                     Select Product
-                </button>    
+                </button>
                 <div *ngIf="displayProductList" class="container">
                     <br>
                     <div class="row">
@@ -26,19 +35,13 @@
                                         <th></th>
                                     </tr>
                                 </thead>
-                                <tbody>                                    
-                                    <tr 
-                                        (click)="productSelected(p)" 
-                                        *ngFor="let p of products">                                    
+                                <tbody>
+                                    <tr (click)="productSelected(p)" *ngFor="let p of products">
                                         <td>
-                                            <img 
-                                                width="50px"
-                                                height="50px"
-                                                src="{{p.image}}" 
-                                                alt="">
+                                            <img width="50px" height="50px" src="{{p.image}}" alt="">
                                         </td>
                                         <td>{{p.title}}</td>
-                                    </tr>                                  
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
