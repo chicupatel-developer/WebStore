@@ -38,4 +38,9 @@ export class DataService {
   getDiscountZoneProductSales(data): Observable<any> {
     return this.http.post(this.ADMIN + '/getDiscountZoneProductSales', data)
   }
+
+  // get monthly-product-sales data
+  getMonthlyProductSales(data): Observable<any> {
+    return this.http.post(this.ADMIN + '/getMonthlyProductSales', data)
+  }
 }

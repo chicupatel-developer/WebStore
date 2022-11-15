@@ -56,12 +56,13 @@ export class MonthlyReportComponent implements OnInit {
     this.displayProductList = false;
     this.selectedProduct = selectedProduct;
 
-    var data = {
-      selectedYear: this.selectedYear,
-      selectedProduct: this.selectedProduct
+    var monthlyProductSales = {
+      year: Number(this.selectedYear),
+      productId: this.selectedProduct.id
     };
 
-    console.log(data);
+    console.log(monthlyProductSales);
+    this.getMonthlyProductSalesData(monthlyProductSales);
   }
  
 
@@ -70,5 +71,16 @@ export class MonthlyReportComponent implements OnInit {
     this.selectedYear = event.target.value;
 
     this.selectedProduct = null;
+  }
+
+  getMonthlyProductSalesData(monthlyProductSales) {
+    this.dataService.getMonthlyProductSales(monthlyProductSales)
+      .subscribe(
+        data => {
+          console.log(data);
+        },
+        error => {
+          console.log(error);
+        });
   }
 }
