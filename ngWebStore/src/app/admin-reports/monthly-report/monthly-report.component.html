@@ -3,9 +3,23 @@
         [ Monthly - Product - Sales - Report ]
     </h4>
     <hr />
-    <div>
-        Year Select list
-        <p></p>
-        Product Select List
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <div>
+                Year Select list
+            </div>
+            <p></p>
+            <div>
+                <select class="form-control productList">                   
+                    <option value="">Choose Product</option>                    
+                    <option 
+                        style="background-image:url('https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg');" class="title" value={{p.id}} *ngFor="let p of products">                    
+                        
+                        {{p.title}}
+                    </option>                    
+                </select>
+            </div>
+        </div>
+        <div class="col-md-6 mx-auto"></div>
     </div>
 </div>
