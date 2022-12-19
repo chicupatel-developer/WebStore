@@ -30,7 +30,9 @@ export class MonthlyReportComponent implements OnInit {
     this.years = this.localDataService.getYears();
 
     if (this.localDataService.getProducts() == null)
-      this.loadProducts();    
+      this.loadProducts();
+    else
+      this.products = this.localDataService.getProducts();
   }
   loadProducts() {
     console.log('api call to get products,,,');

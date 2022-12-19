@@ -23,9 +23,8 @@ table {
     border: 2px solid blue;
     border-radius: 20px;
     margin: 20px;
-    padding: 10px;
-    background-color: lightgrey;
+    padding: 10px;    
     color: red;
-    font-size: small;
+    font-size: large;
     font-weight: bold;
 }
