@@ -73,11 +73,11 @@
     </div>
 
     <p></p>
-    <div>
+    <div *ngIf="salesData?.length>0">
     <google-chart 
-        title="Monthly Sales" 
+        title="{{title + selectedYear}}"
         [type]="lineChart" 
-        [data]="data" 
+        [data]="salesData" 
         [columns]="columnNames" 
         [width]="width"
         [height]="height" 

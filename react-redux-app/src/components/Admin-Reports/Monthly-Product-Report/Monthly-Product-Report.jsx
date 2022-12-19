@@ -41,9 +41,15 @@ import {
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 
+import axios from "axios";
+
+import { setProducts } from "../../../redux/actions/productsActions";
+
 const MonthlyProductReport = () => {
   const classes = useStyles();
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
 
   const currentUser = useSelector((state) => state.auth.currentUser);
   const products = useSelector((state) => state.allProducts.products);
@@ -66,7 +72,21 @@ const MonthlyProductReport = () => {
 
   useEffect(() => {
     console.log(products);
+    if (products.length < 1) {
+      fetchProducts();
+    }
   }, []);
+
+  // if products not fetched before from third party api,
+  // then call api and store @ redux-store
+  const fetchProducts = async () => {
+    const response = await axios
+      .get("https://fakestoreapi.com/products")
+      .catch((err) => {
+        console.log("Err: ", err);
+      });
+    dispatch(setProducts(response.data));
+  };
 
   // product
   const renderOptionsForProduct = () => {

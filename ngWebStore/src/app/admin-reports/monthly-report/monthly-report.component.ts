@@ -20,12 +20,14 @@ export class MonthlyReportComponent implements OnInit {
   selectedProduct;
   selectedYear="";
 
-  salesDataApi;
   salesData = [];
 
+  // google-chart-api
+  // line chart
+  title = "Monthly Sales Data : Year - ";
   lineChart = ChartType.LineChart;
   data: any[] = [];
-  columnNames = ['Month', '$$ Sales $$'];
+  columnNames = ['Month', 'Sales'];
   width = 600;
   height = 400;
   lineOptions = {
@@ -33,7 +35,7 @@ export class MonthlyReportComponent implements OnInit {
       title: 'Month'
     },
     vAxis: {
-      title: '$$ Sales $$'
+      title: 'Sales'
     },
   };
  
@@ -49,17 +51,7 @@ export class MonthlyReportComponent implements OnInit {
     if (this.localDataService.getProducts() == null)
       this.loadProducts();
     else
-      this.products = this.localDataService.getProducts();   
-
-
-    this.data = [
-      ['English', 1132],
-      ['Mandarin', 1117],
-      ['Hindi', 665],
-      ['Spanish', 534],
-      ['French', 280],
-      ['Arabic', 274] 
-    ];
+      this.products = this.localDataService.getProducts();  
   }
   loadProducts() {
     console.log('api call to get products,,,');
@@ -94,7 +86,6 @@ export class MonthlyReportComponent implements OnInit {
     this.getMonthlyProductSalesData(monthlyProductSales);
   }
  
-
   changeYear(event) {
     console.log(event.target.value);
     this.selectedYear = event.target.value;
@@ -107,27 +98,22 @@ export class MonthlyReportComponent implements OnInit {
       .subscribe(
         data => {
           console.log(data);
-          this.salesDataApi = data;
-          this.setDataForSales(data);
+          this.setChartDataForSales(data);
         },
         error => {
           console.log(error);
         });
   }
 
-  setDataForSales(data) {
+  setChartDataForSales(data) {
     var myData = [];
     for (var i = 0; i <= 11; i++){
       var myDataPart = [];
       myDataPart.push(data.months[i]);
-      // myDataPart.push(1);
       myDataPart.push(data.sales[i]);
-      // myDataPart.push(1000);
       myData.push(myDataPart);
     }
     this.salesData = [...myData];
-    console.log(this.salesData);
-
-    this.data = this.salesData;
+    // this.data = this.salesData;
   }
 }
