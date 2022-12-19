@@ -24,7 +24,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 
 
-// import { GoogleChartsModule } from 'angular-google-charts';
+import { GoogleChartsModule } from 'angular-google-charts';
 
 
 
@@ -79,7 +79,7 @@ import { DiscountTrendReportComponent } from './admin-reports/discount-trend-rep
     NgxPaginationModule,
     Ng2SearchPipeModule,
     BsDatepickerModule.forRoot(),
-    // GoogleChartsModule,
+    GoogleChartsModule,
   ],
   providers: [HttpClientModule, LocalDataService, UserService, {
     provide: HTTP_INTERCEPTORS,

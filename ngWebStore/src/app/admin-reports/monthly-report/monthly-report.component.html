@@ -71,4 +71,17 @@
                 width="200px" height="220px" />
         </div>
     </div>
+
+    <p></p>
+    <div>
+    <google-chart 
+        title="Monthly Sales" 
+        [type]="lineChart" 
+        [data]="data" 
+        [columns]="columnNames" 
+        [width]="width"
+        [height]="height" 
+        [options]="lineOptions">
+    </google-chart>
+    </div>
 </div>
