@@ -1,0 +1,30 @@
+.productList {
+    color: red;
+    background-color: lightgoldenrodyellow;
+}
+
+.title {
+    font-weight: bold;
+}
+
+
+.table-earnings {
+    background-color: lightgoldenrodyellow;
+    color: red;
+}
+
+table {
+    display: inline-block;
+    height: 200px;
+    overflow-y: auto;
+}
+
+.selectedProduct {
+    border: 2px solid blue;
+    border-radius: 20px;
+    margin: 20px;
+    padding: 10px;
+    color: red;
+    font-size: large;
+    font-weight: bold;
+}

@@ -11,10 +11,11 @@ import { ChartType } from 'angular-google-charts';
   templateUrl: './monthly-line-chart.component.html',
   styleUrls: ['./monthly-line-chart.component.css']
 })
-export class MonthlyLineChartComponent implements OnInit {
+export class MonthlyLineChartComponent implements OnInit, OnChanges {
 
   @Input() chartData;  
   @Input() selectedYear;  
+  @Input() selectedOption; // Month, Quarter
 
   salesData = [];
 
@@ -26,7 +27,7 @@ export class MonthlyLineChartComponent implements OnInit {
   columnNames = ['Month', 'Sales'];
   width = 600;
   height = 400;
-  lineOptions = {
+  chartOptions = {
     hAxis: {
       title: 'Month'
     },
@@ -41,18 +42,69 @@ export class MonthlyLineChartComponent implements OnInit {
     private router: Router) {  
   }
 
+  ngOnChanges() { 
+    console.log('monthly-line chart,,, update child now,,,');
+    console.log(this.chartData, this.selectedYear, this.selectedOption);
+
+    this.setColumnNames();
+    this.setChartOptions();
+    this.setTitle();
+    this.setChartDataForSales(this.chartData);   
+  }   
+
   ngOnInit(): void {
-    this.setChartDataForSales(this.chartData);
+    this.setColumnNames();
+    this.setChartOptions();
+    this.setTitle();
+    this.setChartDataForSales(this.chartData);   
   }
 
   setChartDataForSales(data) {
     var myData = [];
-    for (var i = 0; i <= 11; i++){
-      var myDataPart = [];
-      myDataPart.push(data.months[i]);
-      myDataPart.push(data.sales[i]);
-      myData.push(myDataPart);
+
+    if (this.selectedOption == 'Month') {
+      for (var i = 0; i <= 11; i++) {
+        var myDataPart = [];
+        myDataPart.push(data.months[i]);
+        myDataPart.push(data.sales[i]);
+        myData.push(myDataPart);
+      }
+      this.salesData = [...myData];
     }
-    this.salesData = [...myData];
+    else {
+      for (var i = 0; i <= 3; i++) {
+        var myDataPart = [];
+        myDataPart.push(data.quarters[i]);
+        myDataPart.push(data.sales[i]);
+        myData.push(myDataPart);
+      }
+      this.salesData = [...myData];
+    }
+  }
+
+  setColumnNames() {
+    this.columnNames = [];
+    if(this.selectedOption=='Month')
+      this.columnNames = ['Month', 'Sales'];
+    else
+      this.columnNames = ['Quarter', 'Sales'];
+  }
+
+  setChartOptions() {
+    if (this.selectedOption == 'Month') {
+      this.chartOptions.hAxis.title = 'Month';
+    }
+    else {
+      this.chartOptions.hAxis.title = 'Quarter';
+    }
+  }
+
+  setTitle() {
+    if (this.selectedOption == 'Month') {
+      this.title = 'Monthly Sales Data : Year - ';
+    }
+    else {
+      this.title = 'Quarterly Sales Data : Year - ';
+    }
   }
 }

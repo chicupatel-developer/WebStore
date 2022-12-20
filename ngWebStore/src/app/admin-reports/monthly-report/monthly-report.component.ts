@@ -21,8 +21,8 @@ export class MonthlyReportComponent implements OnInit {
   selectedYear="";
 
   // google-chart-api
-  // line chart
   chartData;
+  selectedOption;
  
   constructor(
     public localDataService: LocalDataService,
@@ -37,8 +37,6 @@ export class MonthlyReportComponent implements OnInit {
       this.loadProducts();
     else
       this.products = this.localDataService.getProducts();  
-    
-    console.log(this.chartData);
   }
   loadProducts() {
     console.log('api call to get products,,,');
@@ -86,6 +84,7 @@ export class MonthlyReportComponent implements OnInit {
         data => {
           console.log(data);
           this.chartData = data;
+          this.selectedOption = 'Month';
         },
         error => {
           console.log(error);

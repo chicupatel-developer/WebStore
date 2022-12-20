@@ -77,6 +77,7 @@
         <div class="col-md-6 mx-auto">
             <div *ngIf="chartData">
                 <app-monthly-line-chart 
+                    [selectedOption]="selectedOption"
                     [chartData]="chartData" 
                     [selectedYear]="selectedYear">
                 </app-monthly-line-chart>
@@ -85,6 +86,7 @@
         <div class="col-md-6 mx-auto">
             <div *ngIf="chartData">
                 <app-monthly-bar-chart 
+                    [selectedOption]="selectedOption"
                     [chartData]="chartData" 
                     [selectedYear]="selectedYear">
                 </app-monthly-bar-chart>

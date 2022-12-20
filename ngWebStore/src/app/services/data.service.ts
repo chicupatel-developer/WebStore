@@ -43,4 +43,9 @@ export class DataService {
   getMonthlyProductSales(data): Observable<any> {
     return this.http.post(this.ADMIN + '/getMonthlyProductSales', data)
   }
+
+  // get quarterly-product-sales data
+  getQuarterlyProductSales(data): Observable<any> {
+    return this.http.post(this.ADMIN + '/getQuarterlyProductSales', data)
+  }
 }

@@ -3,9 +3,87 @@
         [ Quarterly - Product - Sales - Report ]
     </h4>
     <hr />
-    <div>
-        Year Select list
-        <p></p>
-        Product Select List
+
+    <div class="row">
+        <div class="col-md-3 mx-auto">
+            <div>
+                <select class="form-control" (change)="changeYear($event)">
+                    <option value="">Choose Year</option>
+                    <option value={{y}} *ngFor="let y of years">
+                        {{y}}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-9 mx-auto"></div>
+    </div>
+    <p></p>
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <div>
+                <button type="button" (click)="showProductList()" class="btn btn-primary">
+                    Select Product
+                </button>
+                <div *ngIf="displayProductList" class="container">
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-earnings">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr (click)="productSelected(p)" *ngFor="let p of products">
+                                        <td>
+                                            <img width="50px" height="50px" src="{{p.image}}" alt="">
+                                        </td>
+                                        <td>{{p.title}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mx-auto"></div>
+    </div>
+
+    <p></p>
+    <div *ngIf="selectedProduct" class="row selectedProduct">
+        <div class="col-md-8 mx-auto">
+            <div>
+                <span>$ {{selectedProduct.price}}</span>
+                <br />
+                <span>{{selectedProduct.category}}</span>
+                <br />
+                <span>{{selectedProduct.title}}</span>
+            </div>
+        </div>
+        <div class="col-md-4 mx-auto">
+            <img src="{{selectedProduct.image}}" width="200px" height="220px" />
+        </div>
+    </div>
+
+    <p></p>
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <div *ngIf="chartData">
+                <app-monthly-line-chart 
+                    [selectedOption]="selectedOption" 
+                    [chartData]="chartData" 
+                    [selectedYear]="selectedYear">
+                </app-monthly-line-chart>
+            </div>
+        </div>
+        <div class="col-md-6 mx-auto">
+            <div *ngIf="chartData">
+                <app-monthly-bar-chart [selectedOption]="selectedOption" [chartData]="chartData" [selectedYear]="selectedYear">
+                </app-monthly-bar-chart>
+            </div>
+        </div>
     </div>
 </div>
