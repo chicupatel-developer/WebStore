@@ -7,11 +7,11 @@ import {LocalDataService} from '../../services/local-data.service';
 import { ChartType } from 'angular-google-charts';
 
 @Component({
-  selector: 'app-monthly-line-chart',
-  templateUrl: './monthly-line-chart.component.html',
-  styleUrls: ['./monthly-line-chart.component.css']
+  selector: 'app-bar-chart',
+  templateUrl: './bar-chart.component.html',
+  styleUrls: ['./bar-chart.component.css']
 })
-export class MonthlyLineChartComponent implements OnInit, OnChanges {
+export class BarChartComponent implements OnInit, OnChanges {
 
   @Input() chartData;  
   @Input() selectedYear;  
@@ -20,9 +20,9 @@ export class MonthlyLineChartComponent implements OnInit, OnChanges {
   salesData = [];
 
   // google-chart-api
-  // line chart
+  // column chart
   title = "Monthly Sales Data : Year - ";
-  lineChart = ChartType.LineChart;
+  columnChart = ChartType.ColumnChart;
   data: any[] = [];
   columnNames = ['Month', 'Sales'];
   width = 600;
@@ -43,25 +43,24 @@ export class MonthlyLineChartComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() { 
-    console.log('monthly-line chart,,, update child now,,,');
+    console.log('monthly-column chart,,, update child now,,,');
     console.log(this.chartData, this.selectedYear, this.selectedOption);
 
     this.setColumnNames();
     this.setChartOptions();
     this.setTitle();
     this.setChartDataForSales(this.chartData);   
-  }   
+  } 
 
   ngOnInit(): void {
     this.setColumnNames();
     this.setChartOptions();
     this.setTitle();
-    this.setChartDataForSales(this.chartData);   
+    this.setChartDataForSales(this.chartData);
   }
 
   setChartDataForSales(data) {
     var myData = [];
-
     if (this.selectedOption == 'Month') {
       for (var i = 0; i <= 11; i++) {
         var myDataPart = [];
@@ -79,9 +78,8 @@ export class MonthlyLineChartComponent implements OnInit, OnChanges {
         myData.push(myDataPart);
       }
       this.salesData = [...myData];
-    }
+    }   
   }
-
   setColumnNames() {
     this.columnNames = [];
     if(this.selectedOption=='Month')
@@ -107,4 +105,5 @@ export class MonthlyLineChartComponent implements OnInit, OnChanges {
       this.title = 'Quarterly Sales Data : Year - ';
     }
   }
+
 }

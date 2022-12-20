@@ -48,8 +48,8 @@ import { ViewProductDiscountComponent } from './view-product-discount/view-produ
 import { MonthlyReportComponent } from './admin-reports/monthly-report/monthly-report.component';
 import { QuarterlyReportComponent } from './admin-reports/quarterly-report/quarterly-report.component';
 import { DiscountTrendReportComponent } from './admin-reports/discount-trend-report/discount-trend-report.component';
-import { MonthlyLineChartComponent } from './admin-reports/monthly-line-chart/monthly-line-chart.component';
-import { MonthlyBarChartComponent } from './admin-reports/monthly-bar-chart/monthly-bar-chart.component';
+import { LineChartComponent } from './admin-reports/line-chart/line-chart.component';
+import { BarChartComponent } from './admin-reports/bar-chart/bar-chart.component';
 
 @NgModule({
   declarations: [
@@ -69,8 +69,8 @@ import { MonthlyBarChartComponent } from './admin-reports/monthly-bar-chart/mont
     MonthlyReportComponent,
     QuarterlyReportComponent,
     DiscountTrendReportComponent,
-    MonthlyLineChartComponent,
-    MonthlyBarChartComponent
+    LineChartComponent,
+    BarChartComponent
   ],
   imports: [
   BrowserModule,

@@ -72,17 +72,17 @@
     <div class="row">
         <div class="col-md-6 mx-auto">
             <div *ngIf="chartData">
-                <app-monthly-line-chart 
+                <app-line-chart 
                     [selectedOption]="selectedOption" 
                     [chartData]="chartData" 
                     [selectedYear]="selectedYear">
-                </app-monthly-line-chart>
+                </app-line-chart>
             </div>
         </div>
         <div class="col-md-6 mx-auto">
             <div *ngIf="chartData">
-                <app-monthly-bar-chart [selectedOption]="selectedOption" [chartData]="chartData" [selectedYear]="selectedYear">
-                </app-monthly-bar-chart>
+                <app-bar-chart [selectedOption]="selectedOption" [chartData]="chartData" [selectedYear]="selectedYear">
+                </app-bar-chart>
             </div>
         </div>
     </div>

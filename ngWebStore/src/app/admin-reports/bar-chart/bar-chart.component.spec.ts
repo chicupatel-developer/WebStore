@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MonthlyLineChartComponent } from './monthly-line-chart.component';
+import { BarChartComponent } from './bar-chart.component';
 
-describe('MonthlyLineChartComponent', () => {
-  let component: MonthlyLineChartComponent;
-  let fixture: ComponentFixture<MonthlyLineChartComponent>;
+describe('BarChartComponent', () => {
+  let component: BarChartComponent;
+  let fixture: ComponentFixture<BarChartComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MonthlyLineChartComponent ]
+      declarations: [ BarChartComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MonthlyLineChartComponent);
+    fixture = TestBed.createComponent(BarChartComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
