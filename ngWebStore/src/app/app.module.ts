@@ -49,6 +49,7 @@ import { MonthlyReportComponent } from './admin-reports/monthly-report/monthly-r
 import { QuarterlyReportComponent } from './admin-reports/quarterly-report/quarterly-report.component';
 import { DiscountTrendReportComponent } from './admin-reports/discount-trend-report/discount-trend-report.component';
 import { MonthlyLineChartComponent } from './admin-reports/monthly-line-chart/monthly-line-chart.component';
+import { MonthlyBarChartComponent } from './admin-reports/monthly-bar-chart/monthly-bar-chart.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import { MonthlyLineChartComponent } from './admin-reports/monthly-line-chart/mo
     MonthlyReportComponent,
     QuarterlyReportComponent,
     DiscountTrendReportComponent,
-    MonthlyLineChartComponent
+    MonthlyLineChartComponent,
+    MonthlyBarChartComponent
   ],
   imports: [
   BrowserModule,

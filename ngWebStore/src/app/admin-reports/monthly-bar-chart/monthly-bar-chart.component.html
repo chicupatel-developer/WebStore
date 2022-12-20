@@ -1,0 +1,11 @@
+<div *ngIf="salesData?.length>0">
+    <google-chart 
+        title="{{title + selectedYear}}" 
+        [type]="columnChart" 
+        [data]="salesData" 
+        [columns]="columnNames"
+        [width]="width" 
+        [height]="height" 
+        [options]="columnOptions">
+    </google-chart>
+</div>
