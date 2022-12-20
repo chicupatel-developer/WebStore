@@ -20,24 +20,9 @@ export class MonthlyReportComponent implements OnInit {
   selectedProduct;
   selectedYear="";
 
-  salesData = [];
-
   // google-chart-api
   // line chart
-  title = "Monthly Sales Data : Year - ";
-  lineChart = ChartType.LineChart;
-  data: any[] = [];
-  columnNames = ['Month', 'Sales'];
-  width = 600;
-  height = 400;
-  lineOptions = {
-    hAxis: {
-      title: 'Month'
-    },
-    vAxis: {
-      title: 'Sales'
-    },
-  };
+  chartData;
  
   constructor(
     public localDataService: LocalDataService,
@@ -52,6 +37,8 @@ export class MonthlyReportComponent implements OnInit {
       this.loadProducts();
     else
       this.products = this.localDataService.getProducts();  
+    
+    console.log(this.chartData);
   }
   loadProducts() {
     console.log('api call to get products,,,');
@@ -98,22 +85,10 @@ export class MonthlyReportComponent implements OnInit {
       .subscribe(
         data => {
           console.log(data);
-          this.setChartDataForSales(data);
+          this.chartData = data;
         },
         error => {
           console.log(error);
         });
-  }
-
-  setChartDataForSales(data) {
-    var myData = [];
-    for (var i = 0; i <= 11; i++){
-      var myDataPart = [];
-      myDataPart.push(data.months[i]);
-      myDataPart.push(data.sales[i]);
-      myData.push(myDataPart);
-    }
-    this.salesData = [...myData];
-    // this.data = this.salesData;
-  }
+  } 
 }
