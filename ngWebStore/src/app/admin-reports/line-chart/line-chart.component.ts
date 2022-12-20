@@ -42,10 +42,7 @@ export class LineChartComponent implements OnInit, OnChanges {
     private router: Router) {  
   }
 
-  ngOnChanges() { 
-    console.log('monthly-line chart,,, update child now,,,');
-    console.log(this.chartData, this.selectedYear, this.selectedOption);
-
+  ngOnChanges() {   
     this.setColumnNames();
     this.setChartOptions();
     this.setTitle();
@@ -71,6 +68,17 @@ export class LineChartComponent implements OnInit, OnChanges {
       }
       this.salesData = [...myData];
     }
+    else if (this.selectedOption == 'Discount-Trend') {
+      console.log(data);
+      data.forEach(d => {
+        var myDataPart = [];
+        myDataPart.push(d.discountPercentage);
+        myDataPart.push(d.sales);
+        myData.push(myDataPart);
+      });
+      this.salesData = [...myData];
+      console.log(this.salesData);
+    }
     else {
       for (var i = 0; i <= 3; i++) {
         var myDataPart = [];
@@ -86,6 +94,8 @@ export class LineChartComponent implements OnInit, OnChanges {
     this.columnNames = [];
     if(this.selectedOption=='Month')
       this.columnNames = ['Month', 'Sales'];
+    else if (this.selectedOption == 'Discount-Trend')
+      this.columnNames = ['Discount %', 'Sales'];
     else
       this.columnNames = ['Quarter', 'Sales'];
   }
@@ -93,6 +103,9 @@ export class LineChartComponent implements OnInit, OnChanges {
   setChartOptions() {
     if (this.selectedOption == 'Month') {
       this.chartOptions.hAxis.title = 'Month';
+    }
+    else if (this.selectedOption == 'Discount-Trend') {
+      this.chartOptions.hAxis.title = 'Discount %';
     }
     else {
       this.chartOptions.hAxis.title = 'Quarter';
@@ -102,6 +115,9 @@ export class LineChartComponent implements OnInit, OnChanges {
   setTitle() {
     if (this.selectedOption == 'Month') {
       this.title = 'Monthly Sales Data : Year - ';
+    }
+    else if (this.selectedOption == 'Discount-Trend') {
+      this.title = 'Discount Trend Data';
     }
     else {
       this.title = 'Quarterly Sales Data : Year - ';

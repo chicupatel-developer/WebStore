@@ -145,7 +145,7 @@ namespace WebStore.Service.Repositories
         public DiscountZoneProductSales GetDiscountZoneProductSales(DiscountZoneProductSales data)
         {
             var sales_ = appDbContext.ProductSold
-                            .Where(x => x.ProductId == data.ProductId && x.SoldDate >= data.DiscountStartDate && x.SoldDate <= data.DiscountEndDate);
+                            .Where(x => x.ProductId == data.ProductId && x.SoldDate.Date >= data.DiscountStartDate.Date && x.SoldDate.Date <= data.DiscountEndDate.Date);
 
             if (sales_ != null && sales_.Count() > 0)
             {
@@ -165,17 +165,22 @@ namespace WebStore.Service.Repositories
         {
             List<DiscountZoneProductSales> datas = new List<DiscountZoneProductSales>();
 
-            var last5DisDatas = (from d in appDbContext.ProductDiscount
-                        where d.FirstDateForDiscountedPrice <= DateTime.Now && d.ProductId==data.ProductId
-                        orderby d.FirstDateForDiscountedPrice descending
-                        select d).Take(5);
+            //var last5DisDatas = (from d in appDbContext.ProductDiscount
+            //            where d.FirstDateForDiscountedPrice <= DateTime.Now && d.ProductId==data.ProductId
+            //            orderby d.FirstDateForDiscountedPrice descending
+            //            select d).Take(5);
 
-            if(last5DisDatas!=null && last5DisDatas.Count() > 0)
+            var last5DisDatas = (from d in appDbContext.ProductDiscount
+                                 where d.FirstDateForDiscountedPrice.Date <= DateTime.Now.Date && d.ProductId == data.ProductId
+                                 orderby d.FirstDateForDiscountedPrice descending
+                                 select d).Take(5);
+
+            if (last5DisDatas!=null && last5DisDatas.Count() > 0)
             {
                 foreach(var disData in last5DisDatas)
                 {
                     var sales_ = appDbContext.ProductSold
-                          .Where(x => x.ProductId == data.ProductId && x.SoldDate >= disData.FirstDateForDiscountedPrice && x.SoldDate <= disData.LastDateForDiscountedPrice);
+                          .Where(x => x.ProductId == data.ProductId && x.SoldDate.Date >= disData.FirstDateForDiscountedPrice.Date && x.SoldDate.Date <= disData.LastDateForDiscountedPrice.Date);
                     var totalSales = 0.0m;
                     if (sales_ != null && sales_.Count() > 0)
                     {

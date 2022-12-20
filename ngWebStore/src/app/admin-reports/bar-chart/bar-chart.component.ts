@@ -42,10 +42,7 @@ export class BarChartComponent implements OnInit, OnChanges {
     private router: Router) {  
   }
 
-  ngOnChanges() { 
-    console.log('monthly-column chart,,, update child now,,,');
-    console.log(this.chartData, this.selectedYear, this.selectedOption);
-
+  ngOnChanges() {    
     this.setColumnNames();
     this.setChartOptions();
     this.setTitle();

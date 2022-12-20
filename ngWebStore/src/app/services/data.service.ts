@@ -48,4 +48,9 @@ export class DataService {
   getQuarterlyProductSales(data): Observable<any> {
     return this.http.post(this.ADMIN + '/getQuarterlyProductSales', data)
   }
+
+  // get discount-trend-sales data
+  getLast5DiscountZoneProductSales(data): Observable<any> {
+    return this.http.post(this.ADMIN + '/getLast5DiscountZoneProductSales', data)
+  }
 }
