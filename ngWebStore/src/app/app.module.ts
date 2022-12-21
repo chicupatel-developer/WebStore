@@ -43,6 +43,7 @@ import { ShoppingHistoryComponent } from './shopping-history/shopping-history.co
 import { AdminProductsComponent } from './admin-products/admin-products.component';
 import { ShopperProductsComponent } from './shopper-products/shopper-products.component';
 import { ProductComponent } from './admin-products/product/product.component';
+import { ProductShopperComponent } from './shopper-products/product.shopper/product.shopper.component';
 import { SetProductDiscountComponent } from './set-product-discount/set-product-discount.component';
 import { ViewProductDiscountComponent } from './view-product-discount/view-product-discount.component';
 import { MonthlyReportComponent } from './admin-reports/monthly-report/monthly-report.component';
@@ -64,6 +65,7 @@ import { BarChartComponent } from './admin-reports/bar-chart/bar-chart.component
     AdminProductsComponent,
     ShopperProductsComponent,
     ProductComponent,
+    ProductShopperComponent,
     SetProductDiscountComponent,
     ViewProductDiscountComponent,
     MonthlyReportComponent,

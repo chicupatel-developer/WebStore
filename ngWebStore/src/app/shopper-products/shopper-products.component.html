@@ -6,8 +6,10 @@
                 <div class="col rowGap">
                     <div class="card cardBroder">
                         <div style="height: 100%" class="card-body">
-                            <app-product (onAddToCart)="onAddToCart($event)" [productToDisplay]="p">
-                            </app-product>
+                            <app-product-shopper 
+                                (onAddToCart)="onAddToCart($event)" 
+                                [productToDisplay]="p">
+                            </app-product-shopper>
                         </div>
                     </div>
                 </div>

@@ -3,11 +3,11 @@ import { Router } from '@angular/router';
 import {LocalDataService} from '../../services/local-data.service';
 
 @Component({
-  selector: 'app-product',
-  templateUrl: './product.component.html',
-  styleUrls: ['./product.component.css']
+  selector: 'app-product-shopper',
+  templateUrl: './product.shopper.component.html',
+  styleUrls: ['./product.shopper.component.css']
 })
-export class ProductComponent implements OnInit {
+export class ProductShopperComponent implements OnInit {
 
   @Input() productToDisplay;  
   @Output() onAddToCart = new EventEmitter();
