@@ -51,6 +51,7 @@ import { QuarterlyReportComponent } from './admin-reports/quarterly-report/quart
 import { DiscountTrendReportComponent } from './admin-reports/discount-trend-report/discount-trend-report.component';
 import { LineChartComponent } from './admin-reports/line-chart/line-chart.component';
 import { BarChartComponent } from './admin-reports/bar-chart/bar-chart.component';
+import { ProductDetailsComponent } from './product-details/product-details.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +73,8 @@ import { BarChartComponent } from './admin-reports/bar-chart/bar-chart.component
     QuarterlyReportComponent,
     DiscountTrendReportComponent,
     LineChartComponent,
-    BarChartComponent
+    BarChartComponent,
+    ProductDetailsComponent
   ],
   imports: [
   BrowserModule,

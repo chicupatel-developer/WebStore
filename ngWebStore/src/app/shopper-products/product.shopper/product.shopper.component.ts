@@ -28,6 +28,14 @@ export class ProductShopperComponent implements OnInit {
 
   getProductDetails(selectedProduct) {
     console.log('getting product details,,,', selectedProduct);
+    this.router.navigate(
+      ['/product-details/'],
+      {
+        state: {
+          data: { product: selectedProduct }
+        }
+      }
+    );
   }
   
 }

@@ -1,0 +1,31 @@
+.price{
+    color : blue;
+    font-size: large;
+    margin: 30px;
+    font-weight: bold;
+}
+.title{
+    font-style: italic;
+    font-size: medium;
+    margin: 30px;
+    font-weight: bold;
+}
+.category{
+    background-color: aliceblue;
+    color:red;
+    margin: 30px;
+}
+.description{
+    margin: 30px;
+}
+
+.details {
+    text-align: center;
+    vertical-align: middle;  
+    background-color: lightyellow;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    border: 2px solid red;
+    border-radius: 20px;
+    margin-top: -20px;
+}

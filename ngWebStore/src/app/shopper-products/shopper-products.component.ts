@@ -48,15 +48,23 @@ export class ShopperProductsComponent implements OnInit {
     this.loadProducts();
   }
   loadProducts() {
-    this.dataService.getAllProducts()
-      .subscribe(
-        data => {        
-          this.localDataService.setProducts(data);
-          this.products = this.localDataService.getProducts();
-        },
-        error => {
-          console.log(error);
-        });
+    if (this.localDataService.getProducts() != null) {
+      console.log('getting products from local-service');
+      this.products = this.localDataService.getProducts();
+    }
+    else {
+      console.log('getting products from api');
+      this.dataService.getAllProducts()
+        .subscribe(
+          data => {
+            this.localDataService.setProducts(data);
+            this.products = this.localDataService.getProducts();
+          },
+          error => {
+            console.log(error);
+          });
+    }
+  
   }
 
   // call back from child component

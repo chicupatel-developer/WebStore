@@ -13,6 +13,7 @@ import { CartComponent } from './cart/cart.component';
 import { ShoppingHistoryComponent } from './shopping-history/shopping-history.component';
 import { SetProductDiscountComponent } from './set-product-discount/set-product-discount.component';
 import { ViewProductDiscountComponent } from './view-product-discount/view-product-discount.component';
+import { ProductDetailsComponent } from './product-details/product-details.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -25,7 +26,8 @@ const routes: Routes = [
   { path: 'cart', component: CartComponent , canActivate: [AuthGuard] },
   { path: 'shopping-history', component: ShoppingHistoryComponent, canActivate: [AuthGuard] },
   { path: 'set-product-discount', component: SetProductDiscountComponent, canActivate: [AuthGuard] },
-  { path: 'view-product-discount', component: ViewProductDiscountComponent , canActivate: [AuthGuard] },
+  { path: 'view-product-discount', component: ViewProductDiscountComponent, canActivate: [AuthGuard] },
+  { path: 'product-details', component: ProductDetailsComponent , canActivate: [AuthGuard] },
   { path: '**', redirectTo: '/home', pathMatch: 'full' }
 ];
 
