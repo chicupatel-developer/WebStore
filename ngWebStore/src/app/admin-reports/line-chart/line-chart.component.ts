@@ -124,13 +124,13 @@ export class LineChartComponent implements OnInit, OnChanges {
 
   setTitle() {
     if (this.selectedOption == 'Month') {
-      this.title = 'Monthly Sales Data : Year - ';
+      this.title = 'Monthly Sales Data : Year - '+this.selectedYear;
     }
     else if (this.selectedOption == 'Discount-Trend') {
       this.title = 'Discount Trend Data';
     }
     else {
-      this.title = 'Quarterly Sales Data : Year - ';
+      this.title = 'Quarterly Sales Data : Year - '+this.selectedYear;
     }
   }
 }

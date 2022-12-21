@@ -67,6 +67,25 @@ export class BarChartComponent implements OnInit, OnChanges {
       }
       this.salesData = [...myData];
     }
+    else if (this.selectedOption == 'Discount-Trend') {
+      console.log(data);   
+      const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+      ];
+      data.forEach(d => {        
+        var myDataPart = [];
+
+        const date = new Date(d.discountStartDate);
+
+        var xValue = d.discountPercentage + '% [' + date.getDate() + '-' + monthNames[date.getMonth()]+']';
+        // myDataPart.push(d.discountPercentage);
+        myDataPart.push(xValue);
+        myDataPart.push(d.sales);       
+        myData.push(myDataPart);
+      });
+      this.salesData = [...myData];
+      console.log(this.salesData);
+    }
     else {
       for (var i = 0; i <= 3; i++) {
         var myDataPart = [];
@@ -79,8 +98,10 @@ export class BarChartComponent implements OnInit, OnChanges {
   }
   setColumnNames() {
     this.columnNames = [];
-    if(this.selectedOption=='Month')
+    if (this.selectedOption == 'Month')
       this.columnNames = ['Month', 'Sales'];
+    else if (this.selectedOption == 'Discount-Trend')
+      this.columnNames = ['Discount %', 'Sales'];
     else
       this.columnNames = ['Quarter', 'Sales'];
   }
@@ -89,6 +110,9 @@ export class BarChartComponent implements OnInit, OnChanges {
     if (this.selectedOption == 'Month') {
       this.chartOptions.hAxis.title = 'Month';
     }
+    else if (this.selectedOption == 'Discount-Trend') {
+      this.chartOptions.hAxis.title = 'Discount %';
+    }
     else {
       this.chartOptions.hAxis.title = 'Quarter';
     }
@@ -96,10 +120,13 @@ export class BarChartComponent implements OnInit, OnChanges {
 
   setTitle() {
     if (this.selectedOption == 'Month') {
-      this.title = 'Monthly Sales Data : Year - ';
+      this.title = 'Monthly Sales Data : Year - '+this.selectedYear;;
+    }
+    else if (this.selectedOption == 'Discount-Trend') {
+      this.title = 'Discount Trend Data';
     }
     else {
-      this.title = 'Quarterly Sales Data : Year - ';
+      this.title = 'Quarterly Sales Data : Year - '+this.selectedYear;;
     }
   }
 

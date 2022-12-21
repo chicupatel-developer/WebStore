@@ -63,7 +63,12 @@
             </div>
         </div>
         <div class="col-md-6 mx-auto">
-          
+            <div *ngIf="chartData">
+                <app-bar-chart 
+                    [selectedOption]="selectedOption" 
+                    [chartData]="chartData">
+                </app-bar-chart>
+            </div>
         </div>
     </div>
 
