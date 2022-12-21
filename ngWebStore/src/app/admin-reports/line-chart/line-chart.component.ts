@@ -56,6 +56,8 @@ export class LineChartComponent implements OnInit, OnChanges {
     this.setChartDataForSales(this.chartData);   
   }
 
+
+
   setChartDataForSales(data) {
     var myData = [];
 
@@ -69,11 +71,19 @@ export class LineChartComponent implements OnInit, OnChanges {
       this.salesData = [...myData];
     }
     else if (this.selectedOption == 'Discount-Trend') {
-      console.log(data);
-      data.forEach(d => {
+      console.log(data);   
+      const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+      ];
+      data.forEach(d => {        
         var myDataPart = [];
-        myDataPart.push(d.discountPercentage);
-        myDataPart.push(d.sales);
+
+        const date = new Date(d.discountStartDate);
+
+        var xValue = d.discountPercentage + '% [' + date.getDate() + '-' + monthNames[date.getMonth()]+']';
+        // myDataPart.push(d.discountPercentage);
+        myDataPart.push(xValue);
+        myDataPart.push(d.sales);       
         myData.push(myDataPart);
       });
       this.salesData = [...myData];
