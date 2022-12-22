@@ -51,8 +51,11 @@
                         aria-current="page" 
                         [routerLink]="['/cart']">
                         <i class="fa fa-shopping-cart"></i>
-                        Cart[{{myCart?.length}}]
-                    </a>
+                        Cart
+                        <span *ngIf="myCart?.length>0" 
+                            class="badge bg-secondary">{{myCart?.length}}
+                        </span>                                      
+                    </a>                    
                 </li>
                 <li 
                     *ngIf="isUserAuthenticated && _userService.isShopper" class="nav-item">

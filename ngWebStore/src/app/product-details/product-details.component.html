@@ -7,8 +7,19 @@
             width="200px" height="220px" />
     </div>
     <div *ngIf="product" class="col-md-6 mx-auto details">
-        <div class="price">
-            $ {{product.product.price}}
+   
+        <div class="row">
+            <div class="col-md-6 mx-auto">
+                <div class="price">
+                    $ {{product.product.price}}
+                    &nbsp;&nbsp;&nbsp;
+                    <button type="button" 
+                        (click)="addToCart(product.product)" 
+                        class="btn btn-success">
+                        <i class="fa fa-shopping-cart"></i>
+                    </button>
+                </div>
+            </div>          
         </div>
         <div class="title">
             {{product.product.title}}
