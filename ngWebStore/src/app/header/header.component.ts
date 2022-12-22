@@ -3,6 +3,7 @@ import { UserService } from '../services/user.service';
 import { LocalDataService } from '../services/local-data.service';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
+import Cart from '../services/cart';
 
 @Component({
   selector: 'app-header',
@@ -16,15 +17,21 @@ export class HeaderComponent implements OnInit {
   public token: string;
   public role: string;
 
+  public myCart: Cart[];
+
   constructor(public _localService: LocalDataService, public _userService: UserService, private _router: Router) {
     this._userService.authChanged
       .subscribe(res => {
         this.isUserAuthenticated = res;
     });
-     this._userService.unChanged
+    this._userService.unChanged
       .subscribe(res => {
         this.userName = res;
-    })
+      });
+    this._localService.cartChanged
+      .subscribe(res => {
+        this.myCart = res;
+      });
   }
 
   ngOnInit(): void {   

@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {LocalDataService} from '../services/local-data.service';
-
+import Cart from '../services/cart';
 
 @Component({
   selector: 'app-shopper-products',
@@ -12,6 +12,8 @@ import {LocalDataService} from '../services/local-data.service';
   styleUrls: ['./shopper-products.component.css']
 })
 export class ShopperProductsComponent implements OnInit {
+
+  myCart = [];
 
   products = [];
   productToDisplay;  
@@ -69,7 +71,25 @@ export class ShopperProductsComponent implements OnInit {
 
   // call back from child component
   onAddToCart(selectedProduct) {
-    console.log('product is added to cart,,,',selectedProduct);
+    console.log('product is added to cart,,,', selectedProduct);
+    
+    this.myCart = this.localDataService.GetMyCart();
+
+    var productToCart = {
+      cartId: 1,
+      productId: selectedProduct.id,
+      title: selectedProduct.title
+    };
+    this.myCart.push(productToCart);
+
+    this.localDataService.SetMyCart(this.myCart);
+
+    console.log(this.localDataService.GetMyCart());
+
+    // this will notify local-data-service
+    // so in next step,,, it will notify header component
+    this.localDataService.sendCartChangeNotification(this.myCart);
+    
   }
 
 }

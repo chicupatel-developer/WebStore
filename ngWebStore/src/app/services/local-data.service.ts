@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { retry } from 'rxjs';
 import { Subject } from 'rxjs';
+import Cart from './cart';
 
 @Injectable({
   providedIn: 'root'
@@ -80,7 +81,25 @@ export class LocalDataService {
   public svChanged = this._svChangeSub.asObservable();
   public sendSearchValueChangeNotification = (searchValue: string) => {    
     this._svChangeSub.next(searchValue);
-  }  
+  } 
+  
+
+
+  // cart[]
+  // cart or shopper-products change this cart[]
+  // notify header component via local-data-service
+  private _cartChangeSub = new Subject<Cart[]>();
+  public cartChanged = this._cartChangeSub.asObservable();
+  public sendCartChangeNotification = (cart: Cart[]) => {    
+    this._cartChangeSub.next(cart);
+  } 
+  private MyCart = [];
+  SetMyCart(value) {
+    this.MyCart = value;
+  }
+  GetMyCart() {
+    return this.MyCart;
+  }
   
 
   // this will store products[]
