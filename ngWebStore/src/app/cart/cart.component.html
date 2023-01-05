@@ -5,13 +5,29 @@
                 <div class="card-header" 
                     style="background-color: lightyellow;">
                     <div class="row">
-                        <div class="col-md-8 mx-auto">
+                        <div class="col-md-7 mx-auto">
                             <h3>
-                                My-Shopping Cart
+                                My-Shopping Cart                             
                             </h3>
+                            <div>
+                                <span>
+                                    <button type="button" (click)="emptyCart" class="btn btn-danger">                                        
+                                        Empty <i class="fa fa-shopping-cart"></i>
+                                    </button>
+                                </span>
+                            </div>
                         </div>
-                        <div class="col-md-4 mx-auto">
-                            <div class="cartTotal">Cart Total : ${{cartTotal}}</div>
+                        <div class="col-md-5 mx-auto">
+                            <div class="cartTotal">
+                                Cart Total : ${{cartTotal}}  
+                                &nbsp;&nbsp;
+                                <button type="button" 
+                                    (click)="checkOut" class="btn btn-success">
+                                    <b>Checkout</b>
+                                    &nbsp;&nbsp;
+                                    <i class="fa fa-credit-card"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 

@@ -87,4 +87,10 @@ export class CartComponent implements OnInit {
     this.localDataService.sendCartChangeNotification(this.myCart);
   }
 
+  emptyCart() {
+    
+  }
+  checkOut() {
+    
+  }
 }
