@@ -1,5 +1,6 @@
 export default class Cart {
-    productId: number;    
+    qty: number;    
     title: string;
-    cartId: number;
+    price: number;
+    image: string;
 }

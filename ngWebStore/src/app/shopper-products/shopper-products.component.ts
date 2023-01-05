@@ -75,21 +75,43 @@ export class ShopperProductsComponent implements OnInit {
     
     this.myCart = this.localDataService.GetMyCart();
 
-    var productToCart = {
-      cartId: 1,
-      productId: selectedProduct.id,
-      title: selectedProduct.title
-    };
-    this.myCart.push(productToCart);
-
-    this.localDataService.SetMyCart(this.myCart);
+    let item = this.myCart.find((x) => x.id === selectedProduct.id);
+    if (item === undefined) {
+      // add
+      let cartItem = {
+        id: selectedProduct.id,
+        qty: 1,
+        image: selectedProduct.image,
+        title: selectedProduct.title,
+        category: selectedProduct.category,
+        // price: product.price,
+        price: selectedProduct.discountedPrice
+          ? selectedProduct.discountedPrice
+          : selectedProduct.price,
+      };
+      this.myCart.push(cartItem);
+      this.localDataService.SetMyCart(this.myCart);      
+    }
+    else {
+      // edit qty
+      var index = this.myCart.findIndex((x) => x.id === selectedProduct.id);
+      var qty_ = this.myCart[index].qty;
+      const newCart = [...this.myCart];
+      newCart[index] = {
+        ...selectedProduct,
+        qty: qty_ + 1,
+        price: selectedProduct.discountedPrice
+          ? selectedProduct.discountedPrice
+          : selectedProduct.price,
+      };
+      this.localDataService.SetMyCart(newCart);
+    }  
 
     console.log(this.localDataService.GetMyCart());
 
     // this will notify local-data-service
     // so in next step,,, it will notify header component
-    this.localDataService.sendCartChangeNotification(this.myCart);
-    
+    this.localDataService.sendCartChangeNotification(this.myCart);    
   }
 
 }
