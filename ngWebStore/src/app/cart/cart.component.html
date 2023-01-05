@@ -38,7 +38,19 @@
                                         <img src="{{item.image}}" width="75px" height="75px" />
                                     </td>
                                     <td>{{item.title}}</td>
-                                    <td>{{item.qty}}</td>
+                                    <td>
+                                        <span class="plusMinusBtn">
+                                                <button type="button" (click)="onMinus(item)" class="btn btn-warning">
+                                                    -
+                                                </button>                                                
+                                            &nbsp;&nbsp;
+                                            {{item.qty}}
+                                            &nbsp;&nbsp;
+                                            <button type="button" (click)="onAdd(item)" class="btn btn-primary">
+                                                +
+                                            </button>
+                                        </span>
+                                    </td>
                                     <td>{{item.price}}</td>
                                     <td>{{(item.qty*item.price).    toFixed(2)}}</td>
                                 </tr>

@@ -3,4 +3,5 @@ export default class Cart {
     title: string;
     price: number;
     image: string;
+    id: number;
 }

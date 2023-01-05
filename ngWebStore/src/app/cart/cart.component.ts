@@ -47,5 +47,39 @@ export class CartComponent implements OnInit {
     this.cartTotal = Number((Math.ceil(Number(paymentAmount) * 20 - 0.5) / 20).toFixed(2));
   }
 
+  onAdd(product) {
+    var index = this.myCart.findIndex((x) => x.id === product.id);
+    var qty_ = this.myCart[index].qty;
+    const newCart = [...this.myCart];
+    newCart[index] = {
+      ...product,
+      qty: qty_ + 1,      
+    };
+    this.localDataService.SetMyCart(newCart);
+    this.myCart = [...newCart];
+
+    // this will notify local-data-service
+    // so in next step,,, it will notify header component
+    this.localDataService.sendCartChangeNotification(this.myCart);    
+  }
+  onMinus(product) {
+    var index = this.myCart.findIndex((x) => x.id === product.id);
+    var qty_ = this.myCart[index].qty;
+    const newCart = [...this.myCart];
+    newCart[index] = {
+      ...product,
+      qty: qty_>1 ? qty_ - 1 : 0,
+    };
+
+    if (newCart[index].qty == 0)
+      newCart.splice(index, 1);
+
+    this.localDataService.SetMyCart(newCart);
+    this.myCart = [...newCart];
+
+    // this will notify local-data-service
+    // so in next step,,, it will notify header component
+    this.localDataService.sendCartChangeNotification(this.myCart);
+  }
 
 }
