@@ -33,6 +33,7 @@ import {
   callApiForWeeklyData,
   callApiForMonthlyData,
 } from "../../redux/actions/historyActions";
+import { setMyShoppingCart } from "../../redux/actions/productsActions";
 
 import SearchBar from "material-ui-search-bar";
 
@@ -438,7 +439,7 @@ const Header = () => {
           <MenuItem>
             <SupervisorAccountTwoToneIcon /> Admin-Reports
           </MenuItem>
-        </Link>       
+        </Link>
         <Link
           className={classes.linkStyle}
           color="inherit"
@@ -545,7 +546,7 @@ const Header = () => {
           onClick={(e) => doComponentRedirect(e, "AdminReports")}
         >
           <SupervisorAccountTwoToneIcon /> Admin-Reports
-        </Button>      
+        </Button>
         <Button
           className={classes.menuButton}
           color="inherit"
@@ -682,9 +683,11 @@ const Header = () => {
   const doComponentRedirect = (e, routePath) => {
     console.log("redirect from header menu option", currentUser);
     if (routePath === "Home") navigate("/home");
-    if (routePath === "AdminReports") navigate("/adminReports");    
-    if (routePath === "Products" && currentUser.role === "Shopper") navigate("/");
-    if (routePath === "Products" && currentUser.role==='Admin' ) navigate("/products");
+    if (routePath === "AdminReports") navigate("/adminReports");
+    if (routePath === "Products" && currentUser.role === "Shopper")
+      navigate("/");
+    if (routePath === "Products" && currentUser.role === "Admin")
+      navigate("/products");
     if (routePath === "Cart") navigate("/cart");
     if (routePath === "Login") navigate("/login");
     if (routePath === "Register") navigate("/register");
@@ -695,6 +698,7 @@ const Header = () => {
   const logOut = () => {
     localStorage.removeItem("currentUser");
     dispatch(setCurrentUser({}));
+    dispatch(setMyShoppingCart([]));
     dispatch(callApiForTodayData(true));
     dispatch(callApiForWeeklyData(true));
     dispatch(callApiForMonthlyData(true));
