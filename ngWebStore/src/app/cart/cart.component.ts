@@ -14,13 +14,19 @@ import Cart from '../services/cart';
 export class CartComponent implements OnInit {
 
   myCart : Cart[];
-  cartTotal = 0.0;
+  cartTotal;
 
   constructor(
     public localDataService: LocalDataService,
     public dataService: DataService,
     private router: Router) {   
   
+      this.localDataService.cartChanged
+      .subscribe(res => {
+        // var updatedCart = res;
+        this.myCart = res;
+        this.getCartTotal();
+      });
   }
 
   ngOnInit() {  
@@ -42,9 +48,8 @@ export class CartComponent implements OnInit {
     this.myCart.map((item) => {
       cartTotal_ = cartTotal_ + item.qty * item.price;
     });
-    var paymentAmount = cartTotal_.toFixed(2);
-    console.log((Math.ceil(Number(paymentAmount) * 20 - 0.5)/20).toFixed(2));
-    this.cartTotal = Number((Math.ceil(Number(paymentAmount) * 20 - 0.5) / 20).toFixed(2));
+    var paymentAmount = cartTotal_.toFixed(2);   
+    this.cartTotal = ((Math.ceil(Number(paymentAmount) * 20 - 0.5) / 20).toFixed(2));
   }
 
   onAdd(product) {
