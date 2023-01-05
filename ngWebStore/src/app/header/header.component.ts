@@ -46,7 +46,14 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
+    console.log('logout!');
     this.isUserAuthenticated = false;
+    
+    // reset cart after logout
+    console.log('reset cart after logout');
+    this._localService.SetMyCart([]);
+    this.myCart = this._localService.GetMyCart();
+
     this._userService.doLogout();
   }
   

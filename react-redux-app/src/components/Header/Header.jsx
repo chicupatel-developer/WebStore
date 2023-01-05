@@ -698,7 +698,10 @@ const Header = () => {
   const logOut = () => {
     localStorage.removeItem("currentUser");
     dispatch(setCurrentUser({}));
+
+    // reset cart after logout
     dispatch(setMyShoppingCart([]));
+    
     dispatch(callApiForTodayData(true));
     dispatch(callApiForWeeklyData(true));
     dispatch(callApiForMonthlyData(true));
